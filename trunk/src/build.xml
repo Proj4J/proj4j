@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!-- This is the Proj4J build file for Apache's Ant. -->
+
+
+<project name="proj4j" default="all" basedir=".">
+  <description>
+
+    This is the Ant build script for the Proj4J library.
+
+  </description>
+
+<!-- ================================================================== -->
+<!-- Build Properties  -->
+<!-- ================================================================== -->
+
+<property file="${basedir}/build.properties"/>
+<property name="jar_base_dir" value="${basedir}/../build/classes"/>
+<property name="build-dir" value="${basedir}/../build"/>
+<property name="distro" value="${build-dir}/distro"/>
+
+<!-- ================================================================== -->
+<!-- Targets -->
+<!-- ================================================================== -->
+	
+<target name="all" 
+		depends="clean, build-jars, copy-distro-files" 
+		description="Builds a clean distribution from scratch">
+	</target>
+		
+<target name="build-jars" 
+		depends="createmainjar, createsupportjar" 
+		description="Builds the jars only (for testing purposes)">
+	</target>
+		
+<target name="prepare" description="Prepares for the build by
+	creating the needed folders.">
+		<mkdir dir="../build/classes/src"/>
+		<mkdir dir="../build/classes/test"/>
+		<mkdir dir="../build/distro"/>
+		<mkdir dir="../build/distro/bin"/>
+		<mkdir dir="../build/distro/lib"/>
+		<mkdir dir="../build/distro/doc/javadoc"/>
+	</target>
+	
+<target name="compile" depends="prepare" 
+				description="Compiles all the java classes.">
+		<javac srcdir="main/java"
+		       destdir="${build-dir}/classes/src">
+			<classpath>
+	    	   		<pathelement path="src/lib" />
+			</classpath>
+		</javac>
+	        <javac srcdir="test/java"
+	               destdir="${build-dir}/classes/test">
+	    		<classpath>
+	    	   		<pathelement path="${build-dir}/classes/src" />
+      				<fileset dir="test/lib">
+        				<include name="**/*.jar"/>
+      				</fileset>
+	    		</classpath>
+	    	</javac>
+	</target>
+	
+<target name='copy-nad' depends='prepare' 
+		description='copies coord system dictionaries'>
+		<copy todir="${build-dir}/classes/src">
+			<fileset dir="main/resources"/>
+		</copy>
+	
+	</target>
+
+<target name="createmainjar" depends="compile, copy-nad" 
+		description="Creates the main JAR file from the compiled classes.">
+		<jar destfile="${build-dir}/distro/lib/proj4j-${lib.version}.jar"
+			 basedir="${build-dir}/classes/src">
+		</jar>
+	</target>
+	
+<target name="createsupportjar" depends="compile">
+	      <jar destfile="${build-dir}/distro/lib/proj4j-support-${lib.version}.jar"
+	      		basedir="${build-dir}/classes/test">
+	      </jar>
+	</target>   
+	
+<target name="javadoc" 
+		description="Generates the JavaDoc files.">
+	    <javadoc destdir="${distro}/doc/javadoc">
+	      	<sourcepath location="main/src"/>
+	    </javadoc>
+	</target>
+	
+<target name="copy-distro-files" 
+		description="Copies files required for distro">
+		<copy todir="${distro}/bin">
+			<fileset dir="test/bin"/>
+  		</copy>
+		<copy file="test/lib/junit.jar" todir="${distro}/lib"/>
+	</target>
+	
+<target name="clean" 
+		description="Performs clean-up after the build. 
+	Currently this means deleting the folder used to store classes.">
+		<delete dir="${build-dir}"/>
+	</target>
+		
+
+</project>
