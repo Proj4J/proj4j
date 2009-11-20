@@ -3,10 +3,26 @@ package org.osgeo.proj4j;
 import java.awt.geom.Point2D;
 
 /**
- * A reification of the operation of transforming 
- * a coordinate from one {@link CoordinateSystem} into another.
- * Allows caching constant values for efficiency.
- * 
+ * Represents the operation of transforming 
+ * a {@link ProjCoordinate} from its current {@link CoordinateSystem} 
+ * into a different one.
+ * The transformation involves the following steps:
+ * <ul>
+ * <li>If the input coordinate is in a projection coordinate system,
+ * it is inverse-projected into a geographic coordinate 
+ * <li>If the source and destination datums are different,
+ * the geographic coordinate is converted from the source to the destination datum
+ * as accurately as possible
+ * <li>If the destination coordinate system is a projection, 
+ * the geographic coordinate is projected into it.
+ * <ul>
+ * <p>
+ * A coordinate transformation is stateful, and thus is not thread-safe.
+ * However, it may be reused any number of times within a single thread.
+ * <p>
+ * Details of the transformation procedure are pre-computed
+ * and cached in this object for efficiency
+ * in computing tranformations.
  * 
  * @author Martin Davis
  *
@@ -20,6 +36,7 @@ public class CoordinateTransformation
 	private Point2D.Double geoPt = new Point2D.Double();
   private ProjCoordinate geoCoord = new ProjCoordinate(0,0);
 	
+  // precomputed information
 	private boolean doInverseProjection = true;
 	private boolean doForwardProjection = true;
   private boolean doDatumTransform = false;
@@ -27,6 +44,13 @@ public class CoordinateTransformation
   private GeocentricConverter srcGeoConv; 
   private GeocentricConverter destGeoConv; 
 	
+  /**
+   * Creates a transformation from a source {@link CoordinateSystem} to a 
+   * destination one.
+   * 
+   * @param srcCS
+   * @param destCS
+   */
 	public CoordinateTransformation(CoordinateSystem srcCS, CoordinateSystem destCS)
 	{
 		this.srcCS = srcCS;
@@ -57,11 +81,13 @@ public class CoordinateTransformation
 	}
 	
 	/**
-   * Tranforms a coordinate from one {@link CoordinateSystem} to another.
+   * Tranforms a coordinate from the source {@link CoordinateSystem} 
+   * to the destination one.
    * 
-   * @param src
-   * @param dest
-   * @return
+   * @param src the input coordinate
+   * @param dest the transformed coordinate
+   * @return the destination coordinate which was passed in
+   * 
    * @throws ProjectionException if a computation error is encountered
 	 */
 	public Point2D.Double transform( Point2D.Double src, Point2D.Double dest )

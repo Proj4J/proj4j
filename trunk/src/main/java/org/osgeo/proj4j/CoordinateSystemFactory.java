@@ -12,6 +12,10 @@ import org.osgeo.proj4j.units.Units;
 /**
  * Creates {@link CoordinateSystem}s from a variety of ways
  * of specifying them.
+ * <p>
+ * Once created, <tt>CoordinateSystem</tt>s can be used to
+ * define a {@link CoordinateTransformation} to perform transformations
+ * on {@link ProjCoordinate}s. 
  * 
  * @author Martin Davis
  *
@@ -24,11 +28,18 @@ public class CoordinateSystemFactory
 
 	// TODO: add method to allow reading from arbitrary PROJ4 CS file
 	
+  /**
+   * Creates a new factory.
+   */
 	public CoordinateSystemFactory()
 	{
 		
 	}
 	
+  /**
+   * Gets the {@link Registry} used by this factory.
+   * @return
+   */
   public Registry getRegistry()
   {
     return registry;
