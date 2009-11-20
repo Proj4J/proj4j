@@ -27,6 +27,7 @@ public class Proj4Parser
       return null;
     
     Map params = createParameterMap(args);
+    Proj4Keyword.checkUnsupported(params.keySet());
     DatumParameters datumParam = new DatumParameters();
     parseDatum(params, datumParam);
     parseEllipsoid(params, datumParam);

@@ -42,6 +42,7 @@ public class Proj4FileReader
     t.wordChars( '-', '-' );
     t.wordChars( '+', '+' );
     t.wordChars( ',', ',' );
+    t.wordChars( '@', '@' );
     t.nextToken();
     while ( t.ttype == '<' ) {
       t.nextToken();

@@ -1,6 +1,9 @@
 package org.osgeo.proj4j.parser;
 
-public class Proj4Keyword {
+import java.util.*;
+
+public class Proj4Keyword 
+{
 
   public static final String a = "a";
   public static final String b = "b";
@@ -40,5 +43,73 @@ public class Proj4Keyword {
   public static final String x_0 = "x_0";
   public static final String y_0 = "y_0";
   public static final String zone = "zone";
+  
+  public static final String title = "title";
+  public static final String nadgrids = "nadgrids";
+  public static final String no_defs = "no_defs";
+  public static final String wktext = "wktext";
 
+
+  private static Set<String> supportedParams = null;
+  
+  public static Set supportedParameters()
+  {
+    if (supportedParams == null) {
+      supportedParams = new TreeSet<String>();
+      
+      supportedParams.add(a);
+      supportedParams.add(rf);
+      supportedParams.add(f);
+      supportedParams.add(es);
+      supportedParams.add(b);
+      supportedParams.add(datum);
+      supportedParams.add(ellps);
+   
+      supportedParams.add(k);
+      supportedParams.add(k_0);
+      supportedParams.add(lat_ts);
+      supportedParams.add(lat_0);
+      supportedParams.add(lat_1);
+      supportedParams.add(lat_2);
+      supportedParams.add(lon_0);
+      supportedParams.add(lonc);
+      
+      supportedParams.add(x_0);
+      supportedParams.add(y_0);
+
+      supportedParams.add(proj);
+      supportedParams.add(south);
+      supportedParams.add(towgs84);
+      supportedParams.add(to_meter);
+      supportedParams.add(units);
+      supportedParams.add(zone);
+      
+      supportedParams.add(title);
+      supportedParams.add(no_defs);
+      supportedParams.add(wktext);
+      supportedParams.add(nadgrids);
+
+    }
+    return supportedParams;
+  }
+  
+  public static boolean isSupported(String paramKey)
+  {
+    return supportedParameters().contains(paramKey);
+  }
+  
+  public static void checkUnsupported(String paramKey)
+  {
+    if (! isSupported(paramKey)) {
+      // TODO: use a more appropriate exception class
+      throw new UnsupportedOperationException(paramKey + " parameter is not supported");
+    }
+  }
+  
+  public static void checkUnsupported(Collection params)
+  {
+    for (Object s : params) {
+      checkUnsupported((String) s);
+    }
+  }
 }
