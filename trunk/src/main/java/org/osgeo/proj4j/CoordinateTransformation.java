@@ -2,6 +2,8 @@ package org.osgeo.proj4j;
 
 import java.awt.geom.Point2D;
 
+import org.osgeo.proj4j.datum.GeocentricConverter;
+
 /**
  * Represents the operation of transforming 
  * a {@link ProjCoordinate} from its current {@link CoordinateSystem} 
