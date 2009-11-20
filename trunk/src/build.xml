@@ -23,7 +23,7 @@
 <!-- ================================================================== -->
 	
 <target name="all" 
-		depends="clean, build-jars, copy-distro-files" 
+		depends="clean, build-jars, javadoc, copy-distro-files, zip" 
 		description="Builds a clean distribution from scratch">
 	</target>
 		
@@ -97,7 +97,13 @@
   	</copy>
 	<copy file="test/lib/junit.jar" todir="${distro}/lib"/>
 	</target>
-	
+
+<target name="zip"
+  	description="Zips all files into a delivery archive">
+    <zip destfile="${build-dir}/proj4j-${lib.version}.zip" 
+    	basedir="${distro}"  />
+  </target>
+  
 <target name="clean" 
 		description="Performs clean-up after the build. 
 	Currently this means deleting the folder used to store classes.">
