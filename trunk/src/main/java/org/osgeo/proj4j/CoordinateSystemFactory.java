@@ -38,7 +38,7 @@ public class CoordinateSystemFactory
 	
   /**
    * Gets the {@link Registry} used by this factory.
-   * @return
+   * @return the Registry
    */
   public Registry getRegistry()
   {
@@ -88,7 +88,7 @@ public class CoordinateSystemFactory
    * Creates a CoordinateSystem from a set of PROJ.4 parameters.
    * 
    * @param name a name for this coordinate system (may be null)
-   * @param params an array of PROJ.4 parameters
+   * @param args an array of PROJ.4 parameters
    * @return a CoordinateSystem
     * @throws UnsupportedOperationException if a PROJ.4 parameter is not supported
   */

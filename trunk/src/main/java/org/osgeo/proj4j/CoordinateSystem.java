@@ -1,5 +1,21 @@
 package org.osgeo.proj4j;
 
+import org.osgeo.proj4j.units.*;
+
+/**
+ * Represents a projected or geographic coordinate system,
+ * to which coordinates are referenced.
+ * A coordinate system is defined by a {@link Datum} 
+ * on a specified {@link Ellipsoid},
+ * and by a {@link Projection} method
+ * (which may be null in the case of geographic coordinate systems.
+ * The numeric values of coordinates in a coordinate system
+ * are expressed in a specified kind of {@link Unit}s.
+ * 
+ * 
+ * @author Martin Davis
+ *
+ */
 public class CoordinateSystem 
 {
   // allows specifying transformations which convert to/from Geographic coordinates on the same datum
