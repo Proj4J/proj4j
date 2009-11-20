@@ -61,7 +61,7 @@
 	    	</javac>
 	</target>
 	
-<target name='copy-nad' depends='prepare' 
+<target name='copy-resources' depends='prepare' 
 		description='copies coord system dictionaries'>
 		<copy todir="${build-dir}/classes/src">
 			<fileset dir="main/resources"/>
@@ -69,7 +69,7 @@
 	
 	</target>
 
-<target name="main-jar" depends="compile, copy-nad" 
+<target name="main-jar" depends="compile, copy-resources" 
 		description="Creates the main JAR file from the compiled classes.">
 		<jar destfile="${build-dir}/distro/lib/proj4j-${lib.version}.jar"
 			 basedir="${build-dir}/classes/src">
@@ -94,6 +94,9 @@
 		description="Copies files required for distro">
 	<copy todir="${distro}/bin">
 			<fileset dir="test/bin"/>
+  	</copy>
+	<copy todir="${distro}/doc">
+			<fileset dir="doc"/>
   	</copy>
 	<copy file="test/lib/junit.jar" todir="${distro}/lib"/>
 	</target>
