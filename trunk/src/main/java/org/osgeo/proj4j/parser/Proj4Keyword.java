@@ -84,10 +84,10 @@ public class Proj4Keyword
       supportedParams.add(units);
       supportedParams.add(zone);
       
-      supportedParams.add(title);
-      supportedParams.add(no_defs);
-      supportedParams.add(wktext);
-      supportedParams.add(nadgrids);
+      supportedParams.add(title);       // no-op
+      supportedParams.add(no_defs);     // no-op
+      supportedParams.add(wktext);      // no-op
+      supportedParams.add(nadgrids);    // no-op for now
 
     }
     return supportedParams;

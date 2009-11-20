@@ -141,17 +141,7 @@ public class Proj4Parser
      projection.setSouthernHemisphere(true);
 
    //TODO: implement some of these parameters ?
-  
-   // check for unsupported parameters - throw error if used
-   checkUnsupported(params, Proj4Keyword.lonc );
-   checkUnsupported(params, Proj4Keyword.towgs84 );
-   checkUnsupported(params, Proj4Keyword.pm );
-   checkUnsupported(params, Proj4Keyword.rf );
-   checkUnsupported(params, Proj4Keyword.azi );
-   checkUnsupported(params, Proj4Keyword.alpha );
-
-   // TODO: refine this test.  +datum is supported, but not for datum transformation at this point
-
+     
    // this must be done last, since behaviour depends on other params being set (eg +south)
    if (projection instanceof TransverseMercatorProjection) {
      s = (String) params.get("zone");
@@ -301,9 +291,4 @@ public class Proj4Parser
    return format.parse( s, null ).doubleValue();
  }
 
- private static void checkUnsupported(Map params, String param)
- {
-   if ( params.containsKey( param ) ) 
-     throw new UnsupportedOperationException(param + " parameter is not supported");
- }
 }
