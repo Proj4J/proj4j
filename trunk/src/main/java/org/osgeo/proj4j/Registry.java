@@ -5,6 +5,13 @@ import java.util.Map;
 
 import org.osgeo.proj4j.proj.*;
 
+/**
+ * Records predefined values for various library classes
+ * such as {@link Ellipsoid}, {@link Datum}, and {@link Projection}. 
+ * 
+ * @author Martin Davis
+ *
+ */
 public class Registry {
 
   public Registry() {

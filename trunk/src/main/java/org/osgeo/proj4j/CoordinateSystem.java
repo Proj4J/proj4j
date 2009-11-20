@@ -3,17 +3,22 @@ package org.osgeo.proj4j;
 import org.osgeo.proj4j.units.*;
 
 /**
- * Represents a projected or geographic coordinate system,
- * to which coordinates are referenced.
- * A coordinate system is defined by a {@link Datum} 
- * on a specified {@link Ellipsoid},
- * and by a {@link Projection} method
- * (which may be null in the case of geographic coordinate systems.
- * The numeric values of coordinates in a coordinate system
- * are expressed in a specified kind of {@link Unit}s.
- * 
+ * Represents a projected or geodetic geospatial coordinate system,
+ * to which coordinates may be referenced.
+ * A coordinate system is defined by the following things:
+ * <ul>
+ * <li>an {@link Ellipsoid} specifies how the shape of the Earth is approximated
+ * <li>a {@link Datum} provides the mapping from the ellipsoid to 
+ * actual locations on the earth
+ * <li>a {@link Projection} method maps the ellpsoidal surface to a planar space.
+ * (The projection method may be null in the case of geodetic coordinate systems).
+ * <li>a {@link Unit} indicates how the ordinate values 
+ * of coordinates are interpreted
+ * </ul>
  * 
  * @author Martin Davis
+ * 
+ * @see CoordinateSystemFactory
  *
  */
 public class CoordinateSystem 
