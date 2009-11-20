@@ -28,7 +28,7 @@
 	</target>
 		
 <target name="build-jars" 
-		depends="createmainjar, createsupportjar" 
+		depends="main-jar, support-jar" 
 		description="Builds the jars only (for testing purposes)">
 	</target>
 		
@@ -69,14 +69,14 @@
 	
 	</target>
 
-<target name="createmainjar" depends="compile, copy-nad" 
+<target name="main-jar" depends="compile, copy-nad" 
 		description="Creates the main JAR file from the compiled classes.">
 		<jar destfile="${build-dir}/distro/lib/proj4j-${lib.version}.jar"
 			 basedir="${build-dir}/classes/src">
 		</jar>
 	</target>
 	
-<target name="createsupportjar" depends="compile">
+<target name="support-jar" depends="compile">
 	      <jar destfile="${build-dir}/distro/lib/proj4j-support-${lib.version}.jar"
 	      		basedir="${build-dir}/classes/test">
 	      </jar>
@@ -84,17 +84,18 @@
 	
 <target name="javadoc" 
 		description="Generates the JavaDoc files.">
-	    <javadoc destdir="${distro}/doc/javadoc">
-	      	<sourcepath location="main/src"/>
+	    <javadoc packagenames="org.osgeo.proj4j.*"
+	    	destdir="${distro}/doc/javadoc">
+	      	<sourcepath location="main/java"/>
 	    </javadoc>
 	</target>
 	
 <target name="copy-distro-files" 
 		description="Copies files required for distro">
-		<copy todir="${distro}/bin">
+	<copy todir="${distro}/bin">
 			<fileset dir="test/bin"/>
-  		</copy>
-		<copy file="test/lib/junit.jar" todir="${distro}/lib"/>
+  	</copy>
+	<copy file="test/lib/junit.jar" todir="${distro}/lib"/>
 	</target>
 	
 <target name="clean" 
