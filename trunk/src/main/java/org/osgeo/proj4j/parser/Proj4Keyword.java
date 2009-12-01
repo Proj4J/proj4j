@@ -64,6 +64,8 @@ public class Proj4Keyword
       supportedParams.add(b);
       supportedParams.add(datum);
       supportedParams.add(ellps);
+      
+      supportedParams.add(R_A);
    
       supportedParams.add(k);
       supportedParams.add(k_0);

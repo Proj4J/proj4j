@@ -243,9 +243,12 @@ public class Proj4Parser
      b = datumParam.getA() * Math.sqrt(1. - datumParam.getES());
    }
 
+   parseEllipsoidModifiers(params, datumParam);
 
    /*
-    * // None of these appear to be supported by PROJ4 s = (String)
+    * // None of these appear to be supported by PROJ4 ??
+    * 
+    * s = (String)
     * params.get(Proj4Param.R_A); if (s != null && Boolean.getBoolean(s)) { a *=
     * 1. - es * (SIXTH + es * (RA4 + es * RA6)); } else { s = (String)
     * params.get(Proj4Param.R_V); if (s != null && Boolean.getBoolean(s)) { a *=
@@ -264,6 +267,24 @@ public class Proj4Parser
     * ProjectionException("-11"); tmp = 1. - es * tmp * tmp; a *= Math.sqrt(1. -
     * es) / tmp; es = 0.; } } } } } } } }
     */
+ }
+ 
+ /**
+  * Parse ellipsoid modifiers.
+  * 
+  * @param params
+  * @param datumParam
+  */
+ private void parseEllipsoidModifiers(Map params, DatumParameters datumParam) 
+ {
+   /**
+    * Modifiers are mutually exclusive, so when one is detected method returns
+    */
+   if ( params.containsKey( Proj4Keyword.R_A ) ) {
+     datumParam.setR_A();
+     return;
+   }
+
  }
  
  private Map createParameterMap(String[] args) {
