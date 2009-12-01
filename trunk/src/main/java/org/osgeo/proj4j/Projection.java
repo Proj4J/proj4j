@@ -158,7 +158,7 @@ public abstract class Projection implements Cloneable {
   /**
    * units of this projection.  Default is metres, but may be degrees
    */
-  private Unit unit = null;
+  protected Unit unit = null;
 
 	// Some useful constants
 	protected final static double EPS10 = 1e-10;
@@ -187,7 +187,7 @@ public abstract class Projection implements Cloneable {
 		if ( projectionLongitude != 0 )
 			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
 		project(x, src.y*DTR, dst);
-    if (unit ==  Units.DEGREES) {
+    if (unit == Units.DEGREES) {
       // convert radians to DD
       dst.x *= RTD;
       dst.y *= RTD;
@@ -201,7 +201,7 @@ public abstract class Projection implements Cloneable {
 	}
 
 	/**
-	 * Project a lat/long point in radians, producing a result (in metres)
+	 * Project a lat/long point in radians, producing a result (in the units of the target coordinate system)
 	 */
 	public Point2D.Double transformRadians( Point2D.Double src, Point2D.Double dst ) {
 		double x = src.x;
@@ -234,13 +234,13 @@ public abstract class Projection implements Cloneable {
 	}
 
 	/**
-	 * Inverse-project a point (in metres), producing a lat/long result in radians
+	 * Inverse-project a point (in the units defined by the coordinate system), producing a lat/long result in radians
 	 */
 	public Point2D.Double inverseTransformRadians(Point2D.Double src, Point2D.Double dst) {
     double x;
     double y;
-    if (unit ==  Units.DEGREES) {
-      // convert radians to DD
+    if (unit == Units.DEGREES) {
+      // convert DD to radians
       x = src.x * DTR;
       y = src.y * DTR;
     }
@@ -610,7 +610,7 @@ public abstract class Projection implements Cloneable {
 	 * This is for performance reasons as initialization may be expensive.
 	 */
 	public void initialize() {
-		spherical = e == 0.0;
+		spherical = (e == 0.0);
 		one_es = 1-es;
 		rone_es = 1.0/one_es;
 		totalScale = a * fromMetres;
