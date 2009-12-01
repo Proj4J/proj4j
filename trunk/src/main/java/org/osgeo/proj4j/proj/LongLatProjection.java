@@ -16,38 +16,32 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import java.awt.*;
 import java.awt.geom.*;
 
 import org.osgeo.proj4j.Projection;
+import org.osgeo.proj4j.units.*;
 
 /**
- * A projection which "converts" decimal degrees to geographic. 
+ * A "projection" for geodetic coordinates in Decimal Degrees. 
  */
-public class LongLatProjection extends Projection {
-	
+public class LongLatProjection extends Projection 
+{
+  // TODO: implement projection methods (which are basically just no-ops)
+	/*
 	public Point2D.Double transform( Point2D.Double src, Point2D.Double dst ) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;
 	}
-	
-	public Shape projectPath(Shape path, AffineTransform t, boolean filled) {
-		if ( t != null )
-			t.createTransformedShape( path );
-		return path;
-	}
-	
-	public Shape getBoundingShape() {
-		return null;
-	}
-	
-	public boolean isRectilinear() {
-		return true;
-	}
-
+	*/
+  
 	public String toString() {
-		return "Null";
+		return "LongLat";
 	}
 
+  public void initialize()
+  {
+    // units are always in Decimal Degrees
+    unit = Units.DEGREES;
+  }
 }
