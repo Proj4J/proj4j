@@ -254,7 +254,7 @@ public class ProjCoordinate
 	
 	public boolean hasValidZValue()
 	{
-		if(this.z == Double.NaN)
+		if(Double.isNaN(this.z))
 		{
 			return false;
 		}
