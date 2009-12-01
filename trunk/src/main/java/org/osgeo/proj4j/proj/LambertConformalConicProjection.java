@@ -58,10 +58,11 @@ public class LambertConformalConicProjection extends ConicProjection {
 		double rho;
 		if (Math.abs(Math.abs(y) - ProjectionMath.HALFPI) < 1e-10)
 			rho = 0.0;
-		else
+		else {
 			rho = c * (spherical ? 
-			Math.pow(Math.tan(ProjectionMath.QUARTERPI + .5 * y), -n) :
-			Math.pow(ProjectionMath.tsfn(y, Math.sin(y), e), n));
+			    Math.pow(Math.tan(ProjectionMath.QUARTERPI + .5 * y), -n) :
+			      Math.pow(ProjectionMath.tsfn(y, Math.sin(y), e), n));
+    }
 		out.x = scaleFactor * (rho * Math.sin(x *= n));
 		out.y = scaleFactor * (rho0 - rho * Math.cos(x));
 		return out;
