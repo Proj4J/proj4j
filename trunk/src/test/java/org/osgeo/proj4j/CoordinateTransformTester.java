@@ -25,7 +25,13 @@ public class CoordinateTransformTester {
   
   boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y, double tolerance)
   {
-    CoordinateSystem cs = csFactory.createFromName(name);
+    CoordinateSystem cs = null;
+    if (name.indexOf("+") >= 0) {
+      cs = csFactory.createFromParameters("Anon", name);
+    } 
+    else {
+      cs = csFactory.createFromName(name);
+    }
     return checkTransformFromGeo(cs, lon, lat, x, y, tolerance);
   }
   

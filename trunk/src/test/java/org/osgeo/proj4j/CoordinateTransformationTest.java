@@ -23,7 +23,7 @@ public class CoordinateTransformationTest extends TestCase
 
   public CoordinateTransformationTest(String name) { super(name); }
 
-  public void testFirst()
+  public void xtestFirst()
   {
     checkTransformFromGeo("EPSG:3031",    0, -75, 0, 1638783.238407   );
   }

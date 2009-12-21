@@ -27,6 +27,18 @@ public class FeatureTest extends TestCase
 //  +proj=tmerc +lat_0=0 +lon_0=6 +k=1 +x_0=2500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs     
     checkTransformFromGeo("EPSG:31466",   6.685, 51.425, 2547685.01212,5699155.7345   );
   }
+  public void testPrimeMeridian()
+  {
+    //# NTF (Paris) / Lambert Sud France
+    //<27563> +proj=lcc +lat_1=44.10000000000001 +lat_0=44.10000000000001 +lon_0=0 +k_0=0.999877499 +x_0=600000 +y_0=200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs  <>
+    checkTransformFromGeo("EPSG:27563",    3.005, 43.89, 653704.865208, 176887.660037  );
+  }
+  public void testR_A()
+  {
+    //EPSG:54003
+    String prj = "+proj=mill +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R_A +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+    checkTransformFromGeo(prj,    11.0, 53.0, 1223145.57, 6491218.13  );
+  }
   public void testTowgs84()
   {
     //# MGI / M31
