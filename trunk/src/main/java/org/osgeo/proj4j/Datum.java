@@ -89,7 +89,7 @@ public class Datum
   
   public boolean isTransform()
   {
-    return getType() == TYPE_3PARAM || getType() == TYPE_3PARAM;
+    return getType() == TYPE_3PARAM || getType() == TYPE_7PARAM;
   }
   
   public boolean isEqual(Datum datum)
