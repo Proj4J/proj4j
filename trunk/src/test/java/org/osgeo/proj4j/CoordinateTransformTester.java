@@ -2,6 +2,8 @@ package org.osgeo.proj4j;
 
 import java.awt.geom.Point2D;
 
+import org.osgeo.proj4j.util.ProjectionUtil;
+
 public class CoordinateTransformTester {
 
   boolean verbose = true;
