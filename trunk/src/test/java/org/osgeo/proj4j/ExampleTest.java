@@ -7,6 +7,7 @@ import junit.textui.TestRunner;
 
 /**
  * Test which serves as an example of using Proj4J.
+ * 
  * @author mbdavis
  *
  */
@@ -31,7 +32,11 @@ public class ExampleTest extends TestCase
   	 */ 
   	CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
     CoordinateSystem cs = csFactory.createFromName(csName);
-    CoordinateTransformation trans = new CoordinateTransformation(CoordinateSystem.CS_GEO, cs);
+    
+    final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees";
+    CoordinateSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
+
+    CoordinateTransformation trans = new CoordinateTransformation(WGS84, cs);
     
     /*
      * Create input and output points.

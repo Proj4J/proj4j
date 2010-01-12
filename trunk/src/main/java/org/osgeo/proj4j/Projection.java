@@ -52,7 +52,7 @@ public abstract class Projection implements Cloneable {
 	protected double projectionLatitude = 0.0;
 
 	/**
-	 * The longitude of the centre of projection
+	 * The longitude of the centre of projection, in radians
 	 */
 	protected double projectionLongitude = 0.0;
 
@@ -143,7 +143,7 @@ public abstract class Projection implements Cloneable {
 	/**
 	 * The total scale factor = Earth radius * units
 	 */
-	private double totalScale = 0;
+	protected double totalScale = 0;
 
 	/**
 	 * falseEasting, adjusted to the appropriate units using fromMetres
@@ -180,13 +180,30 @@ public abstract class Projection implements Cloneable {
 	}
 	
 	/**
-	 * Project a lat/long point in degrees, producing a result (in metres).
+	 * Transform a geographic point (in degrees), producing a projected result (in the units of the target coordinate system).
 	 */
 	public Point2D.Double transform( Point2D.Double src, Point2D.Double dst ) {
 		double x = src.x*DTR;
 		if ( projectionLongitude != 0 )
 			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
-		project(x, src.y*DTR, dst);
+		return transformRadians(x, src.y*DTR, dst);
+	}
+
+	/**
+	 * Transform a geographic point (in radians), producing a projected result (in the units of the target coordinate system).
+	 */
+	public Point2D.Double transformRadians( Point2D.Double src, Point2D.Double dst ) {
+		double x = src.x;
+		if ( projectionLongitude != 0 )
+			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
+		return transformRadians(x, src.y, dst);
+	}
+	
+	/**
+	 * Transform a geographic point (in radians), producing a projected result (in the units of the target coordinate system).
+	 */
+	private Point2D.Double transformRadians(double x, double y, Point2D.Double dst ) {
+		project(x, y, dst);
     if (unit == Units.DEGREES) {
       // convert radians to DD
       dst.x *= RTD;
@@ -201,30 +218,23 @@ public abstract class Projection implements Cloneable {
 	}
 
 	/**
-	 * Project a lat/long point in radians, producing a result (in the units of the target coordinate system)
+	 * Computes the projection of a given point 
+	 * (i.e. from geographics to projection space). 
+	 * This should be overridden for all projections.
+	 * 
+	 * @param x the x ordinate (in radians)
+	 * @param y the y ordinate (in radians)
+	 * @return the point projected into the target coordinate system, in the specified units
 	 */
-	public Point2D.Double transformRadians( Point2D.Double src, Point2D.Double dst ) {
-		double x = src.x;
-		if ( projectionLongitude != 0 )
-			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
-		project(x, src.y, dst);
-		dst.x = totalScale * dst.x + totalFalseEasting;
-		dst.y = totalScale * dst.y + totalFalseNorthing;
-		return dst;
-	}
-
-	/**
-	 * The method which actually does the projection. This should be overridden for all projections.
-	 */
-	public Point2D.Double project(double x, double y, Point2D.Double dst) {
+	protected Point2D.Double project(double x, double y, Point2D.Double dst) {
 		dst.x = x;
 		dst.y = y;
 		return dst;
 	}
 
-
 	/**
-	 * Inverse-project a point (in metres), producing a lat/long result in degrees
+	 * Inverse-projects a point (in the units defined by the coordinate system), 
+	 * producing a geographic result (in degrees)
 	 */
 	public Point2D.Double inverseTransform(Point2D.Double src, Point2D.Double dst) {
     inverseTransformRadians(src, dst);
@@ -234,7 +244,8 @@ public abstract class Projection implements Cloneable {
 	}
 
 	/**
-	 * Inverse-project a point (in the units defined by the coordinate system), producing a lat/long result in radians
+	 * Inverse-projects a point (in the units defined by the coordinate system), 
+	 * producing a geographic result (in radians)
 	 */
 	public Point2D.Double inverseTransformRadians(Point2D.Double src, Point2D.Double dst) {
     double x;
@@ -259,9 +270,15 @@ public abstract class Projection implements Cloneable {
 	}
 
 	/**
-	 * The method which actually does the inverse projection. This should be overridden for all projections.
+	 * Computes the inverse projection of a given point 
+	 * (i.e. from projection space to geographics). 
+	 * This should be overridden for all projections.
+	 * 
+	 * @param the projected x ordinate (in the units of the coordinate system)
+	 * @param the projected y ordinate (in the units of the coordinate system)
+	 * @result the geographic point
 	 */
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double dst) {
+	protected Point2D.Double projectInverse(double x, double y, Point2D.Double dst) {
 		dst.x = x;
 		dst.y = y;
 		return dst;

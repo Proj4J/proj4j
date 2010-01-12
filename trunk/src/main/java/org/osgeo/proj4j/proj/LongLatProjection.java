@@ -16,6 +16,8 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
+import java.awt.geom.Point2D;
+
 import org.osgeo.proj4j.Projection;
 import org.osgeo.proj4j.units.*;
 
@@ -26,11 +28,13 @@ public class LongLatProjection extends Projection
 {
   // TODO: implement projection methods (which are basically just no-ops)
 	/*
-	public Point2D.Double transform( Point2D.Double src, Point2D.Double dst ) {
+	
+	public Point2D.Double transformRadians( Point2D.Double src, Point2D.Double dst ) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;
 	}
+	
 	*/
   
 	public String toString() {
@@ -41,5 +45,8 @@ public class LongLatProjection extends Projection
   {
     // units are always in Decimal Degrees
     unit = Units.DEGREES;
+    totalScale = 1.0;
   }
+  
+  
 }
