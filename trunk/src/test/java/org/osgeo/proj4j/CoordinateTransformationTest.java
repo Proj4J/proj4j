@@ -60,22 +60,15 @@ public class CoordinateTransformationTest extends TestCase
   
   public void testEPSG_4326()
   {
-  	checkTransform(
+  	checkTransformAndInverse(
   			"EPSG:4326", -126.54, 54.15,  
   			"EPSG:3005", 964813.103719, 1016486.305862, 
   			0.0001);
-  	checkTransform(
-  			"EPSG:3005", 964813.103719, 1016486.305862, 
-  			"EPSG:4326", -126.54, 54.15,  
-  			0.000001);
   	
-  	
-    checkTransform(
+  	checkTransformAndInverse(
     		"EPSG:32633",  249032.839239894, 7183612.30572229, 
-    		"EPSG:4326", 9.735465995810884, 64.68347938257097, 0.000001 );
-    checkTransform(
     		"EPSG:4326", 9.735465995810884, 64.68347938257097, 
-    		"EPSG:32633",  249032.839239894, 7183612.30572229, 0.000001 );
+    		0.000001 );
   }
   
   public void testSouth()
@@ -129,6 +122,13 @@ public class CoordinateTransformationTest extends TestCase
   		double tolerance)
   {
     assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance));
+  }
+  void checkTransformAndInverse(
+  		String cs1, double x1, double y1, 
+  		String cs2, double x2, double y2, 
+  		double tolerance)
+  {
+    assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance, true));
   }
  
 }

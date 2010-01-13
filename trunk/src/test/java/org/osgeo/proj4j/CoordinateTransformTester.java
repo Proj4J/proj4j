@@ -52,7 +52,6 @@ public class CoordinateTransformTester
     		createCS(cs2), x2, y2, tolerance);
   }
   
-
   public boolean checkTransform(
   		CoordinateSystem cs1, double x1, double y1, 
   		CoordinateSystem cs2, double x2, double y2, 
@@ -87,6 +86,20 @@ public class CoordinateTransformTester
     }
 
     return isInTol;
+  }
+  
+  public boolean checkTransform(
+  		String cs1, double x1, double y1, 
+  		String cs2, double x2, double y2, 
+  		double tolerance,
+  		boolean checkInverse)
+  {
+  	boolean isOkForward = checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance);
+  	boolean isOkInverse = true;
+  	if (checkInverse)
+  		isOkInverse = checkTransform(cs2, x2, y2, cs1, x1, y1, tolerance);
+  	
+  	return isOkForward && isOkInverse;
   }
 /*
   private boolean checkTransformFromGeo(CoordinateSystem cs, double lon, double lat, double x, double y, double tolerance)
