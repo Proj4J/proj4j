@@ -4,8 +4,8 @@ import java.awt.geom.Point2D;
 
 import org.osgeo.proj4j.util.ProjectionUtil;
 
-public class CoordinateTransformTester {
-
+public class CoordinateTransformTester 
+{
   boolean verbose = true;
   
   CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
@@ -27,18 +27,69 @@ public class CoordinateTransformTester {
   
   public boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y, double tolerance)
   {
-    CoordinateSystem cs = null;
-    // test if name is a PROJ4 spec
-    if (name.indexOf("+") >= 0) {
-      cs = csFactory.createFromParameters("Anon", name);
-    } 
-    else {
-      cs = csFactory.createFromName(name);
-    }
-    return checkTransformFromGeo(cs, lon, lat, x, y, tolerance);
+    return checkTransform(WGS84, lon, lat, createCS(name), x, y, tolerance);
   }
   
-  public boolean checkTransformFromGeo(CoordinateSystem cs, double lon, double lat, double x, double y, double tolerance)
+  private CoordinateSystem createCS(String csSpec)
+  {
+    CoordinateSystem cs = null;
+    // test if name is a PROJ4 spec
+    if (csSpec.indexOf("+") >= 0) {
+      cs = csFactory.createFromParameters("Anon", csSpec);
+    } 
+    else {
+      cs = csFactory.createFromName(csSpec);
+    }
+    return cs;
+  }
+  
+  public boolean checkTransform(
+  		String cs1, double x1, double y1, 
+  		String cs2, double x2, double y2, double tolerance)
+  {
+    return checkTransform(
+    		createCS(cs1), x1, y1, 
+    		createCS(cs2), x2, y2, tolerance);
+  }
+  
+
+  public boolean checkTransform(
+  		CoordinateSystem cs1, double x1, double y1, 
+  		CoordinateSystem cs2, double x2, double y2, 
+  		double tolerance)
+  {
+    p.x = x1;
+    p.y = y1;
+    CoordinateTransformation trans = new CoordinateTransformation(
+        cs1, cs2);
+    trans.transform(p, p2);
+    
+    if (verbose) {
+      System.out.println(ProjectionUtil.toString(p) 
+          + " -> " + ProjectionUtil.toString(p2)
+          + " ( expected: " + x2 + ", " + y2 + " )"
+          );
+      System.out.println();
+    }
+    
+    double dx = Math.abs(p2.x - x2);
+    double dy = Math.abs(p2.y - y2);
+    
+    boolean isInTol =  dx <= tolerance && dy <= tolerance;
+   
+    if (verbose && ! isInTol) {
+      System.out.println(cs1.getParameterString());
+      System.out.println(cs2.getParameterString());
+      System.out.println("FAIL: "
+          + ProjectionUtil.toString(p) 
+          + " -> " + ProjectionUtil.toString(p2) 
+          );
+    }
+
+    return isInTol;
+  }
+/*
+  private boolean checkTransformFromGeo(CoordinateSystem cs, double lon, double lat, double x, double y, double tolerance)
   {
     if (cs != null) {
       System.out.println(cs + " ( " + cs.getProjection() + " ) - " + cs.getParameterString());
@@ -87,61 +138,5 @@ public class CoordinateTransformTester {
     return isInTol;
   }
   
-  private CoordinateSystem createCS(String csSpec)
-  {
-    CoordinateSystem cs = null;
-    // test if name is a PROJ4 spec
-    if (csSpec.indexOf("+") >= 0) {
-      cs = csFactory.createFromParameters("Anon", csSpec);
-    } 
-    else {
-      cs = csFactory.createFromName(csSpec);
-    }
-    return cs;
-  }
-  
-  public boolean checkTransform(String cs1, double x1, double y1, 
-  		String cs2, double x2, double y2, double tolerance)
-  {
-    return checkTransform(createCS(cs1), x1, y1, 
-    		createCS(cs2), x2, y2, tolerance);
-  }
-  
-
-  private boolean checkTransform(
-  		CoordinateSystem cs1, double x1, double y1, 
-  		CoordinateSystem cs2, double x2, double y2, 
-  		double tolerance)
-  {
-    p.x = x1;
-    p.y = y1;
-    CoordinateTransformation trans = new CoordinateTransformation(
-        cs1, cs2);
-    trans.transform(p, p2);
-    
-    if (verbose) {
-      System.out.println(ProjectionUtil.toString(p) 
-          + " -> " + ProjectionUtil.toString(p2)
-          + " ( expected: " + x2 + ", " + y2 + " )"
-          );
-      System.out.println();
-    }
-    
-    double dx = Math.abs(p2.x - x2);
-    double dy = Math.abs(p2.y - y2);
-    
-    boolean isInTol =  dx <= tolerance && dy <= tolerance;
-   
-    if (verbose && ! isInTol) {
-      System.out.println(cs1.getParameterString());
-      System.out.println(cs2.getParameterString());
-      System.out.println("FAIL: "
-          + ProjectionUtil.toString(p) 
-          + " -> " + ProjectionUtil.toString(p2) 
-          );
-    }
-
-    return isInTol;
-  }
-
+*/
 }

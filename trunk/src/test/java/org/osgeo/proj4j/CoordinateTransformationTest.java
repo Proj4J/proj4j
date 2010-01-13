@@ -41,11 +41,11 @@ public class CoordinateTransformationTest extends TestCase
   
   public void testUTM()
   {
-    checkTransformFromGeo("EPSG:32612",    -113.109375, 60.28125, 383357.429537, 6684599.06392 );
-    checkTransformFromGeo("EPSG:23030",    -3, 49.95,        500000, 5533182.925903  );
-    checkTransformFromGeo("EPSG:32615",    -93, 42,        500000, 4649776.22482 );
-    checkTransformFromGeo("EPSG:32612",    -113.109375, 60.28125, 383357.429537, 6684599.06392 );
+    checkTransformFromGeo("EPSG:23030",    -3, 49.95,        				500000, 5533182.925903  );
+    checkTransformFromGeo("EPSG:32615",    -93, 42,        					500000, 4649776.22482 );
+    checkTransformFromGeo("EPSG:32612",    -113.109375, 60.28125, 	383357.429537, 6684599.06392 );
   }
+  
   public void testMercator()
   {
     //    google
@@ -56,6 +56,26 @@ public class CoordinateTransformationTest extends TestCase
     checkTransformFromGeo("EPSG:3005",     -126.54, 54.15,   964813.103719, 1016486.305862  );
     // # NAD83(CSRS) / BC Albers
     checkTransformFromGeo("EPSG:3153",     -127.0, 52.11,  931625.9111828626, 789252.646454557 );
+  }
+  
+  public void testEPSG_4326()
+  {
+  	checkTransform(
+  			"EPSG:4326", -126.54, 54.15,  
+  			"EPSG:3005", 964813.103719, 1016486.305862, 
+  			0.0001);
+  	checkTransform(
+  			"EPSG:3005", 964813.103719, 1016486.305862, 
+  			"EPSG:4326", -126.54, 54.15,  
+  			0.000001);
+  	
+  	
+    checkTransform(
+    		"EPSG:32633",  249032.839239894, 7183612.30572229, 
+    		"EPSG:4326", 9.735465995810884, 64.68347938257097, 0.000001 );
+    checkTransform(
+    		"EPSG:4326", 9.735465995810884, 64.68347938257097, 
+    		"EPSG:32633",  249032.839239894, 7183612.30572229, 0.000001 );
   }
   
   public void testSouth()
@@ -69,9 +89,8 @@ public class CoordinateTransformationTest extends TestCase
 
   public void testParams()
   {
-    assertTrue(tester.checkTransformFromGeo(
-        csFactory.createFromParameters(null, "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +units=m "), 
-        -127.0, 52.11,  931625.9111828626, 789252.646454557, 0.0001));
+    checkTransformFromGeo("+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +units=m ", 
+        -127.0, 52.11,  931625.9111828626, 789252.646454557, 0.0001);
   }
   
   public void XtestUndefined()
@@ -104,5 +123,12 @@ public class CoordinateTransformationTest extends TestCase
   {
     assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, tolerance));
   }
-  
+  void checkTransform(
+  		String cs1, double x1, double y1, 
+  		String cs2, double x2, double y2, 
+  		double tolerance)
+  {
+    assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance));
+  }
+ 
 }
