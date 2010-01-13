@@ -28,6 +28,9 @@ import org.osgeo.proj4j.proj.*;
  * Use {@link CoordinateSystemFactory} instead.
  * 
  * @author Martin Davis
+ * 
+ * @deprecated
+ * @see CoordinateSystemFactory
  *
  */
 public class ProjectionFactory 
