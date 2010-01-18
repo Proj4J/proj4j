@@ -14,12 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package org.osgeo.proj4j;
+package obsolete.proj;
 
 import java.io.*;
 import java.util.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.CRSFactory;
+import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.Projection;
+import org.osgeo.proj4j.ProjectionException;
+import org.osgeo.proj4j.ProjectionMath;
+import org.osgeo.proj4j.Registry;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.proj.*;
 
