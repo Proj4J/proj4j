@@ -34,8 +34,8 @@ public class MetaCRSTestCase
   String dataCmnts;
   String maintenanceCmnts;
 
-  CoordinateSystem srcCS;
-  CoordinateSystem tgtCS;
+  CoordinateReferenceSystem srcCS;
+  CoordinateReferenceSystem tgtCS;
 
   Point2D.Double srcPt = new Point2D.Double();
   Point2D.Double resultPt = new Point2D.Double();
@@ -89,9 +89,9 @@ public class MetaCRSTestCase
   
   public String getTargetCrsName() { return csName(tgtCrsAuth, tgtCrs); }
   
-  public CoordinateSystem getSourceCS() { return srcCS; }
+  public CoordinateReferenceSystem getSourceCS() { return srcCS; }
   
-  public CoordinateSystem getTargetCS() { return tgtCS; }
+  public CoordinateReferenceSystem getTargetCS() { return tgtCS; }
   
   public ProjCoordinate getSourceCoordinate()
   {
@@ -108,7 +108,7 @@ public class MetaCRSTestCase
     return new ProjCoordinate(resultPt.x, resultPt.y);
   }
   
-  public boolean execute(CoordinateSystemFactory csFactory)
+  public boolean execute(CRSFactory csFactory)
   {
     srcCS = createCS(csFactory, srcCrsAuth, srcCrs);
     tgtCS = createCS(csFactory, tgtCrsAuth, tgtCrs);
@@ -121,15 +121,15 @@ public class MetaCRSTestCase
     return auth + ":" + code;
   }
   
-  public static CoordinateSystem createCS(CoordinateSystemFactory csFactory, String auth, String code)
+  public static CoordinateReferenceSystem createCS(CRSFactory csFactory, String auth, String code)
   {
-    CoordinateSystem cs = csFactory.createFromName(csName(auth, code));
+    CoordinateReferenceSystem cs = csFactory.createFromName(csName(auth, code));
     return cs;
   }
   
   private boolean executeTransform(
-      CoordinateSystem srcCS,
-      CoordinateSystem tgtCS)
+      CoordinateReferenceSystem srcCS,
+      CoordinateReferenceSystem tgtCS)
   {
     // Testing: flip axis order to test SS sample file
     //srcPt.x = srcOrd1;

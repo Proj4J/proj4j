@@ -20,7 +20,7 @@ public class MetaCRSTest extends TestCase
     TestRunner.run(MetaCRSTest.class);
   }
 
-  static CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
+  static CRSFactory csFactory = new CRSFactory();
   
   public MetaCRSTest(String name) { super(name); }
 

@@ -40,7 +40,7 @@ public class MetaCRSTestCmd
   }
   private static final int TESTS_PER_LINE = 50;
   
-  private static CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
+  private static CRSFactory csFactory = new CRSFactory();
 
   private String filename;
   private boolean verbose = true;

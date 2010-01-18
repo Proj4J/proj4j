@@ -3,7 +3,7 @@ package org.osgeo.proj4j.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgeo.proj4j.CoordinateSystem;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
 import org.osgeo.proj4j.Datum;
 import org.osgeo.proj4j.Ellipsoid;
 import org.osgeo.proj4j.Projection;
@@ -21,7 +21,7 @@ public class Proj4Parser
     this.registry = registry;
   }
   
-  public CoordinateSystem parse(String name, String[] args)
+  public CoordinateReferenceSystem parse(String name, String[] args)
   {
     if (args == null)
       return null;
@@ -34,7 +34,7 @@ public class Proj4Parser
     Datum datum = datumParam.getDatum();
     Ellipsoid ellipsoid = datumParam.getEllipsoid();
     Projection proj = parseProjection(params, ellipsoid);
-    return new CoordinateSystem(name, args, datum, proj);
+    return new CoordinateReferenceSystem(name, args, datum, proj);
   }
 
   /*

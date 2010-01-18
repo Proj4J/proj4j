@@ -1,13 +1,13 @@
 package org.osgeo.proj4j.parser;
 
-import org.osgeo.proj4j.CoordinateSystem;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
 import org.osgeo.proj4j.Datum;
 import org.osgeo.proj4j.Ellipsoid;
 
 /**
  * Contains the parsed/computed parameter values 
  * which are used to create 
- * the datum and ellipsoid for a {@link CoordinateSystem}.
+ * the datum and ellipsoid for a {@link CoordinateReferenceSystem}.
  * This class also implements the policies for 
  * which parameters take precedence
  * when multiple inconsisent ones are present.

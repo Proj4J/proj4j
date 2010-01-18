@@ -13,7 +13,7 @@ public class CoordinateTransformationTest extends TestCase
 {
 	static boolean debug = true;
 	
-	CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
+	CRSFactory csFactory = new CRSFactory();
   
   CoordinateTransformTester tester = new CoordinateTransformTester(true);
 	

@@ -25,12 +25,12 @@ import org.osgeo.proj4j.proj.*;
 
 /**
  * This class is essentially obsolete.
- * Use {@link CoordinateSystemFactory} instead.
+ * Use {@link CRSFactory} instead.
  * 
  * @author Martin Davis
  * 
  * @deprecated
- * @see CoordinateSystemFactory
+ * @see CRSFactory
  *
  */
 public class ProjectionFactory 

@@ -8,10 +8,10 @@ public class CoordinateTransformTester
 {
   boolean verbose = true;
   
-  CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
+  CRSFactory csFactory = new CRSFactory();
 
   static final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees";
-  CoordinateSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
+  CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
 
   public CoordinateTransformTester(boolean verbose) {
     this.verbose = verbose;
@@ -30,9 +30,9 @@ public class CoordinateTransformTester
     return checkTransform(WGS84, lon, lat, createCS(name), x, y, tolerance);
   }
   
-  private CoordinateSystem createCS(String csSpec)
+  private CoordinateReferenceSystem createCS(String csSpec)
   {
-    CoordinateSystem cs = null;
+    CoordinateReferenceSystem cs = null;
     // test if name is a PROJ4 spec
     if (csSpec.indexOf("+") >= 0) {
       cs = csFactory.createFromParameters("Anon", csSpec);
@@ -53,8 +53,8 @@ public class CoordinateTransformTester
   }
   
   public boolean checkTransform(
-  		CoordinateSystem cs1, double x1, double y1, 
-  		CoordinateSystem cs2, double x2, double y2, 
+  		CoordinateReferenceSystem cs1, double x1, double y1, 
+  		CoordinateReferenceSystem cs2, double x2, double y2, 
   		double tolerance)
   {
     p.x = x1;

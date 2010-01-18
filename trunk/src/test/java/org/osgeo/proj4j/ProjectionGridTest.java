@@ -44,8 +44,8 @@ public class ProjectionGridTest extends TestCase
   	
  void run(String code)
  {
-   CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
-  	CoordinateSystem cs = csFactory.createFromName(code);
+   CRSFactory csFactory = new CRSFactory();
+  	CoordinateReferenceSystem cs = csFactory.createFromName(code);
   	if (cs == null)
   		return;
   	ProjectionGridRoundTripper tripper = new ProjectionGridRoundTripper(cs);

@@ -6,7 +6,7 @@ import org.osgeo.proj4j.datum.GeocentricConverter;
 
 /**
  * Represents the operation of transforming 
- * a {@link ProjCoordinate} from its current {@link CoordinateSystem} 
+ * a {@link ProjCoordinate} from its current {@link CoordinateReferenceSystem} 
  * into a different one.
  * The transformation involves the following steps:
  * <ul>
@@ -31,8 +31,8 @@ import org.osgeo.proj4j.datum.GeocentricConverter;
  */
 public class CoordinateTransformation 
 {
-	private CoordinateSystem srcCS;
-	private CoordinateSystem destCS;
+	private CoordinateReferenceSystem srcCS;
+	private CoordinateReferenceSystem destCS;
 	
   // temporary variable for intermediate results
 	private Point2D.Double geoPt = new Point2D.Double();
@@ -47,13 +47,13 @@ public class CoordinateTransformation
   private GeocentricConverter destGeoConv; 
 	
   /**
-   * Creates a transformation from a source {@link CoordinateSystem} to a 
+   * Creates a transformation from a source {@link CoordinateReferenceSystem} to a 
    * destination one.
    * 
    * @param srcCS
    * @param destCS
    */
-	public CoordinateTransformation(CoordinateSystem srcCS, CoordinateSystem destCS)
+	public CoordinateTransformation(CoordinateReferenceSystem srcCS, CoordinateReferenceSystem destCS)
 	{
 		this.srcCS = srcCS;
 		this.destCS = destCS;
@@ -61,8 +61,8 @@ public class CoordinateTransformation
 		// compute strategy for transformation at initialization time, to make transformation more efficient
 		// this may include precomputing sets of parameters
 		
-		doInverseProjection = (srcCS != null && srcCS != CoordinateSystem.CS_GEO);
-		doForwardProjection = (destCS != null && destCS != CoordinateSystem.CS_GEO);
+		doInverseProjection = (srcCS != null && srcCS != CoordinateReferenceSystem.CS_GEO);
+		doForwardProjection = (destCS != null && destCS != CoordinateReferenceSystem.CS_GEO);
     doDatumTransform = doInverseProjection && doForwardProjection
       && srcCS.getDatum() != destCS.getDatum();
     
@@ -83,7 +83,7 @@ public class CoordinateTransformation
 	}
 	
 	/**
-   * Tranforms a coordinate from the source {@link CoordinateSystem} 
+   * Tranforms a coordinate from the source {@link CoordinateReferenceSystem} 
    * to the destination one.
    * 
    * @param src the input coordinate

@@ -30,11 +30,11 @@ public class ExampleTest extends TestCase
   	 * Create CoordinateSystem & CoordinateTransformation.
   	 * Normally this would be carried out once and reused for all transformations
   	 */ 
-  	CoordinateSystemFactory csFactory = new CoordinateSystemFactory();
-    CoordinateSystem cs = csFactory.createFromName(csName);
+  	CRSFactory csFactory = new CRSFactory();
+    CoordinateReferenceSystem cs = csFactory.createFromName(csName);
     
     final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees";
-    CoordinateSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
+    CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
 
     CoordinateTransformation trans = new CoordinateTransformation(WGS84, cs);
     
