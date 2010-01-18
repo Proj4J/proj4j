@@ -29,7 +29,7 @@ import org.osgeo.proj4j.datum.GeocentricConverter;
  * @author Martin Davis
  *
  */
-public class CoordinateTransformation 
+public class CoordinateTransform 
 {
 	private CoordinateReferenceSystem srcCS;
 	private CoordinateReferenceSystem destCS;
@@ -53,7 +53,7 @@ public class CoordinateTransformation
    * @param srcCS
    * @param destCS
    */
-	public CoordinateTransformation(CoordinateReferenceSystem srcCS, CoordinateReferenceSystem destCS)
+	public CoordinateTransform(CoordinateReferenceSystem srcCS, CoordinateReferenceSystem destCS)
 	{
 		this.srcCS = srcCS;
 		this.destCS = destCS;

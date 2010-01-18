@@ -59,7 +59,7 @@ public class CoordinateTransformTester
   {
     p.x = x1;
     p.y = y1;
-    CoordinateTransformation trans = new CoordinateTransformation(
+    CoordinateTransform trans = new CoordinateTransform(
         cs1, cs2);
     trans.transform(p, p2);
     

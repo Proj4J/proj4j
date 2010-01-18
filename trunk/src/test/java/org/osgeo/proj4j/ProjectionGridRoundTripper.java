@@ -7,8 +7,8 @@ import org.osgeo.proj4j.Projection;
 public class ProjectionGridRoundTripper 
 {
 	private CoordinateReferenceSystem cs;
-  private CoordinateTransformation transInverse;
-  private CoordinateTransformation transForward;
+  private CoordinateTransform transInverse;
+  private CoordinateTransform transForward;
 	private int gridSize = 4;
 	private boolean debug = false;
 	private int transformCount = 0;
@@ -17,8 +17,8 @@ public class ProjectionGridRoundTripper
 	public ProjectionGridRoundTripper(CoordinateReferenceSystem cs)
 	{
 		this.cs = cs;
-    transInverse = new CoordinateTransformation(cs, CoordinateReferenceSystem.CS_GEO); 
-    transForward = new CoordinateTransformation(CoordinateReferenceSystem.CS_GEO, cs); 
+    transInverse = new CoordinateTransform(cs, CoordinateReferenceSystem.CS_GEO); 
+    transForward = new CoordinateTransform(CoordinateReferenceSystem.CS_GEO, cs); 
 	}
 	
 	public void setLevelDebug(boolean debug)

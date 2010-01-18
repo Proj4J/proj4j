@@ -137,7 +137,7 @@ public class MetaCRSTestCase
     srcPt.x = srcOrd2;
     srcPt.y = srcOrd1;
     
-    CoordinateTransformation trans = new CoordinateTransformation(
+    CoordinateTransform trans = new CoordinateTransform(
         srcCS, tgtCS);
 
     trans.transform(srcPt, resultPt);

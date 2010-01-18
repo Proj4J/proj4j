@@ -27,7 +27,7 @@ public class ExampleTest extends TestCase
   private boolean checkTransform(String csName, double lon, double lat, double x, double y, double tolerance)
   {
   	/*
-  	 * Create CoordinateSystem & CoordinateTransformation.
+  	 * Create {@link CoordinateReferenceSystem} & CoordinateTransformation.
   	 * Normally this would be carried out once and reused for all transformations
   	 */ 
   	CRSFactory csFactory = new CRSFactory();
@@ -36,7 +36,7 @@ public class ExampleTest extends TestCase
     final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees";
     CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
 
-    CoordinateTransformation trans = new CoordinateTransformation(WGS84, cs);
+    CoordinateTransform trans = new CoordinateTransform(WGS84, cs);
     
     /*
      * Create input and output points.

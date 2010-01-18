@@ -14,7 +14,7 @@ import org.osgeo.proj4j.units.Units;
  * of specifying them.
  * <p>
  * Once created, <tt>CoordinateReferenceSystem</tt>s can be used to
- * define a {@link CoordinateTransformation} to perform transformations
+ * define a {@link CoordinateTransform} to perform transformations
  * on {@link ProjCoordinate}s. 
  * 
  * @author Martin Davis
