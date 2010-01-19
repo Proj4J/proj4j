@@ -1,7 +1,9 @@
-package org.osgeo.proj4j;
+package org.osgeo.proj4j.proj;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
+
+import org.osgeo.proj4j.*;
 
 /**
  * Tests accuracy and correctness of projecting and reprojecting a grid of geographic coordinates.

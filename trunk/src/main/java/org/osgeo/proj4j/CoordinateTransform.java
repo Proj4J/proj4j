@@ -90,10 +90,10 @@ public class CoordinateTransform
    * @param dest the transformed coordinate
    * @return the destination coordinate which was passed in
    * 
-   * @throws ProjectionException if a computation error is encountered
+   * @throws Proj4jException if a computation error is encountered
 	 */
 	public Point2D.Double transform( Point2D.Double src, Point2D.Double dest )
-  throws ProjectionException
+  throws Proj4jException
 	{
 		// NOTE: this method may be called many times, so needs to be as efficient as possible
     

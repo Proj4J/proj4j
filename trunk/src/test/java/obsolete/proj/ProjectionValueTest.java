@@ -1,4 +1,4 @@
-package org.osgeo.proj4j;
+package obsolete.proj;
 
 import java.awt.geom.Point2D;
 

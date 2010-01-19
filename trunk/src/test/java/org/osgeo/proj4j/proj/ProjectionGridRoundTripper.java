@@ -1,7 +1,8 @@
-package org.osgeo.proj4j;
+package org.osgeo.proj4j.proj;
 
 import java.awt.geom.Point2D;
 
+import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.proj.Projection;
 
 public class ProjectionGridRoundTripper 
