@@ -19,9 +19,6 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import java.awt.geom.*;
-
-import org.osgeo.proj4j.units.*;
 
 public class OtherProjections {
 	public Object createPlugin() {

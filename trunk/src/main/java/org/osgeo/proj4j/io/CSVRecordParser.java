@@ -1,6 +1,7 @@
 package org.osgeo.proj4j.io;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Parses a single record in a CSV file into an array of {@link String}s.

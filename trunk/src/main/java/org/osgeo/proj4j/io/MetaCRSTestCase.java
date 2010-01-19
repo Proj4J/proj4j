@@ -1,7 +1,9 @@
 package org.osgeo.proj4j.io;
 
-import java.awt.geom.Point2D;
-import org.osgeo.proj4j.*;
+import org.osgeo.proj4j.CRSFactory;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
+import org.osgeo.proj4j.CoordinateTransform;
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.util.ProjectionUtil;
 
 public class MetaCRSTestCase 

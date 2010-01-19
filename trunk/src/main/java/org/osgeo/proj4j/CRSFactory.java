@@ -1,13 +1,7 @@
 package org.osgeo.proj4j;
 
-import java.util.*;
-
 import org.osgeo.proj4j.io.Proj4FileReader;
 import org.osgeo.proj4j.parser.Proj4Parser;
-import org.osgeo.proj4j.proj.TransverseMercatorProjection;
-import org.osgeo.proj4j.units.AngleFormat;
-import org.osgeo.proj4j.units.Unit;
-import org.osgeo.proj4j.units.Units;
 
 /**
  * Creates {@link CoordinateReferenceSystem}s from a variety of ways

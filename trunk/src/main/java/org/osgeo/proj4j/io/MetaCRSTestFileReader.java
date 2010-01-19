@@ -1,7 +1,11 @@
 package org.osgeo.proj4j.io;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Reads a file in MetaCRS Test format

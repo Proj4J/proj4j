@@ -16,8 +16,8 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 
 import org.osgeo.proj4j.ProjCoordinate;
 

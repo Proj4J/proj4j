@@ -16,7 +16,6 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import java.awt.*;
 
 /**
  * The superclass for all pseudo-cylindrical projections - eg. sinusoidal

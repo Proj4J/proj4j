@@ -16,7 +16,10 @@ limitations under the License.
 
 package org.osgeo.proj4j.units;
 
-import java.text.*;
+import java.text.DecimalFormat;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 
 import org.osgeo.proj4j.util.ProjectionMath;
 

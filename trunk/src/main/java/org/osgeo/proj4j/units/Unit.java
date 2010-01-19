@@ -16,8 +16,8 @@ limitations under the License.
 
 package org.osgeo.proj4j.units;
 
-import java.io.*;
-import java.text.*;
+import java.io.Serializable;
+import java.text.NumberFormat;
 
 public class Unit implements Serializable {
 

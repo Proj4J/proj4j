@@ -16,9 +16,7 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import java.awt.geom.Point2D;
-
-import org.osgeo.proj4j.units.*;
+import org.osgeo.proj4j.units.Units;
 
 /**
  * A "projection" for geodetic coordinates in Decimal Degrees. 

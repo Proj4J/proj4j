@@ -16,7 +16,6 @@ limitations under the License.
 
 package org.osgeo.proj4j.units;
 
-import java.text.*;
 
 public class DegreeUnit extends Unit {
 	

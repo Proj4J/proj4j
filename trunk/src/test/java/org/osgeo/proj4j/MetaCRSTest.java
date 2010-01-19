@@ -1,13 +1,14 @@
 package org.osgeo.proj4j;
 
-import java.io.*;
-import java.util.*;
-
-import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import org.osgeo.proj4j.io.*;
+
+import org.osgeo.proj4j.io.MetaCRSTestCase;
+import org.osgeo.proj4j.io.MetaCRSTestFileReader;
 
 /**
  * Test which serves as an example of using Proj4J.

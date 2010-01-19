@@ -3,7 +3,8 @@ package org.osgeo.proj4j.proj;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 
-import org.osgeo.proj4j.*;
+import org.osgeo.proj4j.CRSFactory;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
 
 /**
  * Tests accuracy and correctness of projecting and reprojecting a grid of geographic coordinates.
