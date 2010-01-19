@@ -19,9 +19,9 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import org.osgeo.proj4j.Ellipsoid;
 import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
+import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.util.ProjectionMath;
 
 /**

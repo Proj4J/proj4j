@@ -1,8 +1,8 @@
 package org.osgeo.proj4j.parser;
 
 import org.osgeo.proj4j.CoordinateReferenceSystem;
-import org.osgeo.proj4j.Datum;
-import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.datum.Datum;
+import org.osgeo.proj4j.datum.Ellipsoid;
 
 /**
  * Contains the parsed/computed parameter values 

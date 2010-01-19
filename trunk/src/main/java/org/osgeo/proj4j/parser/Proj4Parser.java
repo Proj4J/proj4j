@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.osgeo.proj4j.CoordinateReferenceSystem;
-import org.osgeo.proj4j.Datum;
-import org.osgeo.proj4j.Ellipsoid;
 import org.osgeo.proj4j.Registry;
+import org.osgeo.proj4j.datum.Datum;
+import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.Projection;
 import org.osgeo.proj4j.proj.TransverseMercatorProjection;
 import org.osgeo.proj4j.units.AngleFormat;

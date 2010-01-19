@@ -3,6 +3,8 @@ package org.osgeo.proj4j;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.osgeo.proj4j.datum.Datum;
+import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.AiryProjection;
 import org.osgeo.proj4j.proj.AitoffProjection;
 import org.osgeo.proj4j.proj.AlbersProjection;

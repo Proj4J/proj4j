@@ -17,7 +17,7 @@ limitations under the License.
 package org.osgeo.proj4j.proj;
 
 import org.osgeo.proj4j.*;
-import org.osgeo.proj4j.ProjCoordinate;
+import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.units.AngleFormat;
 import org.osgeo.proj4j.units.Unit;
 import org.osgeo.proj4j.units.Units;

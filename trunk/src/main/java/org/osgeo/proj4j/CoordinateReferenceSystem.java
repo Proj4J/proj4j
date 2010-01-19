@@ -1,5 +1,7 @@
 package org.osgeo.proj4j;
 
+import org.osgeo.proj4j.datum.Datum;
+import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.Projection;
 import org.osgeo.proj4j.units.Unit;
 

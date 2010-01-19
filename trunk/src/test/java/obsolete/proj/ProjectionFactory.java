@@ -23,6 +23,7 @@ import java.awt.geom.*;
 import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
+import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.*;
 
 /**
