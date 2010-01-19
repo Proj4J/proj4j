@@ -19,7 +19,7 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import org.osgeo.proj4j.ProjCoordinate;
+import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -237,7 +237,7 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 					return lp;
 				}
 			}
-			throw new RuntimeException("Iteration didn't converge");
+			throw new FailureToConvergeException("Iteration didn't converge");
 		}
 		return lp;
 	}

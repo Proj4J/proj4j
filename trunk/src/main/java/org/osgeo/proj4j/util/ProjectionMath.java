@@ -19,8 +19,8 @@ package org.osgeo.proj4j.util;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import org.osgeo.proj4j.FailureToConvergeException;
-import org.osgeo.proj4j.InvalidValueException;
+import org.osgeo.proj4j.*;
+
 
 
 public class ProjectionMath {
@@ -293,23 +293,25 @@ public class ProjectionMath {
 	public static double cross(Point2D.Double a, Point2D.Double b) {
 		return a.x*b.y - b.x*a.y;
 	}
+  
+  public static void normalize(Point2D.Double a) {
+    double d = distance(a.x, a.y);
+    a.x /= d;
+    a.y /= d;
+  }
+  
+  public static void negate(Point2D.Double a) {
+    a.x = -a.x;
+    a.y = -a.y;
+  }
+  
+
 */
   
 	public static double cross(double x1, double y1, double x2, double y2) {
 		return x1*y2 - x2*y1;
 	}
 
-	public static void normalize(Point2D.Double a) {
-		double d = distance(a.x, a.y);
-		a.x /= d;
-		a.y /= d;
-	}
-	
-	public static void negate(Point2D.Double a) {
-		a.x = -a.x;
-		a.y = -a.y;
-	}
-	
 	public static double longitudeDistance(double l1, double l2) {
 		return Math.min(
 			Math.abs(l1-l2), 
