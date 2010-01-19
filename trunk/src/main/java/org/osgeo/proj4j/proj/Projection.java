@@ -16,7 +16,7 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.AngleFormat;
 import org.osgeo.proj4j.units.Unit;
@@ -639,7 +639,7 @@ public abstract class Projection implements Cloneable {
 
 	public static float normalizeLongitude(float angle) {
 		if ( Double.isInfinite(angle) || Double.isNaN(angle) )
-			throw new IllegalArgumentException("Infinite longitude");
+			throw new InvalidValueException("Infinite longitude");
 		while (angle > 180)
 			angle -= 360;
 		while (angle < -180)
@@ -649,7 +649,7 @@ public abstract class Projection implements Cloneable {
 
 	public static double normalizeLongitudeRadians( double angle ) {
 		if ( Double.isInfinite(angle) || Double.isNaN(angle) )
-			throw new IllegalArgumentException("Infinite longitude");
+			throw new InvalidValueException("Infinite longitude");
 		while (angle > Math.PI)
 			angle -= ProjectionMath.TWOPI;
 		while (angle < -Math.PI)

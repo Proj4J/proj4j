@@ -123,7 +123,7 @@ public class AlbersProjection extends Projection {
 		phi2 = projectionLatitude2;
 
 		if (Math.abs(phi1 + phi2) < EPS10)
-			throw new IllegalArgumentException("-21");
+			throw new ProjectionException("-21");
 		n = sinphi = Math.sin(phi1);
 		cosphi = Math.cos(phi1);
 		secant = Math.abs(phi1 - phi2) >= EPS10;
@@ -132,7 +132,7 @@ public class AlbersProjection extends Projection {
 			double ml1, m1;
 
 			if ((en = ProjectionMath.enfn(es)) == null)
-				throw new IllegalArgumentException("0");
+				throw new ProjectionException("0");
 			m1 = ProjectionMath.msfn(sinphi, cosphi, es);
 			ml1 = ProjectionMath.qsfn(sinphi, e, one_es);
 			if (secant) { /* secant cone */

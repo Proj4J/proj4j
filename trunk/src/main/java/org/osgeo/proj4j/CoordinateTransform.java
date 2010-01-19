@@ -47,8 +47,8 @@ public class CoordinateTransform
   private GeocentricConverter tgtGeoConv; 
 	
   /**
-   * Creates a transformation from a source {@link CoordinateReferenceSystem} to a 
-   * target one.
+   * Creates a transformation from a source {@link CoordinateReferenceSystem} 
+   * to a target one.
    * 
    * @param srcCS
    * @param tgtCRS
