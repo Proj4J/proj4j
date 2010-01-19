@@ -7,8 +7,8 @@ import org.osgeo.proj4j.parser.Proj4Parser;
  * Creates {@link CoordinateReferenceSystem}s from a variety of ways
  * of specifying them.
  * <p>
- * Once created, <tt>CoordinateReferenceSystem</tt>s can be used to
- * define a {@link CoordinateTransform} to perform transformations
+ * <tt>CoordinateReferenceSystem</tt>s can be used to
+ * define {@link CoordinateTransform}s to perform transformations
  * on {@link ProjCoordinate}s. 
  * 
  * @author Martin Davis

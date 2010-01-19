@@ -278,7 +278,7 @@ public abstract class Projection implements Cloneable {
 	 * 
 	 * @param the projected x ordinate (in the units of the coordinate system)
 	 * @param the projected y ordinate (in the units of the coordinate system)
-	 * @result the geographic point
+	 * @return the geographic point
 	 */
 	protected ProjCoordinate projectInverse(double x, double y, ProjCoordinate dst) {
 		dst.x = x;

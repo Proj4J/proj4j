@@ -4,23 +4,23 @@ import org.osgeo.proj4j.datum.GeocentricConverter;
 
 /**
  * Represents the operation of transforming 
- * a {@link ProjCoordinate} from its current {@link CoordinateReferenceSystem} 
+ * a {@link ProjCoordinate} from one {@link CoordinateReferenceSystem} 
  * into a different one.
  * The transformation involves the following steps:
  * <ul>
- * <li>If the input coordinate is in a projection coordinate system,
+ * <li>If the input coordinate is in a projected coordinate system,
  * it is inverse-projected into a geographic coordinate 
- * <li>If the source and target datums are different,
+ * <li>If the source and target {@link Datum}s are different,
  * the geographic coordinate is converted from the source to the target datum
  * as accurately as possible
- * <li>If the target coordinate system is a projection, 
- * the geographic coordinate is projected into it.
- * <ul>
+ * <li>If the target coordinate system is a projected coordinate system, 
+ * the geographic coordinate is projected into a projected coordinate.
+ * </ul>
  * <p>
- * A coordinate transformation is stateful, and thus is not thread-safe.
+ * A coordinate transformation object is stateful, and thus is not thread-safe.
  * However, it may be reused any number of times within a single thread.
  * <p>
- * Details of the transformation procedure are pre-computed
+ * Information about the transformation procedure is pre-computed
  * and cached in this object for efficiency
  * in computing tranformations.
  * 
@@ -50,8 +50,8 @@ public class CoordinateTransform
    * Creates a transformation from a source {@link CoordinateReferenceSystem} 
    * to a target one.
    * 
-   * @param srcCS
-   * @param tgtCRS
+   * @param srcCRS the source CRS to transform from
+   * @param tgtCRS the target CRS to transform to
    */
 	public CoordinateTransform(CoordinateReferenceSystem srcCRS, 
       CoordinateReferenceSystem tgtCRS)
