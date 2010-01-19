@@ -13,8 +13,6 @@ public class CoordinateTransformTest extends TestCase
 {
 	static boolean debug = true;
 	
-	CRSFactory csFactory = new CRSFactory();
-  
   CoordinateTransformTester tester = new CoordinateTransformTester(true);
 	
   public static void main(String args[]) {

@@ -62,10 +62,11 @@ public class Ellipsoid implements Cloneable {
 		this.poleRadius = poleRadius;
 		
 		if (poleRadius == 0.0 && reciprocalFlattening == 0.0)
-			throw new IllegalArgumentException("Exactly one of poleRadius or reciprocalFlattening must be specified");
-		if (! (poleRadius == 0.0 || reciprocalFlattening == 0.0))
-			throw new IllegalArgumentException("Exactly one of poleRadius or reciprocalFlattening must be specified");
+			throw new IllegalArgumentException("One of poleRadius or reciprocalFlattening must be specified");
+		// don't check for only one of poleRadius or reciprocalFlattening to be specified,
+		// since some defs actually supply two
 		
+		// reciprocalFlattening takes precedence over poleRadius
 		if (reciprocalFlattening != 0) {
 			double flattening = 1.0 / reciprocalFlattening;
 			double f = flattening;
