@@ -25,6 +25,11 @@ public class ProjCoordinate
 	// refactoring of the Proj4J code base.
 	public double z;
 	
+  public ProjCoordinate()
+  {
+    this(0.0, 0.0);
+  }
+
 	/**
 	 * Creates a ProjCoordinate using the provided double parameters.
 	 * The first double parameter is the x ordinate (or easting), 

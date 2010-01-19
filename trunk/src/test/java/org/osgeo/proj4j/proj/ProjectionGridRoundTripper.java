@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.proj.Projection;
+import org.osgeo.proj4j.util.ProjectionUtil;
 
 public class ProjectionGridRoundTripper 
 {
@@ -46,7 +47,7 @@ public class ProjectionGridRoundTripper
 		double maxx = gridExtent[2];
 		double maxy = gridExtent[3];
 		
-		Point2D.Double p = new Point2D.Double();
+    ProjCoordinate p = new ProjCoordinate();
 		double dx = (maxx - minx) / gridSize;
 		double dy = (maxy - miny) / gridSize;
 		for (int ix = 0; ix <= gridSize; ix++) {
@@ -67,10 +68,10 @@ public class ProjectionGridRoundTripper
 		return true;
 	}
 	
-	Point2D.Double p2 = new Point2D.Double();
-	Point2D.Double p3 = new Point2D.Double();
+  ProjCoordinate p2 = new ProjCoordinate();
+  ProjCoordinate p3 = new ProjCoordinate();
 
-	private boolean roundTrip(Point2D.Double p, double tolerance)
+	private boolean roundTrip(ProjCoordinate p, double tolerance)
 	{
 		transformCount++;
 		
@@ -78,7 +79,7 @@ public class ProjectionGridRoundTripper
     transInverse.transform(p2, p3);
 		
 		if (debug) 
-			System.out.println(toString(p) + " -> " + toString(p2) + " ->  " + toString(p3));
+			System.out.println(ProjectionUtil.toString(p) + " -> " + ProjectionUtil.toString(p2) + " ->  " + ProjectionUtil.toString(p3));
 		
 		double dx = Math.abs(p3.x - p.x);
 		double dy = Math.abs(p3.y - p.y);
@@ -86,7 +87,7 @@ public class ProjectionGridRoundTripper
     boolean isInTol = dx <= tolerance && dy <= tolerance;
     
     if (! isInTol) 
-      System.out.println("FAIL: " + toString(p) + " -> " + toString(p2) + " ->  " + toString(p3));
+      System.out.println("FAIL: " + ProjectionUtil.toString(p) + " -> " + ProjectionUtil.toString(p2) + " ->  " + ProjectionUtil.toString(p3));
 
     
 		return isInTol;

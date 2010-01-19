@@ -17,8 +17,8 @@ public class CoordinateTransformTester
     this.verbose = verbose;
   }
 
-  Point2D.Double p = new Point2D.Double();
-  Point2D.Double p2 = new Point2D.Double();
+  ProjCoordinate p = new ProjCoordinate();
+  ProjCoordinate p2 = new ProjCoordinate();
 
   public boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y)
   {

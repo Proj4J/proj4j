@@ -42,8 +42,8 @@ public class ExampleTest extends TestCase
      * Create input and output points.
      * These can be constructed once per thread and reused.
      */ 
-    Point2D.Double p = new Point2D.Double();
-    Point2D.Double p2 = new Point2D.Double();
+    ProjCoordinate p = new ProjCoordinate();
+    ProjCoordinate p2 = new ProjCoordinate();
     p.x = lon;
     p.y = lat;
     

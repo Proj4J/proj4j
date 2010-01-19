@@ -12,10 +12,10 @@ import org.osgeo.proj4j.datum.GeocentricConverter;
  * <ul>
  * <li>If the input coordinate is in a projection coordinate system,
  * it is inverse-projected into a geographic coordinate 
- * <li>If the source and destination datums are different,
- * the geographic coordinate is converted from the source to the destination datum
+ * <li>If the source and target datums are different,
+ * the geographic coordinate is converted from the source to the target datum
  * as accurately as possible
- * <li>If the destination coordinate system is a projection, 
+ * <li>If the target coordinate system is a projection, 
  * the geographic coordinate is projected into it.
  * <ul>
  * <p>
@@ -31,11 +31,13 @@ import org.osgeo.proj4j.datum.GeocentricConverter;
  */
 public class CoordinateTransform 
 {
-	private CoordinateReferenceSystem srcCS;
-	private CoordinateReferenceSystem destCS;
+	private CoordinateReferenceSystem srcCRS;
+	private CoordinateReferenceSystem tgtCRS;
 	
   // temporary variable for intermediate results
-	private Point2D.Double geoPt = new Point2D.Double();
+  private Point2D.Double srcPt = new Point2D.Double();
+  private Point2D.Double tgtPt = new Point2D.Double();
+  private Point2D.Double geoPt = new Point2D.Double();
   private ProjCoordinate geoCoord = new ProjCoordinate(0,0);
 	
   // precomputed information
@@ -44,55 +46,67 @@ public class CoordinateTransform
   private boolean doDatumTransform = false;
   private boolean transformViaGeocentric = false;
   private GeocentricConverter srcGeoConv; 
-  private GeocentricConverter destGeoConv; 
+  private GeocentricConverter tgtGeoConv; 
 	
   /**
    * Creates a transformation from a source {@link CoordinateReferenceSystem} to a 
-   * destination one.
+   * target one.
    * 
    * @param srcCS
-   * @param destCS
+   * @param tgtCRS
    */
-	public CoordinateTransform(CoordinateReferenceSystem srcCS, CoordinateReferenceSystem destCS)
+	public CoordinateTransform(CoordinateReferenceSystem srcCRS, 
+      CoordinateReferenceSystem tgtCRS)
 	{
-		this.srcCS = srcCS;
-		this.destCS = destCS;
+		this.srcCRS = srcCRS;
+		this.tgtCRS = tgtCRS;
 		
 		// compute strategy for transformation at initialization time, to make transformation more efficient
 		// this may include precomputing sets of parameters
 		
-		doInverseProjection = (srcCS != null && srcCS != CoordinateReferenceSystem.CS_GEO);
-		doForwardProjection = (destCS != null && destCS != CoordinateReferenceSystem.CS_GEO);
+		doInverseProjection = (srcCRS != null && srcCRS != CoordinateReferenceSystem.CS_GEO);
+		doForwardProjection = (tgtCRS != null && tgtCRS != CoordinateReferenceSystem.CS_GEO);
     doDatumTransform = doInverseProjection && doForwardProjection
-      && srcCS.getDatum() != destCS.getDatum();
+      && srcCRS.getDatum() != tgtCRS.getDatum();
     
     if (doDatumTransform) {
       
-      boolean isEllipsoidEqual = srcCS.getEllipsoid().isEqual(destCS.getEllipsoid());
+      boolean isEllipsoidEqual = srcCRS.getEllipsoid().isEqual(tgtCRS.getEllipsoid());
       if (! isEllipsoidEqual) 
           transformViaGeocentric = true;
-      if (srcCS.getDatum().isTransform() 
-          || destCS.getDatum().isTransform())
+      if (srcCRS.getDatum().isTransform() 
+          || tgtCRS.getDatum().isTransform())
           transformViaGeocentric = true;
       
       if (transformViaGeocentric) {
-        srcGeoConv = new GeocentricConverter(srcCS.getEllipsoid());
-        destGeoConv = new GeocentricConverter(destCS.getEllipsoid());
+        srcGeoConv = new GeocentricConverter(srcCRS.getEllipsoid());
+        tgtGeoConv = new GeocentricConverter(tgtCRS.getEllipsoid());
       }
     }
 	}
 	
+  public CoordinateReferenceSystem getSourceCRS()
+  {
+    return srcCRS;
+  }
+  
+  public CoordinateReferenceSystem getTargetCRS()
+  {
+    return tgtCRS;
+  }
+  
+  
 	/**
    * Tranforms a coordinate from the source {@link CoordinateReferenceSystem} 
-   * to the destination one.
+   * to the target one.
    * 
    * @param src the input coordinate
-   * @param dest the transformed coordinate
-   * @return the destination coordinate which was passed in
+   * @param tgt the transformed coordinate
+   * @return the target coordinate which was passed in
    * 
    * @throws Proj4jException if a computation error is encountered
 	 */
-	public Point2D.Double transform( Point2D.Double src, Point2D.Double dest )
+	public ProjCoordinate transform( ProjCoordinate src, ProjCoordinate tgt )
   throws Proj4jException
 	{
 		// NOTE: this method may be called many times, so needs to be as efficient as possible
@@ -103,7 +117,9 @@ public class CoordinateTransform
 		}
 		else {
 			// inverse project to geo
-			srcCS.getProjection().inverseTransformRadians(src, geoPt);
+      srcPt.x = src.x;
+      srcPt.y = src.y;
+			srcCRS.getProjection().inverseTransformRadians(srcPt, geoPt);
 		}
 		
     //TODO: adjust src Prime Meridian if specified
@@ -118,32 +134,34 @@ public class CoordinateTransform
       // ignore Z for now
     }
 		
-    //TODO: adjust dest Prime Meridian if specified
+    //TODO: adjust target Prime Meridian if specified
 
 		if (! doForwardProjection) {
-			dest.x = geoPt.x;
-			dest.y = geoPt.y;
+			tgt.x = geoPt.x;
+			tgt.y = geoPt.y;
 		}
 		else {
 			// project from geo
-			destCS.getProjection().transformRadians(geoPt, dest);
+			tgtCRS.getProjection().transformRadians(geoPt, tgtPt);
+      tgt.x = tgtPt.x;
+      tgt.y = tgtPt.y;
 		}
-		return dest;
+		return tgt;
 	}
   
   /**
    * 
    * Input:  long/lat/z coordinates in radians in the source datum
-   * Output: long/lat/z coordinates in radians in the destination datum
+   * Output: long/lat/z coordinates in radians in the target datum
    * 
-   * @param geoPt the point containing the input and output values
+   * @param pt the point containing the input and output values
    */
   private void datumTransform(ProjCoordinate pt)
   {
     /* -------------------------------------------------------------------- */
     /*      Short cut if the datums are identical.                          */
     /* -------------------------------------------------------------------- */
-    if (srcCS.getDatum().isEqual(destCS.getDatum()))
+    if (srcCRS.getDatum().isEqual(tgtCRS.getDatum()))
       return;
     
     // TODO: grid shift if required
@@ -160,17 +178,17 @@ public class CoordinateTransform
       /* -------------------------------------------------------------------- */
       /*      Convert between datums.                                         */
       /* -------------------------------------------------------------------- */
-      if( srcCS.getDatum().isTransform() ) {
-        srcCS.getDatum().transformFromGeocentricToWgs84( pt );
+      if( srcCRS.getDatum().isTransform() ) {
+        srcCRS.getDatum().transformFromGeocentricToWgs84( pt );
       }
-      if( destCS.getDatum().isTransform() ) {
-        destCS.getDatum().transformToGeocentricFromWgs84( pt );
+      if( tgtCRS.getDatum().isTransform() ) {
+        tgtCRS.getDatum().transformToGeocentricFromWgs84( pt );
       }
 
       /* -------------------------------------------------------------------- */
       /*      Convert back to geodetic coordinates.                           */
       /* -------------------------------------------------------------------- */
-      destGeoConv.convertGeocentricToGeodetic( pt );
+      tgtGeoConv.convertGeocentricToGeodetic( pt );
     }
     
     // TODO: grid shift if required

@@ -37,8 +37,8 @@ public class MetaCRSTestCase
   CoordinateReferenceSystem srcCS;
   CoordinateReferenceSystem tgtCS;
 
-  Point2D.Double srcPt = new Point2D.Double();
-  Point2D.Double resultPt = new Point2D.Double();
+  ProjCoordinate srcPt = new ProjCoordinate();
+  ProjCoordinate resultPt = new ProjCoordinate();
 
   public MetaCRSTestCase(
       String testName,
