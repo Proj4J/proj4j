@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package org.osgeo.proj4j;
+package org.osgeo.proj4j.proj;
 
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.Ellipsoid;
 import org.osgeo.proj4j.units.*;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 /**
  * The superclass for all map projections
