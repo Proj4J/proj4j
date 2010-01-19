@@ -9,7 +9,7 @@ public class CoordinateTransformTester
   CRSFactory csFactory = new CRSFactory();
 
   static final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees";
-  CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84",WGS84_PARAM);
+  CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84", WGS84_PARAM);
 
   public CoordinateTransformTester(boolean verbose) {
     this.verbose = verbose;
@@ -62,9 +62,12 @@ public class CoordinateTransformTester
     trans.transform(p, p2);
     
     if (verbose) {
-      System.out.println(ProjectionUtil.toString(p) 
-          + " -> " + ProjectionUtil.toString(p2)
-          + " ( expected: " + x2 + ", " + y2 + " )"
+      System.out.println(cs1.getName() + " => " + cs2.getName());
+      System.out.println(
+      		ProjectionUtil.toString(p) 
+          + " -> " 
+          + ProjectionUtil.toString(p2)
+          + " (expected: " + x2 + ", " + y2 + " )"
           );
       System.out.println();
     }
