@@ -45,7 +45,6 @@ public class Ellipsoid implements Cloneable {
   public final static Ellipsoid INTERNATIONAL = new Ellipsoid("intl", 6378388.0, 0.0, 297.0, "International 1909 (Hayford)");
   public final static Ellipsoid INTERNATIONAL_1967 = new Ellipsoid("new_intl", 6378157.5, 6356772.2, 0.0, "New International 1967");
 	public final static Ellipsoid GRS80 = new Ellipsoid("GRS80", 6378137.0, 0.0, 298.257222101, "GRS 1980 (IUGG, 1980)");
-
 	public final static Ellipsoid AUSTRALIAN = new Ellipsoid("australian", 6378160.0, 6356774.7, 298.25, "Australian");
 	
 
