@@ -9,7 +9,7 @@ package org.osgeo.proj4j;
  * <p>
  * The primary use of this class is to represent coordinate
  * values which are to be transformed
- * by {@link CoordinateTransform}s.
+ * by a {@link CoordinateTransform}.
  */
 public class ProjCoordinate 
 {

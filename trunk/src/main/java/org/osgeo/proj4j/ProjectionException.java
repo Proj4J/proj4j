@@ -16,6 +16,14 @@ limitations under the License.
 
 package org.osgeo.proj4j;
 
+/**
+ * Signals that an erroneous situation has
+ * occured during the computation of
+ * a projected coordinate system value. 
+ * 
+ * @author mbdavis
+ *
+ */
 public class ProjectionException extends Proj4jException {
 	public ProjectionException() {
 		super();
