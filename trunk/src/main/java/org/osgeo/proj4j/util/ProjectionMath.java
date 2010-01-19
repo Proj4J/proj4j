@@ -141,7 +141,7 @@ public class ProjectionMath {
 
 	public static double normalizeLatitude(double angle) {
 		if (Double.isInfinite(angle) || Double.isNaN(angle))
-			throw new ValueException("Infinite latitude");
+			throw new InvalidValueException("Infinite latitude");
 		while (angle > ProjectionMath.HALFPI)
 			angle -= Math.PI;
 		while (angle < -ProjectionMath.HALFPI)
@@ -152,7 +152,7 @@ public class ProjectionMath {
 	
 	public static double normalizeLongitude(double angle) {
 		if (Double.isInfinite(angle) || Double.isNaN(angle))
-			throw new ValueException("Infinite longitude");
+			throw new InvalidValueException("Infinite longitude");
 		while (angle > Math.PI)
 			angle -= TWOPI;
 		while (angle < -Math.PI)
@@ -163,7 +163,7 @@ public class ProjectionMath {
 	
 	public static double normalizeAngle(double angle) {
 		if (Double.isInfinite(angle) || Double.isNaN(angle))
-			throw new ValueException("Infinite angle");
+			throw new InvalidValueException("Infinite angle");
 		while (angle > TWOPI)
 			angle -= TWOPI;
 		while (angle < 0)
@@ -348,7 +348,7 @@ public class ProjectionMath {
 			phi += dphi;
 		} while (Math.abs(dphi) > 1e-10 && --i != 0);
 		if (i <= 0)
-			throw new Proj4jException("Computation of phi2 failed to converage after " + N_ITER + " iterations");
+			throw new FailureToConvergeException("Computation of phi2 failed to converage after " + N_ITER + " iterations");
 		return phi;
 	}
 

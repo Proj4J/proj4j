@@ -16,12 +16,12 @@ limitations under the License.
 
 package org.osgeo.proj4j;
 
-public class ValueException extends Proj4jException {
-	public ValueException() {
+public class InvalidValueException extends Proj4jException {
+	public InvalidValueException() {
 		super();
 	}
 
-	public ValueException(String message) {
+	public InvalidValueException(String message) {
 		super(message);
 	}
 }
