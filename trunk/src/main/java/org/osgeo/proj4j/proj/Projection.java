@@ -276,9 +276,10 @@ public abstract class Projection implements Cloneable {
 	 * (i.e. from projection space to geographics). 
 	 * This should be overridden for all projections.
 	 * 
-	 * @param the projected x ordinate (in the units of the coordinate system)
-	 * @param the projected y ordinate (in the units of the coordinate system)
-	 * @return the geographic point
+	 * @param x the projected x ordinate (in the units of the coordinate system)
+	 * @param y the projected y ordinate (in the units of the coordinate system)
+	 * @param dst the computed geographic coordinate
+	 * @return the computed geographic coordinate
 	 */
 	protected ProjCoordinate projectInverse(double x, double y, ProjCoordinate dst) {
 		dst.x = x;

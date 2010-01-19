@@ -6,6 +6,10 @@ package org.osgeo.proj4j;
  * The coordinate is defined via X, Y, and optional Z ordinates. 
  * Provides utility methods for comparing the ordinates of two positions and
  * for creating positions from Strings/storing positions as strings.
+ * <p>
+ * The primary use of this class is to represent coordinate
+ * values which are to be transformed
+ * by {@link CoordinateTransform}s.
  */
 public class ProjCoordinate 
 {
@@ -61,7 +65,7 @@ public class ProjCoordinate
 	 * the constructor defined in this class that only accepts two (2) double
 	 * parameters.
 	 * 
-	 * @see ProjCoordinate(double argX, double argY)
+	 * @see #ProjCoordinate(double argX, double argY)
 	 */
 	public ProjCoordinate(double argX, double argY, double argZ)
 	{

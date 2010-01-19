@@ -40,23 +40,27 @@ public class CSVRecordParser
    */
   private boolean isStrictMode = false;
   
-  
+  /**
+   * Creates a new parser.
+   *
+   */
   public CSVRecordParser() {
   }
 
   /**
+   * Parses a single record of a CSV file.
    * 
-   * @param line
-   * @return
+   * @param record
+   * @return an array of the fields in the record
    * @throws IllegalArgumentException if the parsing of a field fails
    */
-  public String[] parse(String line)
+  public String[] parse(String record)
   {
     loc = 0;
     List vals = new ArrayList();
-    int lineLen = line.length();
+    int lineLen = record.length();
     while (loc < lineLen) {
-      vals.add(parseField(line));
+      vals.add(parseField(record));
     }
     return (String[]) vals.toArray(strArrayType);
   }
@@ -172,7 +176,13 @@ public class CSVRecordParser
     }
   }
   
-  public int categorize(char c) {
+  /**
+   * Categorizes a character into a lexical category.
+   * 
+   * @param c the character to categorize
+   * @return the lexical category
+   */
+  private int categorize(char c) {
     switch (c) {
     case ' ':
     case '\r':
