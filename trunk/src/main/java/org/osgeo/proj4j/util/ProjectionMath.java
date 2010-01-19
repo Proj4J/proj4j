@@ -354,7 +354,7 @@ public class ProjectionMath {
 			phi += dphi;
 		} while (Math.abs(dphi) > 1e-10 && --i != 0);
 		if (i <= 0)
-			throw new FailureToConvergeException("Computation of phi2 failed to converage after " + N_ITER + " iterations");
+			throw new ConvergenceFailureException("Computation of phi2 failed to converage after " + N_ITER + " iterations");
 		return phi;
 	}
 

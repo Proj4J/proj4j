@@ -237,7 +237,7 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 					return lp;
 				}
 			}
-			throw new FailureToConvergeException("Iteration didn't converge");
+			throw new ConvergenceFailureException("Iteration didn't converge");
 		}
 		return lp;
 	}

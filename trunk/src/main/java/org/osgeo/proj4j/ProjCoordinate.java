@@ -1,30 +1,50 @@
 package org.osgeo.proj4j;
 
 /**
- * Store x, y, and z ordinates as doubles to represent a position in space. Also
- * provides utility methods for comparing the ordinates of two positions and
+ * Stores a the coordinates for a position  
+ * defined relative to some {@link CoordinateReferenceSystem}.
+ * The coordinate is defined via X, Y, and optional Z ordinates. 
+ * Provides utility methods for comparing the ordinates of two positions and
  * for creating positions from Strings/storing positions as strings.
  */
 public class ProjCoordinate 
 {
-	// Stores the X ordinate for this point. Note: This member variable
-	// can be accessed directly. In the future this direct access should
-	// be replaced with getter and setter methods. This will require 
-	// refactoring of the Proj4J code base.
+	/**
+	 * The X ordinate for this point. 
+	 * <p>
+	 * Note: This member variable
+	 * can be accessed directly. In the future this direct access should
+	 * be replaced with getter and setter methods. This will require 
+	 * refactoring of the Proj4J code base.
+	 */
 	public double x;
 	
-	// Stores the Y ordinate for this point. Note: This member variable
-	// can be accessed directly. In the future this direct access should
-	// be replaced with getter and setter methods. This will require 
-	// refactoring of the Proj4J code base.
+	/**
+	 * The Y ordinate for this point. 
+	 * <p>
+	 * Note: This member variable
+	 * can be accessed directly. In the future this direct access should
+	 * be replaced with getter and setter methods. This will require 
+	 * refactoring of the Proj4J code base.
+	 */
 	public double y;
 	
-	// Stores the z ordinate for this point. Note: This member variable
-	// can be accessed directly. In the future this direct access should
-	// be replaced with getter and setter methods. This will require 
-	// refactoring of the Proj4J code base.
+	/**
+	 * The Z ordinate for this point. 
+	 * If this variable has the value <tt>Double.NaN</tt>
+	 * then this coordinate does not have a Z value.
+	 * <p>
+	 * Note: This member variable
+	 * can be accessed directly. In the future this direct access should
+	 * be replaced with getter and setter methods. This will require 
+	 * refactoring of the Proj4J code base.
+	 */
 	public double z;
 	
+	/**
+	 * Creates a ProjCoordinate with default ordinate values.
+	 *
+	 */
   public ProjCoordinate()
   {
     this(0.0, 0.0);
@@ -37,9 +57,11 @@ public class ProjCoordinate
 	 * and the third double parameter is the z ordinate (elevation or height).
 	 * 
 	 * Valid values should be passed for all three (3) double parameters. If
-	 * you want to create a horizontal only point without a valid Z value, use
+	 * you want to create a horizontal-only point without a valid Z value, use
 	 * the constructor defined in this class that only accepts two (2) double
 	 * parameters.
+	 * 
+	 * @see ProjCoordinate(double argX, double argY)
 	 */
 	public ProjCoordinate(double argX, double argY, double argZ)
 	{
@@ -63,8 +85,10 @@ public class ProjCoordinate
 	}
 	
 	/** 
-	 * Create a ProjPoint by parsing a String in the same format as returned
+	 * Create a ProjCoordinate by parsing a String in the same format as returned
 	 * by the toString method defined by this class.
+	 * 
+	 * @param argToParse the string to parse
 	 */
 	public ProjCoordinate(String argToParse)
 	{

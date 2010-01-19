@@ -16,12 +16,12 @@ limitations under the License.
 
 package org.osgeo.proj4j;
 
-public class FailureToConvergeException extends Proj4jException {
-	public FailureToConvergeException() {
+public class ConvergenceFailureException extends Proj4jException {
+	public ConvergenceFailureException() {
 		super();
 	}
 
-	public FailureToConvergeException(String message) {
+	public ConvergenceFailureException(String message) {
 		super(message);
 	}
 }
