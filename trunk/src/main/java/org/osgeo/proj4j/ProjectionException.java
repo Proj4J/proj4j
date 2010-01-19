@@ -16,7 +16,7 @@ limitations under the License.
 
 package org.osgeo.proj4j;
 
-public class ProjectionException extends RuntimeException {
+public class ProjectionException extends Proj4jException {
 	public ProjectionException() {
 		super();
 	}

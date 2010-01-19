@@ -19,7 +19,6 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.Projection;
 
 /**
  * The superclass for all cylindrical projections.

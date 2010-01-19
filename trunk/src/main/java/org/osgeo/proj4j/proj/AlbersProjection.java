@@ -21,9 +21,8 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.ProjectionMath;
-import org.osgeo.proj4j.Projection;
 import org.osgeo.proj4j.ProjectionException;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 public class AlbersProjection extends Projection {
 

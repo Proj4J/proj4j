@@ -23,10 +23,9 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import org.osgeo.proj4j.Ellipsoid;
-import org.osgeo.proj4j.ProjectionMath;
-import org.osgeo.proj4j.Projection;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 /**
 * Oblique Mercator Projection algorithm is taken from the USGS PROJ package.

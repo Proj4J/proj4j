@@ -19,7 +19,6 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.Projection;
 
 /**
  * A projection which does nothing. Use this for drawing non-geographical overlays.

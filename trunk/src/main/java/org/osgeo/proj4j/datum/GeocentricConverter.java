@@ -2,7 +2,7 @@ package org.osgeo.proj4j.datum;
 
 import org.osgeo.proj4j.Ellipsoid;
 import org.osgeo.proj4j.ProjCoordinate;
-import org.osgeo.proj4j.ProjectionMath;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 /**
  *  Provides conversions between Geodetic coordinates 

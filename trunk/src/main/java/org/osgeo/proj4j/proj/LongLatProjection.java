@@ -18,7 +18,6 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.Point2D;
 
-import org.osgeo.proj4j.Projection;
 import org.osgeo.proj4j.units.*;
 
 /**

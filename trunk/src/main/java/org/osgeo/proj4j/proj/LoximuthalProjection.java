@@ -21,8 +21,8 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.ProjectionMath;
 import org.osgeo.proj4j.units.*;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 public class LoximuthalProjection extends PseudoCylindricalProjection {
 

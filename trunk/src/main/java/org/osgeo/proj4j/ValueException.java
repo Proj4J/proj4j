@@ -14,18 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package org.osgeo.proj4j.proj;
+package org.osgeo.proj4j;
 
-import java.awt.*;
-
-
-/**
- * The superclass for all Conic projections.
- */
-public class ConicProjection extends Projection {
-	
-	public String toString() {
-		return "Conic";
+public class ValueException extends Proj4jException {
+	public ValueException() {
+		super();
 	}
 
+	public ValueException(String message) {
+		super(message);
+	}
 }

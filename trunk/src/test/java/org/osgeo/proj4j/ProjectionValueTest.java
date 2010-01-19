@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 import obsolete.proj.ProjectionFactory;
 
 import org.osgeo.proj4j.*;
+import org.osgeo.proj4j.proj.Projection;
 import org.osgeo.proj4j.util.ProjectionUtil;
 
 import junit.framework.TestCase;

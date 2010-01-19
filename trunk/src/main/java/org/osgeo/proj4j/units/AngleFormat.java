@@ -18,7 +18,7 @@ package org.osgeo.proj4j.units;
 
 import java.text.*;
 
-import org.osgeo.proj4j.ProjectionMath;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 /**
  * A NumberFormat for formatting Angles in various commonly-found mapping styles.

@@ -21,7 +21,6 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.Projection;
 import org.osgeo.proj4j.units.*;
 
 public class LarriveeProjection extends Projection {

@@ -22,7 +22,6 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.Projection;
 
 public class DenoyerProjection extends Projection {
 
