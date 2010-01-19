@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class PerspectiveProjection extends Projection {
@@ -46,7 +47,7 @@ public class PerspectiveProjection extends Projection {
 	private final static int EQUIT = 2;
 	private final static int OBLIQ = 3;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		double  coslam, cosphi, sinphi;
 
 		sinphi = Math.sin(lpphi);

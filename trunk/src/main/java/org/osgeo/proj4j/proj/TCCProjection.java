@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -32,7 +33,7 @@ public class TCCProjection extends CylindricalProjection {
 		maxLongitude = ProjectionMath.degToRad(60);
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double b, bt;
 
 		b = Math.cos(lpphi) * Math.sin(lplam);

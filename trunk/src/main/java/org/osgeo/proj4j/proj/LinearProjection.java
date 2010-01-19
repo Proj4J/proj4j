@@ -16,13 +16,12 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import java.awt.*;
-import java.awt.geom.*;
+import org.osgeo.proj4j.ProjCoordinate;
 
 
 public class LinearProjection extends Projection {
 	
-	public Point2D.Double transform(Point2D.Double src, Point2D.Double dst) {
+	public ProjCoordinate transform(ProjCoordinate src, ProjCoordinate dst) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;
@@ -35,7 +34,7 @@ public class LinearProjection extends Projection {
 		}
 	}
 
-	public Point2D.Double inverseTransform(Point2D.Double src, Point2D.Double dst) {
+	public ProjCoordinate inverseTransform(ProjCoordinate src, ProjCoordinate dst) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;

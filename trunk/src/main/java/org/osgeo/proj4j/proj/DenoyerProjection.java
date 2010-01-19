@@ -22,6 +22,8 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
+
 
 public class DenoyerProjection extends Projection {
 
@@ -31,7 +33,7 @@ public class DenoyerProjection extends Projection {
 	public final static double D1 = 0.9;
 	public final static double D5 = 0.03;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.y = lpphi;
 		out.x = lplam;
 		double aphi = Math.abs(lplam);

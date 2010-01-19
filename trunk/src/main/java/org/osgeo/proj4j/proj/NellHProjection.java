@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -29,13 +30,13 @@ public class NellHProjection extends Projection {
 	private final static int NITER = 9;
 	private final static double EPS = 1e-7;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.x = 0.5 * lplam * (1. + Math.cos(lpphi));
 		out.y = 2.0 * (lpphi - Math.tan(0.5 *lpphi));
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double V, c, p;
 		int i;
 

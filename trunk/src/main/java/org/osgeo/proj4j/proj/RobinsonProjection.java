@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -87,7 +88,7 @@ public class RobinsonProjection extends PseudoCylindricalProjection {
 		return (array[offset] + z * (array[offset+1] + z * (array[offset+2] + z * array[offset+3])));
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		double phi = Math.abs(lpphi);
 		int i = (int)Math.floor(phi * C1);
 		if (i >= NODES)
@@ -101,7 +102,7 @@ public class RobinsonProjection extends PseudoCylindricalProjection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate lp) {
 		int i;
 		double t, t1;
 

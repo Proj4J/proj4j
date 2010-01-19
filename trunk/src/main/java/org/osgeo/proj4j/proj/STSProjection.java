@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -39,7 +40,7 @@ class STSProjection extends ConicProjection {
 		initialize();
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		double c;
 
 		xy.x = C_x * lplam * Math.cos(lpphi);
@@ -56,7 +57,7 @@ class STSProjection extends ConicProjection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate lp) {
 		double c;
 		
 		xyy /= C_y;

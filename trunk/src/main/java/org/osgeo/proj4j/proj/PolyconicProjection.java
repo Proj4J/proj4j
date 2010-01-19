@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -44,7 +45,7 @@ public class PolyconicProjection extends Projection {
 		initialize();
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		if (spherical) {
 			double  cot, E;
 
@@ -72,7 +73,7 @@ public class PolyconicProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double lpphi;
 		if (spherical) {
 			double B, dphi, tp;

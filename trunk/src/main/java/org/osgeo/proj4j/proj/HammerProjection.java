@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 
@@ -34,7 +35,7 @@ public class HammerProjection extends PseudoCylindricalProjection {
 	public HammerProjection() {
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		double cosphi, d;
 
 		d = Math.sqrt(2./(1. + (cosphi = Math.cos(lpphi)) * Math.cos(lplam *= w)));

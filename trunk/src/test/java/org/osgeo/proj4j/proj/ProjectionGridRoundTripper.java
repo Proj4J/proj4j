@@ -93,10 +93,6 @@ public class ProjectionGridRoundTripper
 		return isInTol;
 	}
 	
-	private static String toString(Point2D.Double p)
-	{
-		return "[" + p.x + ", " + p.y + "]";
-	}
 	public static double[] gridExtent(Projection proj)
 	{
 		// scan all lat/lon params to try and determine a reasonable extent

@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class GallProjection extends Projection {
@@ -30,13 +31,13 @@ public class GallProjection extends Projection {
 	private final static double RYF = 0.58578643762690495119;
 	private final static double RXF = 1.41421356237309504880;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.x = XF * lplam;
 		out.y = YF * Math.tan(.5 * lpphi);
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.x = RXF * xyx;
 		out.y = 2. * Math.atan(xyy * RYF);
 		return out;

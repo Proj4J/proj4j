@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -31,14 +32,14 @@ public class Wagner2Projection extends Projection {
 	private final static double C_p1 = 0.88022;
 	private final static double C_p2 = 0.88550;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.y = ProjectionMath.asin(C_p1 * Math.sin(C_p2 * lpphi));
 		out.x = C_x * lplam * Math.cos(lpphi);
 		out.y = C_y * lpphi;
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.y = xyy / C_y;
 		out.x = xyx / (C_x * Math.cos(out.y));
 		out.y = ProjectionMath.asin(Math.sin(out.y) / C_p1) / C_p2;

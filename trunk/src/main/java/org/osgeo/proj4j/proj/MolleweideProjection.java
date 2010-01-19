@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class MolleweideProjection extends PseudoCylindricalProjection {
@@ -78,7 +79,7 @@ public class MolleweideProjection extends PseudoCylindricalProjection {
 		this.cp = cp;
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		double k, v;
 		int i;
 
@@ -97,7 +98,7 @@ public class MolleweideProjection extends PseudoCylindricalProjection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate lp) {
 		double lat, lon;
 		
 		lat = Math.asin(y / cy);

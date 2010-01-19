@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -28,7 +29,7 @@ public class NicolosiProjection extends Projection {
 
 	private final static double EPS = 1e-10;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		if (Math.abs(lplam) < EPS) {
 			out.x = 0;
 			out.y = lpphi;

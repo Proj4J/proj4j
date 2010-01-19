@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -54,7 +55,7 @@ public class LambertConformalConicProjection extends ConicProjection {
 		initialize();
 	}
 	
-	public Point2D.Double project(double x, double y, Point2D.Double out) {
+	public ProjCoordinate project(double x, double y, ProjCoordinate out) {
 		double rho;
 		if (Math.abs(Math.abs(y) - ProjectionMath.HALFPI) < 1e-10)
 			rho = 0.0;
@@ -68,7 +69,7 @@ public class LambertConformalConicProjection extends ConicProjection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate out) {
 		x /= scaleFactor;
 		y /= scaleFactor;
 		double rho = ProjectionMath.distance(x, y = rho0 - y);

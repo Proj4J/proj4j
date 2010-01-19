@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -36,14 +37,14 @@ public class URMFPSProjection extends Projection {
 	public URMFPSProjection() {
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.y = ProjectionMath.asin(n * Math.sin(lpphi));
 		out.x = C_x * lplam * Math.cos(lpphi);
 		out.y = C_y * lpphi;
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		xyy /= C_y;
 		out.y = ProjectionMath.asin(Math.sin(xyy) / n);
 		out.x = xyx / (C_x * Math.cos(xyy));

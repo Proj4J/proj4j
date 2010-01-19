@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -30,13 +31,13 @@ public class MillerProjection extends CylindricalProjection {
 	public MillerProjection() {
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.x = lplam;
 		out.y = Math.log(Math.tan(ProjectionMath.QUARTERPI + lpphi * .4)) * 1.25;
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.x = xyx;
 		out.y = 2.5 * (Math.atan(Math.exp(.8 * xyy)) - ProjectionMath.QUARTERPI);
 		return out;

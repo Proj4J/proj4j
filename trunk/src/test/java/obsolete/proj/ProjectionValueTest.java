@@ -76,8 +76,8 @@ public class ProjectionValueTest extends TestCase
 //    runInverseTransform("EPSG:28992",    148312.15, 457804.79, 698.48,    5.29, 52.11);
   }
   
-  Point2D.Double p = new Point2D.Double();
-  Point2D.Double p2 = new Point2D.Double();
+  ProjCoordinate p = new ProjCoordinate();
+  ProjCoordinate p2 = new ProjCoordinate();
 
   void runTransform(String code, double x, double y, double lon, double lat)
   {

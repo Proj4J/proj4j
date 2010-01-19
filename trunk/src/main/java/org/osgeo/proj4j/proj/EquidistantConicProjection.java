@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -53,7 +54,7 @@ public class EquidistantConicProjection extends ConicProjection {
 		initialize(ProjectionMath.degToRad(0), ProjectionMath.degToRad(37.5), standardLatitude1, standardLatitude2);
 	}
 
-	public Point2D.Double transform(Point2D.Double in, Point2D.Double out) {
+	public ProjCoordinate transform(ProjCoordinate in, ProjCoordinate out) {
 		double lon = ProjectionMath.normalizeLongitude(in.x-projectionLongitude);
 		double lat = in.y;
 		double rho,theta,hold1,hold2,hold3;
@@ -69,7 +70,7 @@ public class EquidistantConicProjection extends ConicProjection {
 		return out;
 	}
 
-	public Point2D.Double inverseTransform(Point2D.Double in, Point2D.Double out) {
+	public ProjCoordinate inverseTransform(ProjCoordinate in, ProjCoordinate out) {
 		double theta, temp, rho, t, tphi, phi = 0, delta;
 		
 		theta = Math.atan(in.x / (rho0 - in.y));

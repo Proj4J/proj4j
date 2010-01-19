@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -36,7 +37,7 @@ public class VanDerGrintenProjection extends Projection {
 	private final static double TPISQ = 19.73920880217871723738;
 	private final static double HPISQ = 4.93480220054467930934;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double  al, al2, g, g2, p2;
 
 		p2 = Math.abs(lpphi / ProjectionMath.HALFPI);
@@ -72,7 +73,7 @@ public class VanDerGrintenProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double t, c0, c1, c2, c3, al, r2, r, m, d, ay, x2, y2;
 
 		x2 = xyx * xyx;

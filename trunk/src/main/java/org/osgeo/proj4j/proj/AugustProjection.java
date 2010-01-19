@@ -21,13 +21,14 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class AugustProjection extends Projection {
 
 	private final static double M = 1.333333333333333;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double t, c1, c, x1, x12, y1, y12;
 
 		t = Math.tan(.5 * lpphi);

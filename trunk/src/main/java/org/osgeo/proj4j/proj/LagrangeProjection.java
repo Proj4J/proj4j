@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -35,7 +36,7 @@ public class LagrangeProjection extends Projection {
 
 	private final static double TOL = 1e-10;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		double v, c;
 
 		if ( Math.abs(Math.abs(lpphi) - ProjectionMath.HALFPI) < TOL) {

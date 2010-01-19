@@ -23,6 +23,7 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -154,7 +155,7 @@ public class ObliqueMercatorProjection extends Projection {
 			u_0 = - u_0;
 	}
 
-	public Point2D.Double project(double lam, double phi, Point2D.Double xy) {
+	public ProjCoordinate project(double lam, double phi, ProjCoordinate xy) {
 		double con, q, s, ul, us, vl, vs;
 
 		vl = Math.sin(bl * lam);
@@ -187,7 +188,7 @@ public class ObliqueMercatorProjection extends Projection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate lp) {
 		double q, s, ul, us, vl, vs;
 
 		if (! rot) {

@@ -21,19 +21,20 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class FaheyProjection extends Projection {
 
 	private final static double TOL = 1e-6;
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.y = 1.819152 * ( out.x = Math.tan(0.5 * lpphi) );
 		out.x = 0.819152 * lplam * asqrt(1 - out.x * out.x);
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.y = 2. * Math.atan(out.y /= 1.819152);
 		out.x = Math.abs(out.y = 1. - xyy * xyy) < TOL ? 0. :
 			xyx / (0.819152 * Math.sqrt(xyy));

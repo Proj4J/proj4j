@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -32,14 +33,14 @@ public class Eckert2Projection extends Projection {
 	private final static double C13 = 0.33333333333333333333;
 	private final static double ONEEPS = 1.0000001;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.x = FXC * lplam * (out.y = Math.sqrt(4. - 3. * Math.sin(Math.abs(lpphi))));
 		out.y = FYC * (2. - out.y);
 		if ( lpphi < 0.) out.y = -out.y;
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.x = xyx / (FXC * ( out.y = 2. - Math.abs(xyy) / FYC) );
 		out.y = (4. - out.y * out.y) * C13;
 		if (Math.abs(out.y) >= 1.) {

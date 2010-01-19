@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -33,7 +34,7 @@ public class PutninsP2Projection extends Projection {
 	private final static int NITER = 10;
 	private final static double PI_DIV_3 = 1.0471975511965977;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double p, c, s, V;
 		int i;
 
@@ -55,7 +56,7 @@ public class PutninsP2Projection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double c;
 
 		out.y = ProjectionMath.asin(xyy / C_y);

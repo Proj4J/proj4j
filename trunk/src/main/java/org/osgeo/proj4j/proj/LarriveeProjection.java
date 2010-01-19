@@ -21,13 +21,14 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class LarriveeProjection extends Projection {
 
 	private final static double SIXTH = .16666666666666666;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.x = 0.5 * lplam * (1. + Math.sqrt(Math.cos(lpphi)));
 		out.y = lpphi / (Math.cos(0.5 * lpphi) * Math.cos(SIXTH * lplam));
 		return out;

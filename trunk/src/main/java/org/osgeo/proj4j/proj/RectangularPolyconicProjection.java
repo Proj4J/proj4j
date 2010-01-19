@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class RectangularPolyconicProjection extends Projection {
@@ -33,7 +34,7 @@ public class RectangularPolyconicProjection extends Projection {
 
 	private final static double EPS = 1e-9;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double fa;
 
 		if (mode)

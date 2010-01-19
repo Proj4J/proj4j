@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class CrasterProjection extends Projection {
@@ -31,14 +32,14 @@ public class CrasterProjection extends Projection {
 	private final static double RYM = 0.32573500793527994772;
 	private final static double THIRD = 0.333333333333333333;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		lpphi *= THIRD;
 		out.x = XM * lplam * (2. * Math.cos(lpphi + lpphi) - 1.);
 		out.y = YM * Math.sin(lpphi);
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.y = 3. * Math.asin(xyy * RYM);
 		out.x = xyx * RXM / (2. * Math.cos((out.y + out.y) * THIRD) - 1);
 		return out;

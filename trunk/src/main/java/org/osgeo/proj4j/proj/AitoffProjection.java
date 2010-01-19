@@ -22,6 +22,8 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
+
 
 public class AitoffProjection extends PseudoCylindricalProjection {
 	
@@ -39,7 +41,7 @@ public class AitoffProjection extends PseudoCylindricalProjection {
 		winkel = type == WINKEL;
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double c = 0.5 * lplam;
 		double d = Math.acos(Math.cos(lpphi) * Math.cos(c));
 

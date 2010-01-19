@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -40,7 +41,7 @@ public class LoximuthalProjection extends PseudoCylindricalProjection {
 		tanphi1 = Math.tan(ProjectionMath.QUARTERPI + 0.5 * phi1);
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double x;
 		double y = lpphi - phi1;
 		if (y < EPS)
@@ -57,7 +58,7 @@ public class LoximuthalProjection extends PseudoCylindricalProjection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double latitude = xyy + phi1;
 		double longitude;
 		if (Math.abs(xyy) < EPS)

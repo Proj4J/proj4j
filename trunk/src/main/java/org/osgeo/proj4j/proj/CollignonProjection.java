@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -31,7 +32,7 @@ public class CollignonProjection extends Projection {
 	private final static double FYC = 1.77245385090551602729;
 	private final static double ONEEPS = 1.0000001;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		if ((out.y = 1. - Math.sin(lpphi)) <= 0.)
 			out.y = 0.;
 		else
@@ -41,7 +42,7 @@ public class CollignonProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double lpphi = xyy / FYC - 1.;
 		if (Math.abs(out.y = 1. - lpphi * lpphi) < 1.)
 			out.y = Math.asin(lpphi);

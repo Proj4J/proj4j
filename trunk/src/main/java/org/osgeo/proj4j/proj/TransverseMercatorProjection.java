@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.geom.*;
 
 import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -118,7 +119,7 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		initialize();
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		if (spherical) {
 			double cosphi = Math.cos(lpphi);
 			double b = cosphi * Math.sin(lplam);
@@ -154,7 +155,7 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate out) {
 		if (spherical) {
 			double h = Math.exp(x / scaleFactor);
 			double g = .5 * (h - 1. / h);

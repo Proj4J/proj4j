@@ -35,9 +35,9 @@ public class CoordinateTransform
 	private CoordinateReferenceSystem tgtCRS;
 	
   // temporary variable for intermediate results
-  private Point2D.Double srcPt = new Point2D.Double();
-  private Point2D.Double tgtPt = new Point2D.Double();
-  private Point2D.Double geoPt = new Point2D.Double();
+  //private Point2D.Double srcPt = new Point2D.Double();
+  //private Point2D.Double tgtPt = new Point2D.Double();
+  //private Point2D.Double geoPt = new Point2D.Double();
   private ProjCoordinate geoCoord = new ProjCoordinate(0,0);
 	
   // precomputed information
@@ -112,39 +112,36 @@ public class CoordinateTransform
 		// NOTE: this method may be called many times, so needs to be as efficient as possible
     
 		if (! doInverseProjection) {
-			geoPt.x = src.x;
-			geoPt.y = src.y;
+      geoCoord.x = src.x;
+      geoCoord.y = src.y;
 		}
 		else {
 			// inverse project to geo
-      srcPt.x = src.x;
-      srcPt.y = src.y;
-			srcCRS.getProjection().inverseTransformRadians(srcPt, geoPt);
+			srcCRS.getProjection().inverseTransformRadians(src, geoCoord);
 		}
-		
+    geoCoord.z = 0.0; // for now
+
     //TODO: adjust src Prime Meridian if specified
     
     if (doDatumTransform) {
-      geoCoord.x = geoPt.x;
-      geoCoord.y = geoPt.y;
-      geoCoord.z = 0.0; // for now
+//      geoCoord.x = geoPt.x;
+//      geoCoord.y = geoPt.y;
+//      geoCoord.z = 0.0; // for now
       datumTransform(geoCoord);
-      geoPt.x = geoCoord.x;
-      geoPt.y = geoCoord.y;
+//      geoPt.x = geoCoord.x;
+//      geoPt.y = geoCoord.y;
       // ignore Z for now
     }
 		
     //TODO: adjust target Prime Meridian if specified
 
 		if (! doForwardProjection) {
-			tgt.x = geoPt.x;
-			tgt.y = geoPt.y;
+			tgt.x = geoCoord.x;
+			tgt.y = geoCoord.y;
 		}
 		else {
 			// project from geo
-			tgtCRS.getProjection().transformRadians(geoPt, tgtPt);
-      tgt.x = tgtPt.x;
-      tgt.y = tgtPt.y;
+			tgtCRS.getProjection().transformRadians(geoCoord, tgt);
 		}
 		return tgt;
 	}

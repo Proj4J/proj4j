@@ -20,10 +20,7 @@ import java.io.*;
 import java.util.*;
 import java.awt.geom.*;
 
-import org.osgeo.proj4j.CRSFactory;
-import org.osgeo.proj4j.Ellipsoid;
-import org.osgeo.proj4j.ProjectionException;
-import org.osgeo.proj4j.Registry;
+import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 import org.osgeo.proj4j.proj.*;
@@ -370,7 +367,7 @@ public class ProjectionFactory
 				if ( !arg.startsWith("+") && !arg.startsWith("-") ) {
 					try {
 						BufferedReader reader = new BufferedReader( new FileReader( new File( args[i] ) ) );
-						Point2D.Double p = new Point2D.Double();
+						ProjCoordinate p = new ProjCoordinate();
 						String line;
 						while ( (line = reader.readLine()) != null ) {
 							StringTokenizer t = new StringTokenizer( line, " " );

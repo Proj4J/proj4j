@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -42,7 +43,7 @@ public class GnomonicAzimuthalProjection extends AzimuthalProjection {
 		super.initialize();
 	}
 
-	public Point2D.Double project(double lam, double phi, Point2D.Double xy) {
+	public ProjCoordinate project(double lam, double phi, ProjCoordinate xy) {
 		double sinphi = Math.sin(phi);
 		double cosphi = Math.cos(phi);
 		double coslam = Math.cos(lam);
@@ -80,7 +81,7 @@ public class GnomonicAzimuthalProjection extends AzimuthalProjection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate lp) {
 		double  rh, cosz, sinz;
 
 		rh = ProjectionMath.distance(x, y);

@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class GoodeProjection extends Projection {
@@ -31,7 +32,7 @@ public class GoodeProjection extends Projection {
 	private SinusoidalProjection sinu = new SinusoidalProjection();
 	private MolleweideProjection moll = new MolleweideProjection();
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		if (Math.abs(lpphi) <= PHI_LIM)
 			out = sinu.project(lplam, lpphi, out);
 		else {
@@ -41,7 +42,7 @@ public class GoodeProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		if (Math.abs(xyy) <= PHI_LIM)
 			out = sinu.projectInverse(xyx, xyy, out);
 		else {

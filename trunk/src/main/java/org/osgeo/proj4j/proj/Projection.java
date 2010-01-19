@@ -20,6 +20,7 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import org.osgeo.proj4j.Ellipsoid;
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -184,7 +185,7 @@ public abstract class Projection implements Cloneable {
 	/**
 	 * Transform a geographic point (in degrees), producing a projected result (in the units of the target coordinate system).
 	 */
-	public Point2D.Double transform( Point2D.Double src, Point2D.Double dst ) {
+	public ProjCoordinate transform( ProjCoordinate src, ProjCoordinate dst ) {
 		double x = src.x*DTR;
 		if ( projectionLongitude != 0 )
 			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
@@ -194,7 +195,7 @@ public abstract class Projection implements Cloneable {
 	/**
 	 * Transform a geographic point (in radians), producing a projected result (in the units of the target coordinate system).
 	 */
-	public Point2D.Double transformRadians( Point2D.Double src, Point2D.Double dst ) {
+	public ProjCoordinate transformRadians( ProjCoordinate src, ProjCoordinate dst ) {
 		double x = src.x;
 		if ( projectionLongitude != 0 )
 			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
@@ -204,7 +205,7 @@ public abstract class Projection implements Cloneable {
 	/**
 	 * Transform a geographic point (in radians), producing a projected result (in the units of the target coordinate system).
 	 */
-	private Point2D.Double transformRadians(double x, double y, Point2D.Double dst ) {
+	private ProjCoordinate transformRadians(double x, double y, ProjCoordinate dst ) {
 		project(x, y, dst);
     if (unit == Units.DEGREES) {
       // convert radians to DD
@@ -228,7 +229,7 @@ public abstract class Projection implements Cloneable {
 	 * @param y the y ordinate (in radians)
 	 * @return the point projected into the target coordinate system, in the specified units
 	 */
-	protected Point2D.Double project(double x, double y, Point2D.Double dst) {
+	protected ProjCoordinate project(double x, double y, ProjCoordinate dst) {
 		dst.x = x;
 		dst.y = y;
 		return dst;
@@ -238,7 +239,7 @@ public abstract class Projection implements Cloneable {
 	 * Inverse-projects a point (in the units defined by the coordinate system), 
 	 * producing a geographic result (in degrees)
 	 */
-	public Point2D.Double inverseTransform(Point2D.Double src, Point2D.Double dst) {
+	public ProjCoordinate inverseTransform(ProjCoordinate src, ProjCoordinate dst) {
     inverseTransformRadians(src, dst);
 		dst.x *= RTD;
 		dst.y *= RTD;
@@ -249,7 +250,7 @@ public abstract class Projection implements Cloneable {
 	 * Inverse-projects a point (in the units defined by the coordinate system), 
 	 * producing a geographic result (in radians)
 	 */
-	public Point2D.Double inverseTransformRadians(Point2D.Double src, Point2D.Double dst) {
+	public ProjCoordinate inverseTransformRadians(ProjCoordinate src, ProjCoordinate dst) {
     double x;
     double y;
     if (unit == Units.DEGREES) {
@@ -280,7 +281,7 @@ public abstract class Projection implements Cloneable {
 	 * @param the projected y ordinate (in the units of the coordinate system)
 	 * @result the geographic point
 	 */
-	protected Point2D.Double projectInverse(double x, double y, Point2D.Double dst) {
+	protected ProjCoordinate projectInverse(double x, double y, ProjCoordinate dst) {
 		dst.x = x;
 		dst.y = y;
 		return dst;

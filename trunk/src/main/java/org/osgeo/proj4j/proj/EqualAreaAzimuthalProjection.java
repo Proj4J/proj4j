@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -86,7 +87,7 @@ public class EqualAreaAzimuthalProjection extends AzimuthalProjection {
 		}
 	}
 
-	public Point2D.Double project(double lam, double phi, Point2D.Double xy) {
+	public ProjCoordinate project(double lam, double phi, ProjCoordinate xy) {
 		if (spherical) {
 			double  coslam, cosphi, sinphi;
 
@@ -169,7 +170,7 @@ public class EqualAreaAzimuthalProjection extends AzimuthalProjection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate lp) {
 		if (spherical) {
 			double  cosz = 0, rh, sinz = 0;
 

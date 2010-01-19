@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 
@@ -37,7 +38,7 @@ public class LaskowskiProjection extends Projection {
 	private final static double b23 = -0.0285500;
 	private final static double b05 = -0.0491032;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double l2, p2;
 
 		l2 = lplam * lplam;

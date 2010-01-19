@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class Eckert5Projection extends Projection {
@@ -30,13 +31,13 @@ public class Eckert5Projection extends Projection {
 	private final static double YF = 0.88202554344910296438;
 	private final static double RYF = 1.13375401361911319568;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		out.x = XF * (1. + Math.cos(lpphi)) * lplam;
 		out.y = YF * lpphi;
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.x = RXF * xyx / (1. + Math.cos( out.y = RYF * xyy));
 		return out;
 	}

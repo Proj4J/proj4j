@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -32,7 +33,7 @@ public class MercatorProjection extends CylindricalProjection {
 		maxLatitude = ProjectionMath.degToRad(85);
 	}
 	
-	public Point2D.Double project(double lam, double phi, Point2D.Double out) {
+	public ProjCoordinate project(double lam, double phi, ProjCoordinate out) {
 		if (spherical) {
 			out.x = scaleFactor * lam;
 			out.y = scaleFactor * Math.log(Math.tan(ProjectionMath.QUARTERPI + 0.5 * phi));
@@ -43,7 +44,7 @@ public class MercatorProjection extends CylindricalProjection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate out) {
 		if (spherical) {
 			out.y = ProjectionMath.HALFPI - 2. * Math.atan(Math.exp(-y / scaleFactor));
 			out.x = x / scaleFactor;

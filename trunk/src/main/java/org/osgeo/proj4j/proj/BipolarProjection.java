@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -57,7 +58,7 @@ public class BipolarProjection extends Projection {
 		maxLongitude = Math.toRadians(90);
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double cphi, sphi, tphi, t, al, Az, z, Av, cdlam, sdlam, r;
 		boolean tag;
 
@@ -120,7 +121,7 @@ public class BipolarProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double t, r, rp, rl, al, z = 0, fAz, Az, s, c, Av;
 		boolean neg;
 		int i;

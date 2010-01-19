@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -34,7 +35,7 @@ public class LandsatProjection extends Projection {
 	private final static double PI_HALFPI = 4.71238898038468985766;
 	private final static double TWOPI_HALFPI = 7.85398163397448309610;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		int l, nn;
 		double lamt = 0, xlam, sdsq, c, d, s, lamdp = 0, phidp, lampp, tanph,
 			lamtp, cl, sd, sp, fac, sav, tanphi;

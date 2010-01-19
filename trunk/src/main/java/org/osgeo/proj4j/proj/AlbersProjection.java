@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -74,7 +75,7 @@ public class AlbersProjection extends Projection {
 		return( i != 0 ? Phi : Double.MAX_VALUE );
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double rho;
 		if ((rho = c - (!spherical ? n * ProjectionMath.qsfn(Math.sin(lpphi), e, one_es) : n2 * Math.sin(lpphi))) < 0.)
 			throw new ProjectionException("F");
@@ -84,7 +85,7 @@ public class AlbersProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double rho;
 		if ((rho = ProjectionMath.distance(xyx, xyy = rho0 - xyy)) != 0) {
 			double lpphi, lplam;

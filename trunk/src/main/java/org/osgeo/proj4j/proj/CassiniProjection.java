@@ -22,6 +22,7 @@ package org.osgeo.proj4j.proj;
 import java.awt.*;
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -54,7 +55,7 @@ public class CassiniProjection extends Projection {
 		initialize();
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		if (spherical) {
 			xy.x = Math.asin(Math.cos(lpphi) * Math.sin(lplam));
 			xy.y = Math.atan2(Math.tan(lpphi) , Math.cos(lplam)) - projectionLatitude;
@@ -73,7 +74,7 @@ public class CassiniProjection extends Projection {
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		if (spherical) {
 			out.y = Math.asin(Math.sin(dd = xyy + projectionLatitude) * Math.cos(xyx));
 			out.x = Math.atan2(Math.tan(xyx), Math.cos(dd));

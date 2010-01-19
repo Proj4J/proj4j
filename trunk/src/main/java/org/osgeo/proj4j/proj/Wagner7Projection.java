@@ -21,11 +21,12 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class Wagner7Projection extends Projection {
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double theta, ct, D;
 
 		theta = Math.asin(out.y = 0.90630778703664996 * Math.sin(lpphi));

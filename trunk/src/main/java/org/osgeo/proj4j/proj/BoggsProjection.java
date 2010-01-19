@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -34,7 +35,7 @@ public class BoggsProjection extends PseudoCylindricalProjection {
 	private final static double FYC = 0.49931;
 	private final static double FYC2 = 1.41421356237309504880;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double theta, th1, c;
 		int i;
 

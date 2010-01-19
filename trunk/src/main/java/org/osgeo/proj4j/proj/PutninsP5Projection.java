@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class PutninsP5Projection extends Projection {
@@ -36,13 +37,13 @@ public class PutninsP5Projection extends Projection {
 		B = 1;
 	}
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		xy.x = C * lplam * (A - B * Math.sqrt(1. + D * lpphi * lpphi));
 		xy.y = C * lpphi;
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate lp) {
 		lp.y = xyy / C;
 		lp.x = xyx / (C * (A - B * Math.sqrt(1. + D * lp.y * lp.y)));
 		return lp;

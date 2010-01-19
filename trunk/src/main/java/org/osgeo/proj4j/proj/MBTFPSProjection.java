@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -35,7 +36,7 @@ public class MBTFPSProjection extends Projection {
 	private final static double C_y = 1.44492;
 	private final static double C1_2 = 0.33333333333333333333333333;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double k, V, t;
 		int i;
 
@@ -53,7 +54,7 @@ public class MBTFPSProjection extends Projection {
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		double t, s;
 
 		out.y = C2 * (t = ProjectionMath.asin(xyy / C_y));

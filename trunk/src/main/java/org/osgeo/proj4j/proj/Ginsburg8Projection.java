@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class Ginsburg8Projection extends Projection {
@@ -29,7 +30,7 @@ public class Ginsburg8Projection extends Projection {
 	private final static double Cp = 0.162388;
 	private final static double C12 = 0.08333333333333333;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		double t = lpphi * lpphi;
 
 		out.y = lpphi * (1. + t * C12);

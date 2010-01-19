@@ -82,11 +82,7 @@ public class ProjectionMath {
 	public static double distance(double dx, double dy) {
 		return Math.sqrt(dx*dx+dy*dy);
 	}
-
-	public static double distance(Point2D.Double a, Point2D.Double b) {
-		return distance(a.x-b.x, a.y-b.y);
-	}
-
+  
 	public static double hypot(double x, double y) {
 		if (x < 0.0)
 			x = -x;
@@ -224,6 +220,10 @@ public class ProjectionMath {
 			return -a;
 		return a;
 	}
+/*
+  public static double distance(Point2D.Double a, Point2D.Double b) {
+    return distance(a.x-b.x, a.y-b.y);
+  }
 
 	public final static int DONT_INTERSECT = 0;
 	public final static int DO_INTERSECT = 1;
@@ -267,6 +267,7 @@ public class ProjectionMath {
 		return DO_INTERSECT;
 	}
 
+  /*
 	public static double dot(Point2D.Double a, Point2D.Double b) {
 		return a.x*b.x + a.y*b.y;
 	}
@@ -290,7 +291,8 @@ public class ProjectionMath {
 	public static double cross(Point2D.Double a, Point2D.Double b) {
 		return a.x*b.y - b.x*a.y;
 	}
-
+*/
+  
 	public static double cross(double x1, double y1, double x2, double y2) {
 		return x1*y2 - x2*y1;
 	}

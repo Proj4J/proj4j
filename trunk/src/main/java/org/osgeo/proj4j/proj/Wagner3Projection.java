@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.units.*;
 
 public class Wagner3Projection extends PseudoCylindricalProjection {
@@ -29,13 +30,13 @@ public class Wagner3Projection extends PseudoCylindricalProjection {
 
 	private double C_x;
 
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		xy.x = C_x * lplam * Math.cos(TWOTHIRD * lpphi);
 		xy.y = lpphi;
 		return xy;
 	}
 
-	public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+	public ProjCoordinate projectInverse(double x, double y, ProjCoordinate lp) {
 		lp.y = y;
 		lp.x = x / (C_x * Math.cos(TWOTHIRD * lp.y));
 		return lp;

@@ -21,6 +21,7 @@ package org.osgeo.proj4j.proj;
 
 import java.awt.geom.*;
 
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.units.*;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -36,14 +37,14 @@ public class CentralCylindricalProjection extends CylindricalProjection {
 		maxLatitude = Math.toRadians(80);
 	}
 	
-	public Point2D.Double project(double lplam, double lpphi, Point2D.Double out) {
+	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
 		if (Math.abs(Math.abs(lpphi) - ProjectionMath.HALFPI) <= EPS10) throw new ProjectionException("F");
 		out.x = lplam;
 		out.y = Math.tan(lpphi);
 		return out;
 	}
 
-	public Point2D.Double projectInverse(double xyx, double xyy, Point2D.Double out) {
+	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
 		out.y = Math.atan(xyy);
 		out.x = xyx;
 		return out;
