@@ -64,9 +64,9 @@ public class CoordinateTransformTester
     if (verbose) {
       System.out.println(cs1.getName() + " => " + cs2.getName());
       System.out.println(
-      		ProjectionUtil.toString(p) 
+      		p.toShortString() 
           + " -> " 
-          + ProjectionUtil.toString(p2)
+          + p2.toShortString()
           + " (expected: " + x2 + ", " + y2 + " )"
           );
       System.out.println();

@@ -103,7 +103,7 @@ public class MetaCRSTestCmd
   
   private static String toString(ProjCoordinate p)
   {
-    if (p.hasValidZValue()) {
+    if (p.hasValidZOrdinate()) {
       return p.x + ", " + p.y + ", " + p.z;
     }
     return p.x + ", " + p.y;

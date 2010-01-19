@@ -239,25 +239,55 @@ public class ProjCoordinate
 	
 	/**
 	 * Returns a string representing the ProjPoint in the format:
-	 * "ProjCoordinate[X Y Z]"
-	 * 
+	 * <tt>ProjCoordinate[X Y Z]</tt>.
+	 * <p>
 	 * Example: 
-	 * "ProjCoordinate[6241.11 5218.25 12.3]
+	 * <pre>
+	 *    ProjCoordinate[6241.11 5218.25 12.3]
+	 * </pre>
 	 */
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("ProjCoordinate: ");
+		builder.append("ProjCoordinate[");
 		builder.append(this.x);
 		builder.append(" ");
 		builder.append(this.y);
 		builder.append(" ");
 		builder.append(this.z);
+		builder.append("]");
+		
+		return builder.toString();
+	}
+
+	/**
+	 * Returns a string representing the ProjPoint in the format:
+	 * <tt>[X Y]</tt> 
+	 * or <tt>[X, Y, Z]</tt>.
+	 * Z is not displayed if it is NaN.
+	 * <p>
+	 * Example: 
+	 * <pre>
+	 * 		[6241.11, 5218.25, 12.3]
+	 * </pre>
+	 */
+	public String toShortString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		builder.append(this.x);
+		builder.append(", ");
+		builder.append(this.y);
+		if (! Double.isNaN(z)) {
+			builder.append(", ");
+			builder.append(this.z);
+		}
+		builder.append("]");
 		
 		return builder.toString();
 	}
 	
-	public boolean hasValidZValue()
+	public boolean hasValidZOrdinate()
 	{
 		if(Double.isNaN(this.z))
 		{
@@ -275,7 +305,7 @@ public class ProjCoordinate
 	 * values. Values are considered invalid if they are Double.NaN or 
 	 * positive/negative infinity.
 	 */
-	public boolean hasValidXandYValues()
+	public boolean hasValidXandYOrdinates()
 	{
 		if(this.x == Double.NaN)
 		{

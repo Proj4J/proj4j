@@ -76,7 +76,7 @@ public class GeocentricConverter
   {
     double Longitude = p.x;
     double Latitude = p.y;
-    double Height = p.hasValidZValue() ? p.z : 0;   //Z value not always supplied
+    double Height = p.hasValidZOrdinate() ? p.z : 0;   //Z value not always supplied
     double X;  // output
     double Y;
     double Z;
@@ -144,7 +144,7 @@ public class GeocentricConverter
 
         double X = p.x;
         double Y = p.y;
-        double Z = p.hasValidZValue() ? p.z : 0;   //Z value not always supplied
+        double Z = p.hasValidZOrdinate() ? p.z : 0;   //Z value not always supplied
         double Longitude;
         double Latitude;
         double Height;
