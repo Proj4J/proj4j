@@ -65,11 +65,6 @@ public class CoordinateReferenceSystem
     return datum;
   }
   
-  public Ellipsoid getEllipsoid()
-  {
-    return proj.getEllipsoid();
-  }
-  
   public Projection getProjection()
   {
     return proj;

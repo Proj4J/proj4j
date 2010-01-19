@@ -71,12 +71,17 @@ public class Datum
   
   public String getCode() { return code; }
   
-  public double[] getTransform()
+  public Ellipsoid getEllipsoid()
+  {
+    return ellipsoid;
+  }
+  
+  public double[] getTransformToWGS84()
   {
     return transform;
   }
   
-  public int getType()
+  public int getTransformType()
   {
     if (transform  == null) return TYPE_WGS84;
     
@@ -87,22 +92,25 @@ public class Datum
     return TYPE_WGS84;
   }
   
-  public boolean isTransform()
+  public boolean hasTransformToWGS84()
   {
-    return getType() == TYPE_3PARAM || getType() == TYPE_7PARAM;
+    return getTransformType() == TYPE_3PARAM || getTransformType() == TYPE_7PARAM;
   }
   
   public boolean isEqual(Datum datum)
   {
-    if( getType() != datum.getType()) {
-      return false; // false, datums are not equal
-    } 
+  	// false if tranforms are not equal
+    if( getTransformType() != datum.getTransformType()) {
+      return false; 
+    }
+    // true if ellipsoids are (approximately) equal
     if( ellipsoid.getEquatorRadius() != ellipsoid.getEquatorRadius()) {
       if (Math.abs(ellipsoid.getEccentricitySquared() 
            - datum.ellipsoid.getEccentricitySquared() )  > 0.000000000050)
       return false;
     } 
-    if( getType() == TYPE_3PARAM || getType() == TYPE_3PARAM) {
+    // false if transform parameters are not identical
+    if( getTransformType() == TYPE_3PARAM || getTransformType() == TYPE_7PARAM) {
       for (int i = 0; i < transform.length; i++) {
         if (transform[i] != datum.transform[i])
           return false;

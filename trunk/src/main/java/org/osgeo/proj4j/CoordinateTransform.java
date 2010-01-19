@@ -69,16 +69,16 @@ public class CoordinateTransform
     
     if (doDatumTransform) {
       
-      boolean isEllipsoidEqual = srcCRS.getEllipsoid().isEqual(tgtCRS.getEllipsoid());
+      boolean isEllipsoidEqual = srcCRS.getDatum().getEllipsoid().isEqual(tgtCRS.getDatum().getEllipsoid());
       if (! isEllipsoidEqual) 
           transformViaGeocentric = true;
-      if (srcCRS.getDatum().isTransform() 
-          || tgtCRS.getDatum().isTransform())
+      if (srcCRS.getDatum().hasTransformToWGS84() 
+          || tgtCRS.getDatum().hasTransformToWGS84())
           transformViaGeocentric = true;
       
       if (transformViaGeocentric) {
-        srcGeoConv = new GeocentricConverter(srcCRS.getEllipsoid());
-        tgtGeoConv = new GeocentricConverter(tgtCRS.getEllipsoid());
+        srcGeoConv = new GeocentricConverter(srcCRS.getDatum().getEllipsoid());
+        tgtGeoConv = new GeocentricConverter(tgtCRS.getDatum().getEllipsoid());
       }
     }
 	}
@@ -173,10 +173,10 @@ public class CoordinateTransform
       /* -------------------------------------------------------------------- */
       /*      Convert between datums.                                         */
       /* -------------------------------------------------------------------- */
-      if( srcCRS.getDatum().isTransform() ) {
+      if( srcCRS.getDatum().hasTransformToWGS84() ) {
         srcCRS.getDatum().transformFromGeocentricToWgs84( pt );
       }
-      if( tgtCRS.getDatum().isTransform() ) {
+      if( tgtCRS.getDatum().hasTransformToWGS84() ) {
         tgtCRS.getDatum().transformToGeocentricFromWgs84( pt );
       }
 
