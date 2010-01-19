@@ -9,7 +9,7 @@ import junit.textui.TestRunner;
  * @author Martin Davis
  *
  */
-public class CoordinateTransformationTest extends TestCase
+public class CoordinateTransformTest extends TestCase
 {
 	static boolean debug = true;
 	
@@ -18,10 +18,10 @@ public class CoordinateTransformationTest extends TestCase
   CoordinateTransformTester tester = new CoordinateTransformTester(true);
 	
   public static void main(String args[]) {
-    TestRunner.run(CoordinateTransformationTest.class);
+    TestRunner.run(CoordinateTransformTest.class);
   }
 
-  public CoordinateTransformationTest(String name) { super(name); }
+  public CoordinateTransformTest(String name) { super(name); }
 
   public void xtestFirst()
   {

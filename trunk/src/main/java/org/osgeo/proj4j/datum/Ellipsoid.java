@@ -51,12 +51,21 @@ public class Ellipsoid implements Cloneable {
 	public Ellipsoid() {
 	}
 	
-	// One of of poleRadius or reciprocalFlattening must be specified, the other zero
+	/**
+	 * Creates a new Ellipsoid.
+	 * One of of poleRadius or reciprocalFlattening must be specified, the other must be zero
+	 */ 
 	public Ellipsoid(String shortName, double equatorRadius, double poleRadius, double reciprocalFlattening, String name) {
 		this.shortName = shortName;
 		this.name = name;
 		this.equatorRadius = equatorRadius;
 		this.poleRadius = poleRadius;
+		
+		if (poleRadius == 0.0 && reciprocalFlattening == 0.0)
+			throw new IllegalArgumentException("Exactly one of poleRadius or reciprocalFlattening must be specified");
+		if (! (poleRadius == 0.0 || reciprocalFlattening == 0.0))
+			throw new IllegalArgumentException("Exactly one of poleRadius or reciprocalFlattening must be specified");
+		
 		if (reciprocalFlattening != 0) {
 			double flattening = 1.0 / reciprocalFlattening;
 			double f = flattening;
