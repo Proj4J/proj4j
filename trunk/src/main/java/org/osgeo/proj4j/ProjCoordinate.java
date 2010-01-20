@@ -150,6 +150,19 @@ public class ProjCoordinate
 		}
 	}
 	
+  /**
+   * Sets the value of this coordinate to 
+   * be equal to the given coordinate's ordinates.
+   * 
+   * @param p the coordinate to copy
+   */
+  public void setValue(ProjCoordinate p)
+  {
+    this.x = p.x;
+    this.y = p.y;
+    this.z = p.z;
+  }
+  
 	/**
 	 * Returns a boolean indicating if the X ordinate value of the 
 	 * ProjCoordinate provided as an ordinate is equal to the X ordinate
