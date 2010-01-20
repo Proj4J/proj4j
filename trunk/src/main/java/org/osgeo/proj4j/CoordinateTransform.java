@@ -109,38 +109,30 @@ public class CoordinateTransform
 	{
 		// NOTE: this method may be called many times, so needs to be as efficient as possible
     
-		if (! doInverseProjection) {
-      geoCoord.x = src.x;
-      geoCoord.y = src.y;
+		if (doInverseProjection) {
+      // inverse project to geographic
+      srcCRS.getProjection().inverseTransformRadians(src, geoCoord);
 		}
 		else {
-			// inverse project to geo
-			srcCRS.getProjection().inverseTransformRadians(src, geoCoord);
+      geoCoord.setValue(src);
 		}
-    geoCoord.z = 0.0; // for now
 
     //TODO: adjust src Prime Meridian if specified
     
     if (doDatumTransform) {
-//      geoCoord.x = geoPt.x;
-//      geoCoord.y = geoPt.y;
-//      geoCoord.z = 0.0; // for now
       datumTransform(geoCoord);
-//      geoPt.x = geoCoord.x;
-//      geoPt.y = geoCoord.y;
-      // ignore Z for now
     }
 		
     //TODO: adjust target Prime Meridian if specified
 
-		if (! doForwardProjection) {
-			tgt.x = geoCoord.x;
-			tgt.y = geoCoord.y;
+		if (doForwardProjection) {
+      // project from geographic to planar
+      tgtCRS.getProjection().transformRadians(geoCoord, tgt);
+    }
+    else {
+			tgt.setValue(geoCoord);
 		}
-		else {
-			// project from geo
-			tgtCRS.getProjection().transformRadians(geoCoord, tgt);
-		}
+
 		return tgt;
 	}
   
