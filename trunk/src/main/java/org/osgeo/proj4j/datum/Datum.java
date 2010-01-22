@@ -41,10 +41,12 @@ public class Datum
   public static final Datum NZGD49 = new Datum("nzgd49", 59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993, Ellipsoid.INTERNATIONAL, "New Zealand Geodetic Datum 1949");
   public static final Datum OSEB36 = new Datum("OSGB36", 446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894, Ellipsoid.AIRY, "Airy 1830");
 
+  private static final double[] DEFAULT_TRANSFORM = new double[] { 0.0, 0.0, 0.0 };
+
   String code;
 	String name;
 	Ellipsoid ellipsoid;
-	double[] transform;
+	double[] transform = DEFAULT_TRANSFORM;
 	
   public Datum(String code, 
       double deltaX, double deltaY, double deltaZ, 
@@ -68,7 +70,8 @@ public class Datum
     this.code = code;
     this.name = name;
     this.ellipsoid = ellipsoid;
-    this.transform = transform;
+    if (transform != null)
+      this.transform = transform;
   }
   
   public String getCode() { return code; }

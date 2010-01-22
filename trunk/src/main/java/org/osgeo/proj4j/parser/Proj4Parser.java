@@ -32,7 +32,10 @@ public class Proj4Parser
     parseDatum(params, datumParam);
     parseEllipsoid(params, datumParam);
     Datum datum = datumParam.getDatum();
-    Ellipsoid ellipsoid = datumParam.getEllipsoid();
+    Ellipsoid ellipsoid = datum.getEllipsoid(); 
+    // TODO: this makes a difference - why?
+    // which is better?
+//    Ellipsoid ellipsoid = datumParam.getEllipsoid(); 
     Projection proj = parseProjection(params, ellipsoid);
     return new CoordinateReferenceSystem(name, args, datum, proj);
   }
@@ -49,8 +52,6 @@ public class Proj4Parser
 
  private static AngleFormat format = new AngleFormat( AngleFormat.ddmmssPattern, true );
 
-
- 
  /**
   * Creates a {@link Projection}
   * initialized from a PROJ.4 argument list.

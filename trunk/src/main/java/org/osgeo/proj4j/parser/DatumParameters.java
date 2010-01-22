@@ -26,22 +26,36 @@ public class DatumParameters
   private final static double RV6 = .04243827160493827160; /* 55/1296 */
 
   private Datum datum = null;
-  private double[] datumTransform;
+  private double[] datumTransform = null;
   
   private Ellipsoid ellipsoid;
-  private double a = 0;
-  private double es = 0;
+  private double a = Double.NaN;
+  private double es = Double.NaN;
 
   public DatumParameters() {
     // Default datum is WGS84
-    setDatum(Datum.WGS84);
+//    setDatum(Datum.WGS84);
   }
 
   public Datum getDatum()
   {
     if (datum != null)
       return datum;
+    // if no ellipsoid was specified, return WGS84 as the default
+    if (ellipsoid == null && ! isDefinedExplicitly()) {
+      return Datum.WGS84;
+    }
+    // if ellipsoid was WGS84, return that datum
+    if (ellipsoid == Ellipsoid.WGS84)
+      return Datum.WGS84;
+    
+    // otherwise, return a custom datum with the specified ellipsoid
     return new Datum("user", datumTransform, getEllipsoid(), "User-defined");
+  }
+  
+  private boolean isDefinedExplicitly()
+  {
+    return ! (Double.isNaN(a) || Double.isNaN(es));
   }
   
   public Ellipsoid getEllipsoid()

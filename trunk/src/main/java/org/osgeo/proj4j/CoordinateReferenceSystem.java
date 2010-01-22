@@ -43,7 +43,6 @@ public class CoordinateReferenceSystem
     this.datum = datum;
 		this.proj = proj;
     
-    
     if (name == null) {
       String projName = "null-proj"; 
       if (proj != null)
