@@ -1,6 +1,7 @@
 package org.osgeo.proj4j.parser;
 
 import java.util.*;
+import org.osgeo.proj4j.*;
 
 public class Proj4Keyword 
 {
@@ -103,8 +104,7 @@ public class Proj4Keyword
   public static void checkUnsupported(String paramKey)
   {
     if (! isSupported(paramKey)) {
-      // TODO: use a more appropriate exception class
-      throw new UnsupportedOperationException(paramKey + " parameter is not supported");
+      throw new UnsupportedParameterException(paramKey + " parameter is not supported");
     }
   }
   
