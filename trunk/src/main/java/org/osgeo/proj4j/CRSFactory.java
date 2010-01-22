@@ -41,26 +41,29 @@ public class CRSFactory
   
   /**
    * Creates a {@link CoordinateReferenceSystem} from a well-known name.
-   * Names are of the form: <tt>authority:id</tt>.
+   * Names are of the form: <tt>authority:code</tt>.
    * <ul>
    * <li>The authority is a code for a namespace supported by
    * PROJ.4.  
    * Currently supported values are 
    * <tt>EPSG</tt>, <tt>ESRI</tt>, <tt>WORLD</tt>, <tt>NA83</tt>, <tt>NAD27</tt>.
    * If no authority is provided, <tt>EPSG</tt> will be assumed.
-   * <li>The id is the id of a coordinate system in the authority namespace.
-   * For example, in the <tt>EPSG</tt> namespace an id is an integer value.
+   * <li>The code is the id of a coordinate system in the authority namespace.
+   * For example, in the <tt>EPSG</tt> namespace a code is an integer value.
    * </ul>
    * An example of a valid name is <tt>EPSG:3005</tt>.
    * 
    * @param name the name of a coordinate system, with optional authority prefix
    * @return a {@link CoordinateReferenceSystem}
    * @throws UnsupportedOperationException if a PROJ.4 parameter is not supported
+   * @throws UnknownAuthorityCodeException if the authority code cannot be found
    */
   public CoordinateReferenceSystem createFromName(String name)
-  throws UnsupportedOperationException
+  throws UnsupportedOperationException, UnknownAuthorityCodeException
   {
     String[] params = csReader.getParameters(name);
+    if (params == null)
+      throw new UnknownAuthorityCodeException(name);
     return createFromParameters(name, params);
   }
   
