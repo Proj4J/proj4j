@@ -640,7 +640,7 @@ public abstract class Projection implements Cloneable {
 
 	public static float normalizeLongitude(float angle) {
 		if ( Double.isInfinite(angle) || Double.isNaN(angle) )
-			throw new InvalidValueException("Infinite longitude");
+			throw new InvalidValueException("Infinite or NaN longitude");
 		while (angle > 180)
 			angle -= 360;
 		while (angle < -180)
@@ -650,7 +650,7 @@ public abstract class Projection implements Cloneable {
 
 	public static double normalizeLongitudeRadians( double angle ) {
 		if ( Double.isInfinite(angle) || Double.isNaN(angle) )
-			throw new InvalidValueException("Infinite longitude");
+			throw new InvalidValueException("Infinite or NaN longitude");
 		while (angle > Math.PI)
 			angle -= ProjectionMath.TWOPI;
 		while (angle < -Math.PI)
