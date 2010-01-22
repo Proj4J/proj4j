@@ -13,7 +13,7 @@ public class CoordinateTransformTest extends TestCase
 {
 	static boolean debug = true;
 	
-  CoordinateTransformTester tester = new CoordinateTransformTester(true);
+  static CoordinateTransformTester tester = new CoordinateTransformTester(true);
 	
   public static void main(String args[]) {
     TestRunner.run(CoordinateTransformTest.class);
@@ -21,10 +21,21 @@ public class CoordinateTransformTest extends TestCase
 
   public CoordinateTransformTest(String name) { super(name); }
 
-  public void xtestFirst()
+  public void testFirst()
   {
-    checkTransformFromGeo("EPSG:3031",    0, -75, 0, 1638783.238407   );
+    checkTransformFromGeo("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
   }
+  public void testPROJ4_SPCS_NAD83()
+  {
+    checkTransform("EPSG:4326", -142.0, 56.50833333333333,    "ESRI:102632", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4326", -146.0, 56.50833333333333,    "ESRI:102633", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4326", -150.0, 56.50833333333333,    "ESRI:102634", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4326", -152.48225944444445, 60.89132361111111,    "ESRI:102635", 1910718.662, 2520810.68, 0.1 );
+    
+    // AK 2 using us-ft
+    checkTransform("EPSG:4326", -142.0, 56.50833333333333,    "+proj=tmerc +datum=NAD83 +lon_0=-142 +lat_0=54 +k=.9999 +x_0=500000 +y_0=0 +units=us-ft", 1640416.667, 916074.825, 0.1 );
+  }
+  
   public void testLambertConformalConic()
   {
     // Landon's test pt 
