@@ -25,10 +25,21 @@ public class MetaCRSTest extends TestCase
   
   public MetaCRSTest(String name) { super(name); }
 
-  public void test()
+  public void xtestMetaCRSExample()
   throws IOException
   {
     File file = new File("C:/data/martin/proj/proj4j/osgeosvn/trunk/src/test/resources/TestData.csv");
+    MetaCRSTestFileReader reader = new MetaCRSTestFileReader(file);
+    List<MetaCRSTestCase> tests = reader.readTests();
+    for (MetaCRSTestCase test : tests) {
+      runTest(test);
+    }
+  }
+  
+  public void testPROJ4_SPCS()
+  throws IOException
+  {
+    File file = new File("C:/data/martin/proj/proj4j/osgeosvn/trunk/src/test/resources/PROJ4_SPCS_nad83.csv");
     MetaCRSTestFileReader reader = new MetaCRSTestFileReader(file);
     List<MetaCRSTestCase> tests = reader.readTests();
     for (MetaCRSTestCase test : tests) {

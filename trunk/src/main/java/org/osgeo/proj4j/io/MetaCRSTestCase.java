@@ -1,14 +1,12 @@
 package org.osgeo.proj4j.io;
 
-import org.osgeo.proj4j.CRSFactory;
-import org.osgeo.proj4j.CoordinateReferenceSystem;
-import org.osgeo.proj4j.CoordinateTransform;
-import org.osgeo.proj4j.ProjCoordinate;
+import org.osgeo.proj4j.*;
+
 import org.osgeo.proj4j.util.ProjectionUtil;
 
 public class MetaCRSTestCase 
 {
-  private boolean verbose = false;
+  private boolean verbose = true;
   
   String testName;
   String testMethod;
@@ -112,10 +110,17 @@ public class MetaCRSTestCase
   
   public boolean execute(CRSFactory csFactory)
   {
-    srcCS = createCS(csFactory, srcCrsAuth, srcCrs);
-    tgtCS = createCS(csFactory, tgtCrsAuth, tgtCrs);
-
-    return executeTransform(srcCS, tgtCS);
+    boolean isOK = false;
+    try {
+      srcCS = createCS(csFactory, srcCrsAuth, srcCrs);
+      tgtCS = createCS(csFactory, tgtCrsAuth, tgtCrs);
+      isOK = executeTransform(srcCS, tgtCS);
+    }
+    catch (Proj4jException ex) {
+     System.out.println(ex.toString());
+    }
+    
+    return isOK;
   }
   
   public static String csName(String auth, String code)
@@ -133,11 +138,11 @@ public class MetaCRSTestCase
       CoordinateReferenceSystem srcCS,
       CoordinateReferenceSystem tgtCS)
   {
+    srcPt.x = srcOrd1;
+    srcPt.y = srcOrd2;
     // Testing: flip axis order to test SS sample file
-    //srcPt.x = srcOrd1;
-    //srcPt.y = srcOrd2;
-    srcPt.x = srcOrd2;
-    srcPt.y = srcOrd1;
+    //srcPt.x = srcOrd2;
+    //srcPt.y = srcOrd1;
     
     CoordinateTransform trans = new CoordinateTransform(
         srcCS, tgtCS);
