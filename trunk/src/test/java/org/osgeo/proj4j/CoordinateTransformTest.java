@@ -27,13 +27,13 @@ public class CoordinateTransformTest extends TestCase
   }
   public void testPROJ4_SPCS_NAD83()
   {
-    checkTransform("EPSG:4326", -142.0, 56.50833333333333,    "ESRI:102632", 1640416.667, 916074.825, 0.1 );
-    checkTransform("EPSG:4326", -146.0, 56.50833333333333,    "ESRI:102633", 1640416.667, 916074.825, 0.1 );
-    checkTransform("EPSG:4326", -150.0, 56.50833333333333,    "ESRI:102634", 1640416.667, 916074.825, 0.1 );
-    checkTransform("EPSG:4326", -152.48225944444445, 60.89132361111111,    "ESRI:102635", 1910718.662, 2520810.68, 0.1 );
+    checkTransform("EPSG:4269", -142.0, 56.50833333333333,    "ESRI:102632", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4269", -146.0, 56.50833333333333,    "ESRI:102633", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4269", -150.0, 56.50833333333333,    "ESRI:102634", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4269", -152.48225944444445, 60.89132361111111,    "ESRI:102635", 1910718.662, 2520810.68, 0.1 );
     
     // AK 2 using us-ft
-    checkTransform("EPSG:4326", -142.0, 56.50833333333333,    "+proj=tmerc +datum=NAD83 +lon_0=-142 +lat_0=54 +k=.9999 +x_0=500000 +y_0=0 +units=us-ft", 1640416.667, 916074.825, 0.1 );
+    checkTransform("EPSG:4269", -142.0, 56.50833333333333,    "+proj=tmerc +datum=NAD83 +lon_0=-142 +lat_0=54 +k=.9999 +x_0=500000 +y_0=0 +units=us-ft", 1640416.667, 916074.825, 0.1 );
   }
   
   public void testLambertConformalConic()
