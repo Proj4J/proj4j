@@ -68,10 +68,20 @@ public abstract class Projection implements Cloneable {
 	 */
 	protected double projectionLatitude2 = 0.0;
 
-	/**
-	 * The projection scale factor
-	 */
-	protected double scaleFactor = 1.0;
+  /**
+   * The projection alpha value
+   */
+  protected double alpha = Double.NaN;
+
+  /**
+   * The projection lonc value
+   */
+  protected double lonc = Double.NaN;
+
+  /**
+   * The projection scale factor
+   */
+  protected double scaleFactor = 1.0;
 
 	/**
 	 * The false Easting of this projection
@@ -547,13 +557,47 @@ public abstract class Projection implements Cloneable {
 		return projectionLatitude2*RTD;
 	}
 	
-	/**
-	 * Set the false Northing in projected units.
-	 */
-	public void setFalseNorthing( double falseNorthing ) {
-		this.falseNorthing = falseNorthing;
-	}
-	
+  /**
+   * Sets the alpha value.
+   */
+  public void setAlphaDegrees( double alpha ) {
+    this.alpha = DTR * alpha;
+  }
+  
+  /**
+   * Gets the alpha value, in radians.
+   * 
+   * @return the alpha value
+   */
+  public double getAlpha()
+  { 
+    return alpha;
+  }
+  
+  /**
+   * Sets the lonc value.
+   */
+  public void setLonCDegrees( double lonc ) {
+    this.lonc = DTR * lonc;
+  }
+  
+  /**
+   * Gets the lonc value, in radians.
+   * 
+   * @return the lonc value
+   */
+  public double getLonC()
+  { 
+    return lonc;
+  }
+  
+  /**
+   * Set the false Northing in projected units.
+   */
+  public void setFalseNorthing( double falseNorthing ) {
+    this.falseNorthing = falseNorthing;
+  }
+  
 	public double getFalseNorthing() {
 		return falseNorthing;
 	}

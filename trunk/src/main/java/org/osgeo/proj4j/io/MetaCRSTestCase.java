@@ -155,7 +155,6 @@ public class MetaCRSTestCase
           + " -> " + ProjectionUtil.toString(resultPt)
           + " ( expected: " + tgtOrd1 + ", " + tgtOrd2 + " )"
           );
-      System.out.println();
     }
     
     double dx = Math.abs(resultPt.x - tgtOrd1);
@@ -164,12 +163,13 @@ public class MetaCRSTestCase
     boolean isInTol =  dx <= tolOrd1 && dy <= tolOrd2;
    
     if (verbose && ! isInTol) {
-      System.out.println(srcCS.getParameterString());
-      System.out.println(tgtCS.getParameterString());
-      System.out.println("FAIL: "
-          + ProjectionUtil.toString(srcPt) 
-          + " -> " + ProjectionUtil.toString(resultPt) 
-          );
+      System.out.println("FAIL");
+      System.out.println("Src CRS: " + srcCS.getParameterString());
+      System.out.println("Tgt CRS: " + tgtCS.getParameterString());
+    }
+
+    if (verbose) {
+      System.out.println();
     }
 
     return isInTol;

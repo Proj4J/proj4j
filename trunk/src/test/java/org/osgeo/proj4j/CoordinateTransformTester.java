@@ -42,34 +42,33 @@ public class CoordinateTransformTester
   }
   
   public boolean checkTransform(
-  		String cs1, double x1, double y1, 
-  		String cs2, double x2, double y2, double tolerance)
+  		String srcCRS, double x1, double y1, 
+  		String tgtCRS, double x2, double y2, double tolerance)
   {
     return checkTransform(
-    		createCS(cs1), x1, y1, 
-    		createCS(cs2), x2, y2, tolerance);
+    		createCS(srcCRS), x1, y1, 
+    		createCS(tgtCRS), x2, y2, tolerance);
   }
   
   public boolean checkTransform(
-  		CoordinateReferenceSystem cs1, double x1, double y1, 
-  		CoordinateReferenceSystem cs2, double x2, double y2, 
+  		CoordinateReferenceSystem srcCRS, double x1, double y1, 
+  		CoordinateReferenceSystem tgtCRS, double x2, double y2, 
   		double tolerance)
   {
     p.x = x1;
     p.y = y1;
     CoordinateTransform trans = new CoordinateTransform(
-        cs1, cs2);
+        srcCRS, tgtCRS);
     trans.transform(p, p2);
     
     if (verbose) {
-      System.out.println(cs1.getName() + " => " + cs2.getName());
+      System.out.println(srcCRS.getName() + " => " + tgtCRS.getName());
       System.out.println(
       		p.toShortString() 
           + " -> " 
           + p2.toShortString()
           + " (expected: " + x2 + ", " + y2 + " )"
           );
-      System.out.println();
     }
     
     double dx = Math.abs(p2.x - x2);
@@ -78,12 +77,13 @@ public class CoordinateTransformTester
     boolean isInTol =  dx <= tolerance && dy <= tolerance;
    
     if (verbose && ! isInTol) {
-      System.out.println(cs1.getParameterString());
-      System.out.println(cs2.getParameterString());
-      System.out.println("FAIL: "
-          + ProjectionUtil.toString(p) 
-          + " -> " + ProjectionUtil.toString(p2) 
-          );
+      System.out.println("FAIL");
+      System.out.println("Src CRS: " + srcCRS.getParameterString());
+      System.out.println("Tgt CRS: " + tgtCRS.getParameterString());
+   }
+
+    if (verbose) {
+      System.out.println();
     }
 
     return isInTol;

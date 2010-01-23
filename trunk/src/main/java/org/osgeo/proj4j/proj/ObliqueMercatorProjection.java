@@ -31,7 +31,7 @@ public class ObliqueMercatorProjection extends Projection {
 
 	private final static double TOL	= 1.0e-7;
 
-	private double alpha, lamc, lam1, phi1, lam2, phi2, Gamma, al, bl, el, singam, cosgam, sinrot, cosrot, u_0;
+	private double lamc, lam1, phi1, lam2, phi2, Gamma, al, bl, el, singam, cosgam, sinrot, cosrot, u_0;
 	private boolean ellips, rot;
 
 	public ObliqueMercatorProjection() {
@@ -63,12 +63,14 @@ public class ObliqueMercatorProjection extends Projection {
 	public void initialize() {
 		super.initialize();
 		double con, com, cosphi0, d, f, h, l, sinphi0, p, j;
-		int azi = 1;//FIXME-param
 
 		//FIXME-setup rot, alpha, longc,lon/lat1/2
 		rot = true;
-
-		if (azi != 0) {//alpha specified
+    lamc = lonc;
+    
+    // true if alpha provided
+    int azi = Double.isNaN(alpha) ? 0 : 1;
+		if (azi != 0) { // alpha specified
 			if (Math.abs(alpha) <= TOL ||
 				Math.abs(Math.abs(projectionLatitude) - ProjectionMath.HALFPI) <= TOL ||
 				Math.abs(Math.abs(alpha) - ProjectionMath.HALFPI) <= TOL)

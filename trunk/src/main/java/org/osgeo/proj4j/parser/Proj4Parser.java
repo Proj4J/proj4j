@@ -90,6 +90,14 @@ public class Proj4Parser
 //   projection.setProjectionLatitudeDegrees( 0 );
 //   projection.setProjectionLatitude1Degrees( 0 );
 //   projection.setProjectionLatitude2Degrees( 0 );
+   s = (String)params.get( Proj4Keyword.alpha );
+   if ( s != null ) 
+     projection.setAlphaDegrees( Double.parseDouble( s ) );
+   
+   s = (String)params.get( Proj4Keyword.lonc );
+   if ( s != null ) 
+     projection.setLonCDegrees( Double.parseDouble( s ) );
+   
    s = (String)params.get( Proj4Keyword.lat_0 );
    if ( s != null ) 
      projection.setProjectionLatitudeDegrees( parseAngle( s ) );
