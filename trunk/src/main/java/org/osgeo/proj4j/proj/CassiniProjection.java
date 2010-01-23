@@ -19,7 +19,7 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import org.osgeo.proj4j.ProjCoordinate;
+import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.util.ProjectionMath;
 
 public class CassiniProjection extends Projection {
@@ -97,7 +97,7 @@ public class CassiniProjection extends Projection {
 		super.initialize();
 		if (!spherical) {
 			if ((en = ProjectionMath.enfn(es)) == null)
-				throw new IllegalArgumentException();
+				throw new ProjectionException();
 			m0 = ProjectionMath.mlfn(projectionLatitude, Math.sin(projectionLatitude), Math.cos(projectionLatitude), en);
 		}
 	}

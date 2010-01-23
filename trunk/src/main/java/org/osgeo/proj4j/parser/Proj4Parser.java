@@ -3,7 +3,7 @@ package org.osgeo.proj4j.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgeo.proj4j.CoordinateReferenceSystem;
+import org.osgeo.proj4j.*;
 import org.osgeo.proj4j.Registry;
 import org.osgeo.proj4j.datum.Datum;
 import org.osgeo.proj4j.datum.Ellipsoid;
@@ -64,7 +64,7 @@ public class Proj4Parser
    if ( s != null ) {
      projection = registry.getProjection( s );
      if ( projection == null )
-       throw new UnsupportedOperationException( "Unknown projection: "+s );
+       throw new InvalidValueException( "Unknown projection: "+s );
    }
 
    projection.setEllipsoid(ellipsoid);
@@ -176,7 +176,7 @@ public class Proj4Parser
    if (code != null) {
      Datum datum = registry.getDatum(code);
      if (datum == null)
-       throw new UnsupportedOperationException("Unknown datum: " + code);
+       throw new InvalidValueException("Unknown datum: " + code);
      datumParam.setDatum(datum);
    }
    
@@ -187,7 +187,7 @@ public class Proj4Parser
    String[] numStr = paramList.split(",");
    
    if (! (numStr.length == 3 || numStr.length == 7)) {
-     throw new IllegalArgumentException("Invalid number of values (must be 3 or 7) in +towgs84: " + paramList);
+     throw new InvalidValueException("Invalid number of values (must be 3 or 7) in +towgs84: " + paramList);
    }
    double[] param = new double[numStr.length];
    for (int i = 0; i < numStr.length; i++) {
@@ -211,7 +211,7 @@ public class Proj4Parser
    if (code != null) {
      Ellipsoid ellipsoid = registry.getEllipsoid(code);
      if (ellipsoid == null)
-       throw new UnsupportedOperationException("Unknown ellipsoid: " + code);
+       throw new InvalidValueException("Unknown ellipsoid: " + code);
      datumParam.setEllipsoid(ellipsoid);
    }
 

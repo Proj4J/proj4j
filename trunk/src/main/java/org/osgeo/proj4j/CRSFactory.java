@@ -55,11 +55,12 @@ public class CRSFactory
    * 
    * @param name the name of a coordinate system, with optional authority prefix
    * @return a {@link CoordinateReferenceSystem}
-   * @throws UnsupportedOperationException if a PROJ.4 parameter is not supported
+   * @throws UnsupportedParameterException if a PROJ.4 parameter is not supported
+   * @throws InvalidValueException if a parameter value is invalid
    * @throws UnknownAuthorityCodeException if the authority code cannot be found
    */
   public CoordinateReferenceSystem createFromName(String name)
-  throws UnsupportedOperationException, UnknownAuthorityCodeException
+  throws UnsupportedParameterException, InvalidValueException, UnknownAuthorityCodeException
   {
     String[] params = csReader.getParameters(name);
     if (params == null)
@@ -73,23 +74,26 @@ public class CRSFactory
    * @param name a name for this coordinate system (may be null)
    * @param paramStr a PROJ.4 parameter string
    * @return a {@link CoordinateReferenceSystem}
-   * @throws UnsupportedOperationException if a PROJ.4 parameter is not supported
+   * @throws UnsupportedParameterException if a PROJ.4 parameter is not supported
+   * @throws InvalidValueException if a parameter value is invalid
    */
   public CoordinateReferenceSystem createFromParameters(String name, String paramStr)
+  throws UnsupportedParameterException, InvalidValueException
   {
     return createFromParameters(name, splitParameters(paramStr));
   }
   
-
   /**
    * Creates a {@link CoordinateReferenceSystem} from a set of PROJ.4 parameters.
    * 
    * @param name a name for this coordinate system (may be null)
    * @param args an array of PROJ.4 parameters
    * @return a {@link CoordinateReferenceSystem}
-    * @throws UnsupportedOperationException if a PROJ.4 parameter is not supported
+   * @throws UnsupportedParameterException if a PROJ.4 parameter is not supported
+   * @throws InvalidValueException if a parameter value is invalid
   */
   public CoordinateReferenceSystem createFromParameters(String name, String[] args)
+  throws UnsupportedParameterException, InvalidValueException
   {
     if (args == null)
       return null;
