@@ -22,6 +22,7 @@ import org.osgeo.proj4j.util.*;
  */
 public class MetaCRSTestCmd 
 {
+  // TODO: display line numbers of tests in verbose mode
   public static void main(String args[]) 
   {
     MetaCRSTestCmd cmd = new MetaCRSTestCmd();
