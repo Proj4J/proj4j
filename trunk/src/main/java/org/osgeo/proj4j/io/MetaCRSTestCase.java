@@ -1,8 +1,8 @@
 package org.osgeo.proj4j.io;
 
+import java.io.*;
 import org.osgeo.proj4j.*;
-
-import org.osgeo.proj4j.util.ProjectionUtil;
+import org.osgeo.proj4j.util.*;
 
 public class MetaCRSTestCase 
 {
@@ -40,6 +40,9 @@ public class MetaCRSTestCase
   ProjCoordinate srcPt = new ProjCoordinate();
   ProjCoordinate resultPt = new ProjCoordinate();
 
+  private boolean isInTol;
+  private CRSCache crsCache = null;
+  
   public MetaCRSTestCase(
       String testName,
       String testMethod,
@@ -108,18 +111,17 @@ public class MetaCRSTestCase
     return new ProjCoordinate(resultPt.x, resultPt.y);
   }
   
+  public void setCache(CRSCache crsCache)
+  {
+    this.crsCache = crsCache;
+  }
+  
   public boolean execute(CRSFactory csFactory)
   {
     boolean isOK = false;
-    try {
-      srcCS = createCS(csFactory, srcCrsAuth, srcCrs);
-      tgtCS = createCS(csFactory, tgtCrsAuth, tgtCrs);
-      isOK = executeTransform(srcCS, tgtCS);
-    }
-    catch (Proj4jException ex) {
-     System.out.println(ex.toString());
-    }
-    
+    srcCS = createCS(csFactory, srcCrsAuth, srcCrs);
+    tgtCS = createCS(csFactory, tgtCrsAuth, tgtCrs);
+    isOK = executeTransform(srcCS, tgtCS);
     return isOK;
   }
   
@@ -128,9 +130,14 @@ public class MetaCRSTestCase
     return auth + ":" + code;
   }
   
-  public static CoordinateReferenceSystem createCS(CRSFactory csFactory, String auth, String code)
+  public CoordinateReferenceSystem createCS(CRSFactory csFactory, String auth, String code)
   {
-    CoordinateReferenceSystem cs = csFactory.createFromName(csName(auth, code));
+    String name = csName(auth, code);
+    
+    if (crsCache != null) {
+      return crsCache.createFromName(name);
+    }
+    CoordinateReferenceSystem cs = csFactory.createFromName(name);
     return cs;
   }
   
@@ -149,30 +156,28 @@ public class MetaCRSTestCase
 
     trans.transform(srcPt, resultPt);
     
-    if (verbose) {
+    double dx = Math.abs(resultPt.x - tgtOrd1);
+    double dy = Math.abs(resultPt.y - tgtOrd2);
+    
+    isInTol =  dx <= tolOrd1 && dy <= tolOrd2;
+
+    return isInTol;
+  }
+
+  public void print(PrintStream os)
+  {
       System.out.println(testName);
       System.out.println(ProjectionUtil.toString(srcPt) 
           + " -> " + ProjectionUtil.toString(resultPt)
           + " ( expected: " + tgtOrd1 + ", " + tgtOrd2 + " )"
           );
-    }
+
     
-    double dx = Math.abs(resultPt.x - tgtOrd1);
-    double dy = Math.abs(resultPt.y - tgtOrd2);
-    
-    boolean isInTol =  dx <= tolOrd1 && dy <= tolOrd2;
-   
-    if (verbose && ! isInTol) {
+    if (! isInTol) {
       System.out.println("FAIL");
       System.out.println("Src CRS: " + srcCS.getParameterString());
       System.out.println("Tgt CRS: " + tgtCS.getParameterString());
     }
-
-    if (verbose) {
-      System.out.println();
-    }
-
-    return isInTol;
+    System.out.println();
   }
-
 }
