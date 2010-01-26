@@ -49,7 +49,13 @@ public class MetaCRSTest extends TestCase
   
   void runTest(MetaCRSTestCase crsTest)
   {
-    crsTest.execute(csFactory);
+    try {
+      crsTest.execute(csFactory);
+      crsTest.print(System.out);
+    }
+    catch (Proj4jException ex) {
+      System.out.println(ex);
+    }
   }
 
 }

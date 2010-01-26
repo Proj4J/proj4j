@@ -25,6 +25,12 @@ public class CoordinateTransformTest extends TestCase
   {
     checkTransformFromGeo("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
   }
+  public void testPROJ4_SPCS_NAD27()
+  {
+    // AK 2
+    checkTransform("EPSG:4267", -142.0, 56.50833333333333,    "ESRI:26732", 500000.000,    916085.508, 0.1 );    
+  }
+  
   public void testPROJ4_SPCS_NAD83()
   {
     checkTransform("EPSG:4269", -142.0, 56.50833333333333,    "ESRI:102632", 1640416.667, 916074.825, 0.1 );
