@@ -100,6 +100,7 @@ public class Registry {
   {
     Datum.WGS84,
     Datum.GGRS87,
+    Datum.NAD27,
     Datum.NAD83,
     Datum.POTSDAM,
     Datum.CARTHAGE,

@@ -33,7 +33,7 @@ public class Datum
   public static final Datum WGS84 = new Datum("WGS84", 0,0,0, Ellipsoid.WGS84, "WGS84"); 
   public static final Datum GGRS87 = new Datum("GGRS87", -199.87,74.79,246.62, Ellipsoid.GRS80, "Greek_Geodetic_Reference_System_1987");
   public static final Datum NAD83 = new Datum("NAD83", 0,0,0, Ellipsoid.GRS80,"North_American_Datum_1983");
-  //public static final Datum NAD27 = new Datum("NAD27", "@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat", Ellipsoid.CLARKE_1866,"North_American_Datum_1927");
+  public static final Datum NAD27 = new Datum("NAD27", "@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat", Ellipsoid.CLARKE_1866,"North_American_Datum_1927");
   public static final Datum POTSDAM = new Datum("potsdam", 606.0,23.0,413.0, Ellipsoid.BESSEL, "Potsdam Rauenberg 1950 DHDN");
   public static final Datum CARTHAGE = new Datum("carthage",-263.0,6.0,431.0, Ellipsoid.CLARKE_1880, "Carthage 1934 Tunisia");
   public static final Datum HERMANNSKOGEL = new Datum("hermannskogel", 653.0,-212.0,449.0, Ellipsoid.BESSEL, "Hermannskogel");
@@ -48,6 +48,14 @@ public class Datum
 	Ellipsoid ellipsoid;
 	double[] transform = DEFAULT_TRANSFORM;
 	
+  public Datum(String code, 
+      String transformSpec, 
+      Ellipsoid ellipsoid,
+      String name) {
+    // TODO: implement handling of transform specification
+    this(code, (double[]) null, ellipsoid, name);
+  }
+  
   public Datum(String code, 
       double deltaX, double deltaY, double deltaZ, 
       Ellipsoid ellipsoid,
