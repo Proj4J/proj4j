@@ -131,7 +131,8 @@ public class MetaCRSTestCmd
         failCount++;
         System.out.print("F");
       }
-      if (verbose) {
+      if (verbose || ! isOk) {
+        System.out.println();
         test.print(System.out);
       }
 

@@ -178,6 +178,5 @@ public class MetaCRSTestCase
       System.out.println("Src CRS: " + srcCS.getParameterString());
       System.out.println("Tgt CRS: " + tgtCS.getParameterString());
     }
-    System.out.println();
   }
 }
