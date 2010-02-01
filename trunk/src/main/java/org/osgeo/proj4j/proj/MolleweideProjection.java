@@ -111,7 +111,6 @@ public class MolleweideProjection extends PseudoCylindricalProjection {
 	}
 
 	public String toString() {
-		this.type = type;
 		switch (type) {
 		case WAGNER4:
 			return "Wagner IV";

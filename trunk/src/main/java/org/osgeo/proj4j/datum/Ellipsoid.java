@@ -71,7 +71,7 @@ public class Ellipsoid implements Cloneable {
 			double flattening = 1.0 / reciprocalFlattening;
 			double f = flattening;
 			eccentricity2 = 2 * f - f * f;
-			poleRadius = equatorRadius * Math.sqrt(1.0 - eccentricity2);
+			this.poleRadius = equatorRadius * Math.sqrt(1.0 - eccentricity2);
 		} else {
 			eccentricity2 = 1.0 - (poleRadius * poleRadius) / (equatorRadius * equatorRadius);
 		}

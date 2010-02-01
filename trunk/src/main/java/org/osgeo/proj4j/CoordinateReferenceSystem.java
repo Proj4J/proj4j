@@ -47,7 +47,7 @@ public class CoordinateReferenceSystem
       String projName = "null-proj"; 
       if (proj != null)
         projName = proj.getName();
-      name = projName + "-CS";
+      this.name = projName + "-CS";
     }
 	}
 	

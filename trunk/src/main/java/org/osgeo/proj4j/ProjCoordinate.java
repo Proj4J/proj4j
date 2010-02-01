@@ -231,9 +231,9 @@ public class ProjCoordinate
 	{
 		// We have to handle Double.NaN values here, because not every
 		// ProjCoordinate will have a valid Z Value.
-		if(this.z == Double.NaN)
+		if(Double.isNaN(z))
 		{
-			if(argToCompare.z == Double.NaN)
+			if(Double.isNaN(argToCompare.z))
 			{
 				// Both the z ordinate values are Double.Nan. Return true.
 				return true;
@@ -250,7 +250,7 @@ public class ProjCoordinate
 		// We have a valid z ordinate value in this ProjCoordinate object.
 		else
 		{
-			if(argToCompare.z == Double.NaN)
+			if(Double.isNaN(argToCompare.z))
 			{
 				// We've got one z ordinate with a valid value and one with
 				// a Double.NaN value. Return false.
@@ -348,7 +348,7 @@ public class ProjCoordinate
 	 */
 	public boolean hasValidXandYOrdinates()
 	{
-		if(this.x == Double.NaN)
+		if(Double.isNaN(x))
 		{
 			return false;
 		}

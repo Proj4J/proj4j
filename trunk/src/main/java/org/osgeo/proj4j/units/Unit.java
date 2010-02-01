@@ -30,7 +30,7 @@ public class Unit implements Serializable {
 	
 	public String name, plural, abbreviation;
 	public double value;
-	public static NumberFormat format;
+	public static final NumberFormat format;
 	
 	static {
 		format = NumberFormat.getNumberInstance();

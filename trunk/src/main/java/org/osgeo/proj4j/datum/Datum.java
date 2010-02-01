@@ -30,6 +30,8 @@ public class Datum
   public static final int TYPE_7PARAM = 3;
   public static final int TYPE_GRIDSHIFT = 4;
   
+  private static final double[] DEFAULT_TRANSFORM = new double[] { 0.0, 0.0, 0.0 };
+
   public static final Datum WGS84 = new Datum("WGS84", 0,0,0, Ellipsoid.WGS84, "WGS84"); 
   public static final Datum GGRS87 = new Datum("GGRS87", -199.87,74.79,246.62, Ellipsoid.GRS80, "Greek_Geodetic_Reference_System_1987");
   public static final Datum NAD83 = new Datum("NAD83", 0,0,0, Ellipsoid.GRS80,"North_American_Datum_1983");
@@ -41,7 +43,6 @@ public class Datum
   public static final Datum NZGD49 = new Datum("nzgd49", 59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993, Ellipsoid.INTERNATIONAL, "New Zealand Geodetic Datum 1949");
   public static final Datum OSEB36 = new Datum("OSGB36", 446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894, Ellipsoid.AIRY, "Airy 1830");
 
-  private static final double[] DEFAULT_TRANSFORM = new double[] { 0.0, 0.0, 0.0 };
 
   String code;
 	String name;

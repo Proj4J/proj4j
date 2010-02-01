@@ -151,6 +151,7 @@ public class CSVRecordParser
         case CH_WHITESPACE:
           loc++;
           state = STATE_AFTER;
+          break;
         case CH_DATA:
           throw new IllegalArgumentException("Malformed field - quote not at end of field");
         }
