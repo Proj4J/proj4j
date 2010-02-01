@@ -6,6 +6,7 @@ public class CoordinateTransformTester
 {
   boolean verbose = true;
   
+	private static final CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
   CRSFactory csFactory = new CRSFactory();
 
   static final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +datum=WGS84 +units=degrees";
@@ -57,8 +58,7 @@ public class CoordinateTransformTester
   {
     p.x = x1;
     p.y = y1;
-    CoordinateTransform trans = new CoordinateTransform(
-        srcCRS, tgtCRS);
+    CoordinateTransform trans = ctFactory.createTransform(srcCRS, tgtCRS);
     trans.transform(p, p2);
     
     if (verbose) {

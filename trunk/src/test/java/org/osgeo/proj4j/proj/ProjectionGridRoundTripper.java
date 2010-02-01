@@ -2,11 +2,13 @@ package org.osgeo.proj4j.proj;
 
 import org.osgeo.proj4j.CoordinateReferenceSystem;
 import org.osgeo.proj4j.CoordinateTransform;
+import org.osgeo.proj4j.CoordinateTransformFactory;
 import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.util.ProjectionUtil;
 
 public class ProjectionGridRoundTripper 
 {
+	private CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
 	private CoordinateReferenceSystem cs;
   private CoordinateTransform transInverse;
   private CoordinateTransform transForward;
@@ -18,8 +20,8 @@ public class ProjectionGridRoundTripper
 	public ProjectionGridRoundTripper(CoordinateReferenceSystem cs)
 	{
 		this.cs = cs;
-    transInverse = new CoordinateTransform(cs, CoordinateReferenceSystem.CS_GEO); 
-    transForward = new CoordinateTransform(CoordinateReferenceSystem.CS_GEO, cs); 
+    transInverse = ctFactory.createTransform(cs, CoordinateReferenceSystem.CS_GEO); 
+    transForward = ctFactory.createTransform(CoordinateReferenceSystem.CS_GEO, cs); 
 	}
 	
 	public void setLevelDebug(boolean debug)

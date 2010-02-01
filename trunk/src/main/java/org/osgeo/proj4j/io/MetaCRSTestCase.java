@@ -6,6 +6,8 @@ import org.osgeo.proj4j.util.*;
 
 public class MetaCRSTestCase 
 {
+	private static final CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
+	
   private boolean verbose = true;
   
   String testName;
@@ -151,8 +153,7 @@ public class MetaCRSTestCase
     //srcPt.x = srcOrd2;
     //srcPt.y = srcOrd1;
     
-    CoordinateTransform trans = new CoordinateTransform(
-        srcCS, tgtCS);
+    CoordinateTransform trans = ctFactory.createTransform(srcCS, tgtCS);
 
     trans.transform(srcPt, resultPt);
     
