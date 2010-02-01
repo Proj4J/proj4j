@@ -25,7 +25,8 @@ import org.osgeo.proj4j.datum.*;
  * in computing tranformations.
  * 
  * @author Martin Davis
- *
+ * 
+ * @see CoordinateTransformFactory
  */
 public interface CoordinateTransform 
 {

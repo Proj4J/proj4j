@@ -34,9 +34,6 @@ implements CoordinateTransform
 	private CoordinateReferenceSystem tgtCRS;
 	
   // temporary variable for intermediate results
-  //private Point2D.Double srcPt = new Point2D.Double();
-  //private Point2D.Double tgtPt = new Point2D.Double();
-  //private Point2D.Double geoPt = new Point2D.Double();
   private ProjCoordinate geoCoord = new ProjCoordinate(0,0);
 	
   // precomputed information
