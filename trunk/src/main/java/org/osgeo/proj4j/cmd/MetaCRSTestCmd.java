@@ -44,7 +44,6 @@ public class MetaCRSTestCmd
   private static CRSFactory csFactory = new CRSFactory();
 
   private List<String> filenames = new ArrayList<String>();
-  private String filename;
   private boolean verbose = false;
   
   int count = 0;
