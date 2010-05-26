@@ -58,7 +58,7 @@ public class CoordinateTransformTest extends TestCase
   {
     checkTransformFromGeo("EPSG:23030",    -3, 49.95,        				500000, 5533182.925903  );
     checkTransformFromGeo("EPSG:32615",    -93, 42,        					500000, 4649776.22482 );
-    checkTransformFromGeo("EPSG:32612",    -113.109375, 60.28125, 	383357.429537, 6684599.06392 );
+    checkTransformFromGeo("EPSG:32612",    -113.109375, 60.28125,   383357.429537, 6684599.06392 );
   }
   
   public void testMercator()
@@ -80,10 +80,15 @@ public class CoordinateTransformTest extends TestCase
   			"EPSG:3005", 964813.103719, 1016486.305862, 
   			0.0001);
   	
-  	checkTransformAndInverse(
-    		"EPSG:32633",  249032.839239894, 7183612.30572229, 
-    		"EPSG:4326", 9.735465995810884, 64.68347938257097, 
-    		0.000001 );
+    checkTransformAndInverse(
+        "EPSG:32633",  249032.839239894, 7183612.30572229, 
+        "EPSG:4326", 9.735465995810884, 64.68347938257097, 
+        0.000001 );
+    
+    checkTransformAndInverse(
+        "EPSG:32636",  500000, 4649776.22482, 
+        "EPSG:4326", 33, 42, 
+        0.000001 );
   }
   
   public void testSouth()
