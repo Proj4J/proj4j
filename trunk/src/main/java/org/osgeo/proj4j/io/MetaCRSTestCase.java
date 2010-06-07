@@ -176,8 +176,12 @@ public class MetaCRSTestCase
     
     if (! isInTol) {
       System.out.println("FAIL");
-      System.out.println("Src CRS: " + srcCS.getParameterString());
-      System.out.println("Tgt CRS: " + tgtCS.getParameterString());
+      System.out.println("Src CRS: (" 
+          + srcCrsAuth + ":" + srcCrs + ") " 
+          + srcCS.getParameterString());
+      System.out.println("Tgt CRS: ("
+          + tgtCrsAuth + ":" + tgtCrs + ") " 
+          + tgtCS.getParameterString());
     }
   }
 }
