@@ -50,7 +50,7 @@ public class EquidistantConicProjection extends ConicProjection {
 		initialize(ProjectionMath.degToRad(0), ProjectionMath.degToRad(37.5), standardLatitude1, standardLatitude2);
 	}
 
-	public ProjCoordinate transform(ProjCoordinate in, ProjCoordinate out) {
+	public ProjCoordinate project(ProjCoordinate in, ProjCoordinate out) {
 		double lon = ProjectionMath.normalizeLongitude(in.x-projectionLongitude);
 		double lat = in.y;
 		double rho,theta,hold1,hold2,hold3;
@@ -66,7 +66,7 @@ public class EquidistantConicProjection extends ConicProjection {
 		return out;
 	}
 
-	public ProjCoordinate inverseTransform(ProjCoordinate in, ProjCoordinate out) {
+	public ProjCoordinate inverseProject(ProjCoordinate in, ProjCoordinate out) {
 		double theta, temp, rho, t, tphi, phi = 0, delta;
 		
 		theta = Math.atan(in.x / (rho0 - in.y));

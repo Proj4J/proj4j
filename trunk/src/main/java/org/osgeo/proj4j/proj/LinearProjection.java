@@ -21,7 +21,7 @@ import org.osgeo.proj4j.ProjCoordinate;
 
 public class LinearProjection extends Projection {
 	
-	public ProjCoordinate transform(ProjCoordinate src, ProjCoordinate dst) {
+	public ProjCoordinate project(ProjCoordinate src, ProjCoordinate dst) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;
@@ -34,7 +34,7 @@ public class LinearProjection extends Projection {
 		}
 	}
 
-	public ProjCoordinate inverseTransform(ProjCoordinate src, ProjCoordinate dst) {
+	public ProjCoordinate inverseProject(ProjCoordinate src, ProjCoordinate dst) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;

@@ -95,7 +95,7 @@ public class ProjectionValueTest extends TestCase
   {
     p.x = x;
     p.y = y;
-    proj.transform(p, p2);
+    proj.project(p, p2);
     
     if (debug) 
       System.out.println(ProjectionUtil.toString(p) 

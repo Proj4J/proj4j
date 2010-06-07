@@ -29,7 +29,7 @@ public class ProjectionGridTest extends TestCase
   
   public void testStatePlane()
   {
-  	// State-planes
+  	// State-plane EPSG defs
   	runEPSG(2759, 2930);
   }
   
@@ -58,9 +58,9 @@ public class ProjectionGridTest extends TestCase
   	
     System.out.println(code + " - " + cs.getParameterString()); 
     System.out.println( 
-  			"  - extent: [ " + extent[0] + ", " + extent[1] + " : " + extent[2] + ", " + extent[3] + " ]" 
-        + " - tol: " + TOLERANCE
-  			+ " - # pts run = " + tripper.getTransformCount());
+  			" - extent: [ " + extent[0] + ", " + extent[1] + " : " + extent[2] + ", " + extent[3] + " ]"); 
+  	System.out.println(" - tol: " + TOLERANCE);
+  	System.out.println(" - # pts run = " + tripper.getTransformCount());
   	
   	assertTrue(isOK);
   }

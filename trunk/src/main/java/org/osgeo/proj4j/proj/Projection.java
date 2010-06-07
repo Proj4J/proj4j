@@ -192,29 +192,46 @@ public abstract class Projection implements Cloneable {
 	}
 	
 	/**
-	 * Transform a geographic point (in degrees), producing a projected result (in the units of the target coordinate system).
+	 * Projects a geographic point (in degrees), producing a projected result 
+	 * (in the units of the target coordinate system).
+	 * 
+   * @param src the input geographic coordinate (in degrees)
+   * @param dst the projected coordinate (in coordinate system units)
+   * @return the target coordinate 
 	 */
-	public ProjCoordinate transform( ProjCoordinate src, ProjCoordinate dst ) {
+	public ProjCoordinate project( ProjCoordinate src, ProjCoordinate dst ) {
 		double x = src.x*DTR;
 		if ( projectionLongitude != 0 )
 			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
-		return transformRadians(x, src.y*DTR, dst);
+		return projectRadians(x, src.y*DTR, dst);
 	}
 
 	/**
-	 * Transform a geographic point (in radians), producing a projected result (in the units of the target coordinate system).
+	 * Projects a geographic point (in radians), producing a projected result 
+	 * (in the units of the target coordinate system).
+	 * 
+   * @param src the input geographic coordinate (in radians)
+   * @param dst the projected coordinate (in coordinate system units)
+   * @return the target coordinate 
+	 * 
 	 */
-	public ProjCoordinate transformRadians( ProjCoordinate src, ProjCoordinate dst ) {
+	public ProjCoordinate projectRadians( ProjCoordinate src, ProjCoordinate dst ) {
 		double x = src.x;
 		if ( projectionLongitude != 0 )
 			x = ProjectionMath.normalizeLongitude( x-projectionLongitude );
-		return transformRadians(x, src.y, dst);
+		return projectRadians(x, src.y, dst);
 	}
 	
 	/**
-	 * Transform a geographic point (in radians), producing a projected result (in the units of the target coordinate system).
+	 * Transform a geographic point (in radians), 
+	 * producing a projected result (in the units of the target coordinate system).
+	 * 
+	 * @param x the geographic x ordinate (in radians)
+	 * @param y the geographic y ordinate (in radians)
+   * @param dst the projected coordinate (in coordinate system units)
+	 * @return the target coordinate
 	 */
-	private ProjCoordinate transformRadians(double x, double y, ProjCoordinate dst ) {
+	private ProjCoordinate projectRadians(double x, double y, ProjCoordinate dst ) {
 		project(x, y, dst);
     if (unit == Units.DEGREES) {
       // convert radians to DD
@@ -234,9 +251,10 @@ public abstract class Projection implements Cloneable {
 	 * (i.e. from geographics to projection space). 
 	 * This should be overridden for all projections.
 	 * 
-	 * @param x the x ordinate (in radians)
-	 * @param y the y ordinate (in radians)
-	 * @return the point projected into the target coordinate system, in the specified units
+	 * @param x the geographic x ordinate (in radians)
+	 * @param y the geographic y ordinatee (in radians)
+   * @param dst the projected coordinate (in coordinate system units)
+	 * @return the target coordinate
 	 */
 	protected ProjCoordinate project(double x, double y, ProjCoordinate dst) {
 		dst.x = x;
@@ -247,19 +265,28 @@ public abstract class Projection implements Cloneable {
 	/**
 	 * Inverse-projects a point (in the units defined by the coordinate system), 
 	 * producing a geographic result (in degrees)
+	 * 
+   * @param src the input projected coordinate (in coordinate system units)
+   * @param dst the inverse-projected geographic coordinate (in degrees)
+   * @return the target coordinate
 	 */
-	public ProjCoordinate inverseTransform(ProjCoordinate src, ProjCoordinate dst) {
-    inverseTransformRadians(src, dst);
+	public ProjCoordinate inverseProject(ProjCoordinate src, ProjCoordinate dst) {
+    inverseProjectRadians(src, dst);
 		dst.x *= RTD;
 		dst.y *= RTD;
 		return dst;
 	}
 
 	/**
-	 * Inverse-projects a point (in the units defined by the coordinate system), 
+	 * Inverse-transforms a point (in the units defined by the coordinate system), 
 	 * producing a geographic result (in radians)
+	 * 
+	 * @param src the input projected coordinate (in coordinate system units)
+   * @param dst the inverse-projected geographic coordinate (in radians)
+   * @return the target coordinate
+	 * 
 	 */
-	public ProjCoordinate inverseTransformRadians(ProjCoordinate src, ProjCoordinate dst) {
+	public ProjCoordinate inverseProjectRadians(ProjCoordinate src, ProjCoordinate dst) {
     double x;
     double y;
     if (unit == Units.DEGREES) {
@@ -286,10 +313,10 @@ public abstract class Projection implements Cloneable {
 	 * (i.e. from projection space to geographics). 
 	 * This should be overridden for all projections.
 	 * 
-	 * @param x the projected x ordinate (in the units of the coordinate system)
-	 * @param y the projected y ordinate (in the units of the coordinate system)
-	 * @param dst the computed geographic coordinate
-	 * @return the computed geographic coordinate
+	 * @param x the projected x ordinate (in coordinate system units)
+	 * @param y the projected y ordinate (in coordinate system units)
+	 * @param dst the inverse-projected geographic coordinate  (in radians)
+	 * @return the target coordinate
 	 */
 	protected ProjCoordinate projectInverse(double x, double y, ProjCoordinate dst) {
 		dst.x = x;

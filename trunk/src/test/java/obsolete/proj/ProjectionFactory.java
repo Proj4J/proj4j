@@ -376,7 +376,7 @@ public class ProjectionFactory
 							String slat = t.nextToken();
 							p.x = format.parse( slon, null ).doubleValue();
 							p.y = format.parse( slat, null ).doubleValue();
-							projection.transform( p, p );
+							projection.project( p, p );
 							System.out.println( p.x+" "+p.y );
 						} 
 					}

@@ -40,7 +40,7 @@ public interface CoordinateTransform
    * Tranforms a coordinate from the source {@link CoordinateReferenceSystem} 
    * to the target one.
    * 
-   * @param src the input coordinate
+   * @param src the input coordinate to transform
    * @param tgt the transformed coordinate
    * @return the target coordinate which was passed in
    * 

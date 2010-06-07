@@ -1,5 +1,6 @@
 package org.osgeo.proj4j.proj;
 
+import org.osgeo.proj4j.CRSFactory;
 import org.osgeo.proj4j.CoordinateReferenceSystem;
 import org.osgeo.proj4j.CoordinateTransform;
 import org.osgeo.proj4j.CoordinateTransformFactory;
@@ -8,7 +9,12 @@ import org.osgeo.proj4j.util.ProjectionUtil;
 
 public class ProjectionGridRoundTripper 
 {
-	private CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
+	private static final CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
+  CRSFactory csFactory = new CRSFactory();
+
+  static final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +datum=WGS84 +units=degrees";
+  CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84", WGS84_PARAM);
+
 	private CoordinateReferenceSystem cs;
   private CoordinateTransform transInverse;
   private CoordinateTransform transForward;
@@ -20,8 +26,8 @@ public class ProjectionGridRoundTripper
 	public ProjectionGridRoundTripper(CoordinateReferenceSystem cs)
 	{
 		this.cs = cs;
-    transInverse = ctFactory.createTransform(cs, CoordinateReferenceSystem.CS_GEO); 
-    transForward = ctFactory.createTransform(CoordinateReferenceSystem.CS_GEO, cs); 
+    transInverse = ctFactory.createTransform(cs, WGS84); 
+    transForward = ctFactory.createTransform(WGS84, cs); 
 	}
 	
 	public void setLevelDebug(boolean debug)

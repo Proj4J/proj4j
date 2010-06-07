@@ -96,7 +96,7 @@ implements CoordinateTransform
    * Tranforms a coordinate from the source {@link CoordinateReferenceSystem} 
    * to the target one.
    * 
-   * @param src the input coordinate
+   * @param src the input coordinate to be transformed
    * @param tgt the transformed coordinate
    * @return the target coordinate which was passed in
    * 
@@ -109,7 +109,7 @@ implements CoordinateTransform
     
 		if (doInverseProjection) {
       // inverse project to geographic
-      srcCRS.getProjection().inverseTransformRadians(src, geoCoord);
+      srcCRS.getProjection().inverseProjectRadians(src, geoCoord);
 		}
 		else {
       geoCoord.setValue(src);
@@ -125,7 +125,7 @@ implements CoordinateTransform
 
 		if (doForwardProjection) {
       // project from geographic to planar
-      tgtCRS.getProjection().transformRadians(geoCoord, tgt);
+      tgtCRS.getProjection().projectRadians(geoCoord, tgt);
     }
     else {
 			tgt.setValue(geoCoord);
