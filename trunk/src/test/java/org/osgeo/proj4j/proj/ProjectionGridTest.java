@@ -29,8 +29,12 @@ public class ProjectionGridTest extends TestCase
   
   public void testStatePlane()
   {
-  	// State-plane EPSG defs
-  	runEPSG(2759, 2930);
+    // State-plane EPSG defs
+    runEPSG(2759, 2930);
+  }
+  public void testStatePlaneND()
+  {
+    runEPSG(2265);
   }
   
   void runEPSG(int codeStart, int codeEnd)
