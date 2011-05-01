@@ -53,6 +53,7 @@ import org.osgeo.proj4j.proj.Murdoch3Projection;
 import org.osgeo.proj4j.proj.NellProjection;
 import org.osgeo.proj4j.proj.NicolosiProjection;
 import org.osgeo.proj4j.proj.ObliqueMercatorProjection;
+import org.osgeo.proj4j.proj.ObliqueStereographicAlternativeProjection;
 import org.osgeo.proj4j.proj.OrthographicAzimuthalProjection;
 import org.osgeo.proj4j.proj.PerspectiveConicProjection;
 import org.osgeo.proj4j.proj.PerspectiveProjection;
@@ -303,6 +304,7 @@ public class Registry {
     register( "sinu", SinusoidalProjection.class, "Sinusoidal (Sanson-Flamsteed)" );
 //    register( "somerc", Projection.class, "Swiss. Obl. Mercator" );
     register( "stere", StereographicAzimuthalProjection.class, "Stereographic" );
+    register( "sterea", ObliqueStereographicAlternativeProjection.class, "Oblique Stereographic Alternative" );
     register( "tcc", TCCProjection.class, "Transverse Central Cylindrical" );
     register( "tcea", TCEAProjection.class, "Transverse Cylindrical Equal Area" );
 //    register( "tissot", TissotProjection.class, "Tissot Conic" );

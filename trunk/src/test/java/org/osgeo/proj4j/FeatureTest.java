@@ -53,7 +53,7 @@ public class FeatureTest extends TestCase
   
   void checkTransformFromGeo(String code, double lon, double lat, double x, double y)
   {
-    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, 0.0001));
+    assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, 0.0001));
   }
   
 }

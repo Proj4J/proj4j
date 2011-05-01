@@ -63,9 +63,15 @@ public class CoordinateTransformTest extends TestCase
   
   public void testMercator()
   {
-    //    google
+    // google CRS
     checkTransformFromGeo("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
   }
+  
+  public void testSterea()
+  {
+    checkTransformFromGeo("EPSG:28992",     5.29, 52.11,  148312.15,  457804.79   );  
+  }
+  
   public void testAlbersEqualArea()
   {
     checkTransformFromGeo("EPSG:3005",     -126.54, 54.15,   964813.103719, 1016486.305862  );
@@ -130,11 +136,11 @@ public class CoordinateTransformTest extends TestCase
   
   void checkTransformFromGeo(String code, double lon, double lat, double x, double y)
   {
-    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, 0.0001));
+    assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, 0.0001));
   }
   void checkTransformFromGeo(String code, double lon, double lat, double x, double y, double tolerance)
   {
-    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, tolerance));
+    assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, tolerance));
   }
   void checkTransform(
   		String cs1, double x1, double y1, 

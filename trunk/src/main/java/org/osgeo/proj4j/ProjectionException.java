@@ -16,6 +16,8 @@ limitations under the License.
 
 package org.osgeo.proj4j;
 
+import org.osgeo.proj4j.proj.Projection;
+
 /**
  * Signals that an erroneous situation has
  * occured during the computation of
@@ -24,12 +26,18 @@ package org.osgeo.proj4j;
  * @author mbdavis
  *
  */
-public class ProjectionException extends Proj4jException {
+public class ProjectionException extends Proj4jException 
+{
+  public static String ERR_17 = "non-convergent inverse meridinal dist";
+  
 	public ProjectionException() {
 		super();
 	}
 
-	public ProjectionException(String message) {
-		super(message);
-	}
+  public ProjectionException(String message) {
+    super(message);
+  }
+  public ProjectionException(Projection proj, String message) {
+    this(proj.toString() + ": " + message);
+  }
 }

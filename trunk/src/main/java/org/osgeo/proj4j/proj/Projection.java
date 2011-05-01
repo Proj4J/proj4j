@@ -649,11 +649,18 @@ public abstract class Projection implements Cloneable {
   
 	/**
 	 * Set the projection scale factor. This is set to 1 by default.
+	 * This value is called "k0" in PROJ.4.
 	 */
 	public void setScaleFactor( double scaleFactor ) {
 		this.scaleFactor = scaleFactor;
 	}
 
+	/**
+	 * Gets the projection scale factor.
+   * This value is called "k0" in PROJ.4.
+	 * 
+	 * @return
+	 */
 	public double getScaleFactor() {
 		return scaleFactor;
 	}

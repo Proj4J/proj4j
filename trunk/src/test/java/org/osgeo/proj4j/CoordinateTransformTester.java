@@ -19,12 +19,12 @@ public class CoordinateTransformTester
   ProjCoordinate p = new ProjCoordinate();
   ProjCoordinate p2 = new ProjCoordinate();
 
-  public boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y)
+  public boolean checkTransformFromWGS84(String name, double lon, double lat, double x, double y)
   {
-    return checkTransformFromGeo(name, lon, lat, x, y, 0.0001);
+    return checkTransformFromWGS84(name, lon, lat, x, y, 0.0001);
   }
   
-  public boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y, double tolerance)
+  public boolean checkTransformFromWGS84(String name, double lon, double lat, double x, double y, double tolerance)
   {
     return checkTransform(WGS84, lon, lat, createCS(name), x, y, tolerance);
   }
