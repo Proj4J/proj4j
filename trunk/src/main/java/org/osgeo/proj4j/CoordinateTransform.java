@@ -22,7 +22,7 @@ import org.osgeo.proj4j.datum.*;
  * <p>
  * Information about the transformation procedure is pre-computed
  * and cached in this object for efficiency
- * in computing tranformations.
+ * in computing transformations.
  * 
  * @author Martin Davis
  * 
