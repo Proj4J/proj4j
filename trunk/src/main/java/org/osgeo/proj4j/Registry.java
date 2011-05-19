@@ -154,7 +154,7 @@ public class Registry {
     new Ellipsoid("hough", 6378270.0, 0.0, 297.0, "Hough"),
     Ellipsoid.INTERNATIONAL,
     Ellipsoid.INTERNATIONAL_1967,
-    Ellipsoid.KRASOVSKY,
+    Ellipsoid.KRASSOVSKY,
     new Ellipsoid("kaula", 6378163.0, 0.0, 298.24, "Kaula 1961"),
     new Ellipsoid("lerch", 6378139.0, 0.0, 298.257, "Lerch 1979"),
     new Ellipsoid("mprts", 6397300.0, 0.0, 191.0, "Maupertius 1738"),

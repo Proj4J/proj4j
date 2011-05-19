@@ -43,7 +43,6 @@ public class Datum
   public static final Datum NZGD49 = new Datum("nzgd49", 59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993, Ellipsoid.INTERNATIONAL, "New Zealand Geodetic Datum 1949");
   public static final Datum OSEB36 = new Datum("OSGB36", 446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894, Ellipsoid.AIRY, "Airy 1830");
 
-
   private String code;
 	private String name;
 	private Ellipsoid ellipsoid;
