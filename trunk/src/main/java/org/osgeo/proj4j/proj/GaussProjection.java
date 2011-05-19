@@ -30,13 +30,12 @@ public class GaussProjection extends Projection {
 
   private double C;
   private double K;
-  private double e;
+//  private double e;
   protected double rc;
   protected double phic0;
   private double ratexp;
 
 	public GaussProjection() {
-		initialize();
 	}
 
 	public ProjCoordinate project(double x, double y, ProjCoordinate out) {

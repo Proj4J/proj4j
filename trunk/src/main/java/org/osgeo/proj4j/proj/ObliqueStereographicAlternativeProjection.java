@@ -30,7 +30,6 @@ public class ObliqueStereographicAlternativeProjection extends GaussProjection {
   private double R2;
   
 	public ObliqueStereographicAlternativeProjection() {
-		initialize();
 	}
 	
   public ProjCoordinate OLDproject(double x, double y, ProjCoordinate out) {
