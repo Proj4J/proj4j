@@ -103,11 +103,19 @@ public class Datum
   {
     if (transform  == null) return TYPE_WGS84;
     
-    //TODO: check for transform = all zeroes and return TYPE_WGS84 if so
+    if (isZero(transform)) return TYPE_WGS84;
     
     if (transform.length  == 3) return TYPE_3PARAM;
     if (transform.length  == 7) return TYPE_7PARAM;
     return TYPE_WGS84;
+  }
+  
+  private static boolean isZero(double[] transform)
+  {
+    for (int i = 0; i < transform.length; i++) {
+      if (transform[i] != 0.0) return false;
+    }
+    return true;
   }
   
   public boolean hasTransformToWGS84()
