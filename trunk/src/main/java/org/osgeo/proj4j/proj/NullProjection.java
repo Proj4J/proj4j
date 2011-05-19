@@ -26,13 +26,24 @@ import org.osgeo.proj4j.ProjCoordinate;
  * A projection which does nothing. Use this for drawing non-geographical overlays.
  */
 public class NullProjection extends Projection {
+  
+  public NullProjection()
+  {
+    initialize();
+  }
 	
-	public ProjCoordinate project( ProjCoordinate src, ProjCoordinate dst ) {
-		dst.x = src.x;
-		dst.y = src.y;
-		return dst;
-	}
-	
+  public ProjCoordinate project( ProjCoordinate src, ProjCoordinate dst ) {
+    dst.x = src.x;
+    dst.y = src.y;
+    return dst;
+  }
+  
+  public ProjCoordinate projectInverse( ProjCoordinate src, ProjCoordinate dst ) {
+    dst.x = src.x;
+    dst.y = src.y;
+    return dst;
+  }
+  
 	public Shape projectPath(Shape path, AffineTransform t, boolean filled) {
 		if ( t != null )
 			t.createTransformedShape( path );
