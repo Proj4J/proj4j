@@ -123,6 +123,20 @@ public class Datum
     return getTransformType() == TYPE_3PARAM || getTransformType() == TYPE_7PARAM;
   }
   
+  public static final double ELLIPSOID_E2_TOLERANCE = 0.000000000050;
+  
+  /**
+   * Tests if this is equal to another {@link Datum}.
+   * <p>
+   * Datums are considered to be equal iff:
+   * <ul>
+   * <li>their transforms are equal
+   * <li>OR their ellipsoids are (approximately) equal
+   * </ul>
+   * 
+   * @param datum
+   * @return
+   */
   public boolean isEqual(Datum datum)
   {
   	// false if tranforms are not equal
@@ -132,7 +146,7 @@ public class Datum
     // true if ellipsoids are (approximately) equal
     if( ellipsoid.getEquatorRadius() != ellipsoid.getEquatorRadius()) {
       if (Math.abs(ellipsoid.getEccentricitySquared() 
-           - datum.ellipsoid.getEccentricitySquared() )  > 0.000000000050)
+           - datum.ellipsoid.getEccentricitySquared() )  > ELLIPSOID_E2_TOLERANCE)
       return false;
     } 
     // false if transform parameters are not identical
