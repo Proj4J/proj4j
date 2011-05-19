@@ -20,7 +20,7 @@ import org.osgeo.proj4j.ProjCoordinate;
 
 
 /**
- * A geodetic datum. 
+ * A class representing a geodetic datum. 
  */
 public class Datum 
 {
@@ -142,12 +142,13 @@ public class Datum
     if( getTransformType() != datum.getTransformType()) {
       return false; 
     }
-    // true if ellipsoids are (approximately) equal
+    // false if ellipsoids are not (approximately) equal
     if( ellipsoid.getEquatorRadius() != ellipsoid.getEquatorRadius()) {
       if (Math.abs(ellipsoid.getEccentricitySquared() 
            - datum.ellipsoid.getEccentricitySquared() )  > ELLIPSOID_E2_TOLERANCE)
       return false;
     } 
+    
     // false if transform parameters are not identical
     if( getTransformType() == TYPE_3PARAM || getTransformType() == TYPE_7PARAM) {
       for (int i = 0; i < transform.length; i++) {
