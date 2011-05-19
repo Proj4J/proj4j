@@ -49,7 +49,7 @@ public final static Ellipsoid WGS72
 public final static Ellipsoid WGS84
   = new Ellipsoid("WGS84", 6378137.0, 0.0, 298.257223563, "WGS 84");
 public final static Ellipsoid KRASSOVSKY
-  = new Ellipsoid("krass", 6378245.0, 298.3, 0.0, "Krassovsky, 1942");
+  = new Ellipsoid("krass", 6378245.0, 0.0, 298.3, "Krassovsky, 1942");
 public final static Ellipsoid EVEREST
   = new Ellipsoid("evrst30", 6377276.345, 0.0, 300.8017, "Everest 1830");
 public final static Ellipsoid INTERNATIONAL_1967
