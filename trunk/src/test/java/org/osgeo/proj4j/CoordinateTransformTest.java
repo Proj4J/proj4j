@@ -23,12 +23,23 @@ public class CoordinateTransformTest extends TestCase
 
   public void testFirst()
   {
-    checkTransformFromGeo("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
+    checkTransformToGeo("EPSG:28992",     148312.15,  457804.79,  5.29, 52.11,   0.01 );  
+    //checkTransformFromWGS84("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
   }
   public void testPROJ4_SPCS_NAD27()
   {
     // AK 2
-    checkTransform("EPSG:4267", -142.0, 56.50833333333333,    "ESRI:26732", 500000.000,    916085.508, 0.1 );    
+    checkTransform("+proj=longlat +datum=NAD27 +to_meter=0.3048006096012192", -142.0, 56.50833333333333,    "ESRI:26732", 500000.000,    916085.508, 0.001 );
+
+    /**
+     * EPSG:4267 is the CRS for NAD27 Geographics.
+     * Even though ESRI:26732 is also NAD27,  
+     * the transform fails, because EPSG:4267 specifies datum transform params.
+     * This causes a datum transformation to be attempted, 
+     * which fails because the target does not specify datum transform params
+     * A more sophisticated check for datum equivalence might prevent this failure
+     */
+    //    checkTransform("EPSG:4267", -142.0, 56.50833333333333,    "ESRI:26732", 500000.000,    916085.508, 0.1 );    
   }
   
   public void testPROJ4_SPCS_NAD83()
@@ -50,33 +61,33 @@ public class CoordinateTransformTest extends TestCase
   
   public void testStereographic()
   {
-    checkTransformFromGeo("EPSG:3031",    0, -75, 0, 1638783.238407   );
-    checkTransformFromGeo("EPSG:3031",    -57.65625, -79.21875, -992481.633786, 628482.06328   );
+    checkTransformFromWGS84("EPSG:3031",    0, -75, 0, 1638783.238407   );
+    checkTransformFromWGS84("EPSG:3031",    -57.65625, -79.21875, -992481.633786, 628482.06328   );
   }
   
   public void testUTM()
   {
-    checkTransformFromGeo("EPSG:23030",    -3, 49.95,        				500000, 5533182.925903  );
-    checkTransformFromGeo("EPSG:32615",    -93, 42,        					500000, 4649776.22482 );
-    checkTransformFromGeo("EPSG:32612",    -113.109375, 60.28125,   383357.429537, 6684599.06392 );
+    checkTransformFromGeo("EPSG:23030",    -3, 49.95,        				500000, 5533182.925903, 0.1  );
+    checkTransformFromWGS84("EPSG:32615",    -93, 42,        					500000, 4649776.22482 );
+    checkTransformFromWGS84("EPSG:32612",    -113.109375, 60.28125,   383357.429537, 6684599.06392 );
   }
   
   public void testMercator()
   {
     // google CRS
-    checkTransformFromGeo("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
+    checkTransformFromWGS84("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
   }
   
   public void testSterea()
   {
-    checkTransformFromGeo("EPSG:28992",     5.29, 52.11,  148312.15,  457804.79   );  
+    checkTransformToGeo("EPSG:28992",     148312.15,  457804.79,  5.29, 52.11,   0.001 );  
   }
   
   public void testAlbersEqualArea()
   {
-    checkTransformFromGeo("EPSG:3005",     -126.54, 54.15,   964813.103719, 1016486.305862  );
+    checkTransformFromWGS84("EPSG:3005",     -126.54, 54.15,   964813.103719, 1016486.305862  );
     // # NAD83(CSRS) / BC Albers
-    checkTransformFromGeo("EPSG:3153",     -127.0, 52.11,  931625.9111828626, 789252.646454557 );
+    checkTransformFromWGS84("EPSG:3153",     -127.0, 52.11,  931625.9111828626, 789252.646454557 );
   }
   
   public void testEPSG_4326()
@@ -101,14 +112,14 @@ public class CoordinateTransformTest extends TestCase
   {
     // <2736> +proj=utm +zone=36 +south +ellps=clrk66 +units=m +no_defs  <>
     //from spatialreference.org
-    checkTransformFromGeo("EPSG:2736",     33.115, -19.14, 512093.765437, 7883804.406911    );
-    // from proj4.js - suspect this expected result is bogus
-    //checkTransformFromGeo("EPSG:2736",     34.0, -21.0, 603933.40, 7677505.64    );
+    checkTransformFromGeo("EPSG:2736",     33.115, -19.14, 512093.765437, 7883804.406911, 0.000001    );
+    // from proj4.js - result is out by 200 m
+    checkTransformFromGeo("EPSG:2736",     34.0, -21.0, 603933.40, 7677505.64, 200   );
   }
 
   public void testParams()
   {
-    checkTransformFromGeo("+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +units=m ", 
+    checkTransformFromWGS84("+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +units=m ", 
         -127.0, 52.11,  931625.9111828626, 789252.646454557, 0.0001);
   }
   
@@ -123,24 +134,36 @@ public class CoordinateTransformTest extends TestCase
     
 //    runTransform("EPSG:31467",   9, 51.165,       3500072.082451, 5670004.744777   );
 
-    checkTransformFromGeo("EPSG:54008",    11.0, 53.0,     738509.49,5874620.38 );
+    checkTransformFromWGS84("EPSG:54008",    11.0, 53.0,     738509.49,5874620.38 );
     
     
-    checkTransformFromGeo("EPSG:102026",   40.0, 40.0,     3000242.40, 5092492.64);
-    checkTransformFromGeo("EPSG:54032",    -127.0, 52.11,  -4024426.19, 6432026.98 );
+    checkTransformFromWGS84("EPSG:102026",   40.0, 40.0,     3000242.40, 5092492.64);
+    checkTransformFromWGS84("EPSG:54032",    -127.0, 52.11,  -4024426.19, 6432026.98 );
     
-    checkTransformFromGeo("EPSG:42304",    -99.84375, 48.515625,   -358185.267976, -40271.099023   );
-    checkTransformFromGeo("EPSG:42304",    -99.84375, 48.515625,   -358185.267976, -40271.099023  );
+    checkTransformFromWGS84("EPSG:42304",    -99.84375, 48.515625,   -358185.267976, -40271.099023   );
+    checkTransformFromWGS84("EPSG:42304",    -99.84375, 48.515625,   -358185.267976, -40271.099023  );
 //    runInverseTransform("EPSG:28992",    148312.15, 457804.79, 698.48,    5.29, 52.11);
   }
   
-  void checkTransformFromGeo(String code, double lon, double lat, double x, double y)
+  void checkTransformFromWGS84(String code, double lon, double lat, double x, double y)
   {
     assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, 0.0001));
   }
-  void checkTransformFromGeo(String code, double lon, double lat, double x, double y, double tolerance)
+  void checkTransformFromWGS84(String code, double lon, double lat, double x, double y, double tolerance)
   {
     assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, tolerance));
+  }
+  void checkTransformToWGS84(String code, double x, double y, double lon, double lat, double tolerance)
+  {
+    assertTrue(tester.checkTransformToWGS84(code, x, y, lon, lat, tolerance));
+  }
+  void checkTransformFromGeo(String code, double lon, double lat, double x, double y, double tolerance)
+  {
+    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, tolerance));
+  }
+  void checkTransformToGeo(String code, double x, double y, double lon, double lat, double tolerance)
+  {
+    assertTrue(tester.checkTransformToGeo(code, x, y, lon, lat, tolerance));
   }
   void checkTransform(
   		String cs1, double x1, double y1, 

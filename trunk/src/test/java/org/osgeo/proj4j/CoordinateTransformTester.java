@@ -1,23 +1,22 @@
 package org.osgeo.proj4j;
 
-import org.osgeo.proj4j.util.ProjectionUtil;
 
 public class CoordinateTransformTester 
 {
   boolean verbose = true;
   
 	private static final CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
-  CRSFactory csFactory = new CRSFactory();
+  CRSFactory crsFactory = new CRSFactory();
 
   static final String WGS84_PARAM = "+title=long/lat:WGS84 +proj=longlat +datum=WGS84 +units=degrees";
-  CoordinateReferenceSystem WGS84 = csFactory.createFromParameters("WGS84", WGS84_PARAM);
+  CoordinateReferenceSystem WGS84 = crsFactory.createFromParameters("WGS84", WGS84_PARAM);
 
   public CoordinateTransformTester(boolean verbose) {
     this.verbose = verbose;
   }
 
-  ProjCoordinate p = new ProjCoordinate();
-  ProjCoordinate p2 = new ProjCoordinate();
+  private ProjCoordinate p = new ProjCoordinate();
+  private ProjCoordinate p2 = new ProjCoordinate();
 
   public boolean checkTransformFromWGS84(String name, double lon, double lat, double x, double y)
   {
@@ -26,20 +25,45 @@ public class CoordinateTransformTester
   
   public boolean checkTransformFromWGS84(String name, double lon, double lat, double x, double y, double tolerance)
   {
-    return checkTransform(WGS84, lon, lat, createCS(name), x, y, tolerance);
+    return checkTransform(WGS84, lon, lat, createCRS(name), x, y, tolerance);
   }
   
-  private CoordinateReferenceSystem createCS(String csSpec)
+  public boolean checkTransformToWGS84(String name, double x, double y, double lon, double lat, double tolerance)
   {
-    CoordinateReferenceSystem cs = null;
+    return checkTransform(createCRS(name), x, y, WGS84, lon, lat, tolerance);
+  }
+  
+  public boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y, double tolerance)
+  {
+    CoordinateReferenceSystem  crs = createCRS(name);
+    CoordinateReferenceSystem geoCRS = crs.createGeographic();
+    return checkTransform(geoCRS, lon, lat, crs, x, y, tolerance);
+  }
+  
+  public boolean checkTransformToGeo(String name, double x, double y, double lon, double lat, double tolerance)
+  {
+    CoordinateReferenceSystem  crs = createCRS(name);
+    CoordinateReferenceSystem geoCRS = crs.createGeographic();
+    return checkTransform(crs, x, y, geoCRS, lon, lat, tolerance);
+  }
+  
+  private CoordinateReferenceSystem createCRS(String crsSpec)
+  {
+    CoordinateReferenceSystem crs = null;
     // test if name is a PROJ4 spec
-    if (csSpec.indexOf("+") >= 0) {
-      cs = csFactory.createFromParameters("Anon", csSpec);
+    if (crsSpec.indexOf("+") >= 0) {
+      crs = crsFactory.createFromParameters("Anon", crsSpec);
     } 
     else {
-      cs = csFactory.createFromName(csSpec);
+      crs = crsFactory.createFromName(crsSpec);
     }
-    return cs;
+    return crs;
+  }
+  
+  private static String crsDisplay(CoordinateReferenceSystem crs)
+  {
+    return crs.getName() 
+      + "(" + crs.getProjection()+"/" + crs.getDatum().getCode() + ")";
   }
   
   public boolean checkTransform(
@@ -47,8 +71,8 @@ public class CoordinateTransformTester
   		String tgtCRS, double x2, double y2, double tolerance)
   {
     return checkTransform(
-    		createCS(srcCRS), x1, y1, 
-    		createCS(tgtCRS), x2, y2, tolerance);
+    		createCRS(srcCRS), x1, y1, 
+    		createCRS(tgtCRS), x2, y2, tolerance);
   }
   
   public boolean checkTransform(
@@ -62,7 +86,7 @@ public class CoordinateTransformTester
     trans.transform(p, p2);
     
     if (verbose) {
-      System.out.println(srcCRS.getName() + " => " + tgtCRS.getName());
+      System.out.println(crsDisplay(srcCRS) + " => " + crsDisplay(tgtCRS) );
       System.out.println(
       		p.toShortString() 
           + " -> " 

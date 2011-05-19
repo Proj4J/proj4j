@@ -6,6 +6,9 @@ import junit.textui.TestRunner;
 /**
  * Tests for implementation of PROJ4 features.
  * 
+ * It is expected that many of these test will fail, until
+ * the tested features are implemented.
+ * 
  * @author Martin Davis
  *
  */
@@ -23,7 +26,7 @@ public class FeatureTest extends TestCase
   {
 //  datum conversions not yet supported
 //  +proj=tmerc +lat_0=0 +lon_0=6 +k=1 +x_0=2500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs     
-    checkTransformFromGeo("EPSG:31466",   6.685, 51.425, 2547685.01212,5699155.7345   );
+    checkTransformFromWGS84("EPSG:31466",   6.685, 51.425, 2547685.01212,5699155.7345   );
   }
   public void testPrimeMeridian()
   {
@@ -51,9 +54,13 @@ public class FeatureTest extends TestCase
     checkTransformFromGeo("EPSG:3573",     9.84375, 61.875,  2923052.02009, 1054885.46559  );
   }
   
-  void checkTransformFromGeo(String code, double lon, double lat, double x, double y)
+  void checkTransformFromWGS84(String code, double lon, double lat, double x, double y)
   {
     assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, 0.0001));
+  }
+  void checkTransformFromGeo(String code, double lon, double lat, double x, double y)
+  {
+    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, 0.0001));
   }
   
 }
