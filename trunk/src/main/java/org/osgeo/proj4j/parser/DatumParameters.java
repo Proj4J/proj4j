@@ -50,7 +50,7 @@ public class DatumParameters
       return Datum.WGS84;
     
     // otherwise, return a custom datum with the specified ellipsoid
-    return new Datum("user", datumTransform, getEllipsoid(), "User-defined");
+    return new Datum("User", datumTransform, getEllipsoid(), "User-defined");
   }
   
   private boolean isDefinedExplicitly()
