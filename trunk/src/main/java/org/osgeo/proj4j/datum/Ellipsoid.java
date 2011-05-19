@@ -17,7 +17,34 @@ limitations under the License.
 package org.osgeo.proj4j.datum;
 
 /**
- * A class representing a geographic ellipsoid.
+ * A class representing a geographic reference ellipsoid 
+ * (or more correctly an oblate spheroid), 
+ * used to model the shape of the surface of the earth.
+ * <p>
+ * An oblate spheroid is a geometric surface formed
+ * by the rotation of an ellipse about its minor axis.
+ * In geodesy this is used as a convenient approximation to the
+ * geoid, the true shape of the earth's surface.
+ * <p>
+ * An ellipsoid is defined by the following parameters:
+ * <ul>
+ * <li><i>a</i>, the equatorial radius (semi-major axis)
+ * </ul>
+ * and one of:
+ * <ul>
+ * <li><i>b</i>, the polar radius (semi-minor axis)
+ * <li><i>f</i>, the reciprocal flattening
+ * (<i>f = (a - b) / a</i>)
+ * </ul>
+ * In order to be used as a model of the geoid,
+ * the exact positioning of an ellipsoid
+ * relative to the geoid surface is specified
+ * by means of a geodetic {@link Datum}.
+ * <p>
+ * Notable ellipsoids in common use include 
+ * {@link #CLARKE_1866}, {@link #GRS80}, and {@link #WGS84}.
+ *   
+ * @see Datum
  */
 public class Ellipsoid implements Cloneable
 {

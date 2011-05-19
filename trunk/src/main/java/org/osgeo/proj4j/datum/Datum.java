@@ -20,7 +20,25 @@ import org.osgeo.proj4j.ProjCoordinate;
 
 
 /**
- * A class representing a geodetic datum. 
+ * A class representing a geodetic datum.
+ * <p>
+ * A geodetic datum consists of a set of reference points on or in the Earth,
+ * and a reference {@link Ellipsoid} giving an approximation 
+ * to the true shape of the geoid.
+ * <p>
+ * In order to transform between two geodetic points specified 
+ * on different datums, it is necessary to transform between the 
+ * two datums.  There are various ways in which this
+ * datum conversion may be specified:
+ * <ul>
+ * <li>A 3-parameter conversion
+ * <li>A 7-parameter conversion
+ * <li>A grid-shift conversion
+ * </ul>
+ * 
+ * <p>
+ * Notable datums in common use include {@link #NAD83} and {@link #WGS84}.
+ * 
  */
 public class Datum 
 {
