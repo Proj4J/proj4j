@@ -44,10 +44,10 @@ public class Datum
   public static final Datum OSEB36 = new Datum("OSGB36", 446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894, Ellipsoid.AIRY, "Airy 1830");
 
 
-  String code;
-	String name;
-	Ellipsoid ellipsoid;
-	double[] transform = DEFAULT_TRANSFORM;
+  private String code;
+	private String name;
+	private Ellipsoid ellipsoid;
+	private double[] transform = DEFAULT_TRANSFORM;
 	
   public Datum(String code, 
       String transformSpec, 
@@ -84,6 +84,10 @@ public class Datum
   }
   
   public String getCode() { return code; }
+  
+  public String getName() { return name; }
+  
+  public String toString() { return "[Datum-" + name + "]"; }
   
   public Ellipsoid getEllipsoid()
   {
