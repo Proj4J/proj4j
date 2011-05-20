@@ -4,7 +4,8 @@ import org.osgeo.proj4j.io.Proj4FileReader;
 import org.osgeo.proj4j.parser.Proj4Parser;
 
 /**
- * Creates {@link CoordinateReferenceSystem}s from a variety of ways
+ * A factory which can create {@link CoordinateReferenceSystem}s
+ * from a variety of ways
  * of specifying them.
  * <p>
  * <tt>CoordinateReferenceSystem</tt>s can be used to
@@ -41,15 +42,16 @@ public class CRSFactory
   
   /**
    * Creates a {@link CoordinateReferenceSystem} from a well-known name.
-   * Names are of the form: <tt>authority:code</tt>.
+   * Names are of the form: <tt>"authority:code"</tt>.
    * <ul>
-   * <li>The authority is a code for a namespace supported by
+   * <li><b><tt>authority</tt></b> is a code for a namespace supported by
    * PROJ.4.  
    * Currently supported values are 
    * <tt>EPSG</tt>, <tt>ESRI</tt>, <tt>WORLD</tt>, <tt>NA83</tt>, <tt>NAD27</tt>.
-   * If no authority is provided, <tt>EPSG</tt> will be assumed.
-   * <li>The code is the id of a coordinate system in the authority namespace.
-   * For example, in the <tt>EPSG</tt> namespace a code is an integer value.
+   * If no authority is provided, <tt>EPSG</tt> is assumed.
+   * <li><b><tt>code</tt></b> is the id of a coordinate system in the authority namespace.
+   * For example, in the <tt>EPSG</tt> namespace a code is an integer value
+   * which identifies a CRS definition in the EPSG database.
    * </ul>
    * An example of a valid name is <tt>EPSG:3005</tt>.
    * 
@@ -69,9 +71,14 @@ public class CRSFactory
   }
   
   /**
-   * Creates a {@link CoordinateReferenceSystem} from a PROJ.4 parameter string.
-   * 
-   * @param name a name for this coordinate system (may be null)
+   * Creates a {@link CoordinateReferenceSystem} 
+   * defined by a PROJ.4 parameter string.
+   * <p>
+   * An example of a valid PROJ.4 parameter string is:
+   * <pre>
+   * +proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +units=m
+   * </pre>
+   * @param name a name for this coordinate system (may be <tt>null</tt>)
    * @param paramStr a PROJ.4 parameter string
    * @return a {@link CoordinateReferenceSystem}
    * @throws UnsupportedParameterException if a PROJ.4 parameter is not supported
@@ -84,7 +91,8 @@ public class CRSFactory
   }
   
   /**
-   * Creates a {@link CoordinateReferenceSystem} from a set of PROJ.4 parameters.
+   * Creates a {@link CoordinateReferenceSystem} 
+   * defined by an array of PROJ.4 parameters.
    * 
    * @param name a name for this coordinate system (may be null)
    * @param args an array of PROJ.4 parameters

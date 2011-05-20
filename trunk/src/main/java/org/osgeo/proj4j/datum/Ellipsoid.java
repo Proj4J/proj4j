@@ -28,18 +28,20 @@ package org.osgeo.proj4j.datum;
  * <p>
  * An ellipsoid is defined by the following parameters:
  * <ul>
- * <li><i>a</i>, the equatorial radius (semi-major axis)
+ * <li><i>a</i>, the equatorial radius or semi-major axis
+ * (see {@link #getA()})
  * </ul>
  * and one of:
  * <ul>
- * <li><i>b</i>, the polar radius (semi-minor axis)
+ * <li><i>b</i>, the polar radius or semi-minor axis 
+ * (see {@link #getB()})
  * <li><i>f</i>, the reciprocal flattening
  * (<i>f = (a - b) / a</i>)
  * </ul>
  * In order to be used as a model of the geoid,
  * the exact positioning of an ellipsoid
- * relative to the geoid surface is specified
- * by means of a geodetic {@link Datum}.
+ * relative to the geoid surface needs to be specified.
+ * This is provided by means of a geodetic {@link Datum}.
  * <p>
  * Notable ellipsoids in common use include 
  * {@link #CLARKE_1866}, {@link #GRS80}, and {@link #WGS84}.
