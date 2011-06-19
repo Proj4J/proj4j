@@ -99,6 +99,8 @@
 			<fileset dir="doc"/>
   	</copy>
 	<copy file="test/lib/junit.jar" todir="${distro}/lib"/>
+	<copy file="LICENSE-2.0.txt" todir="${distro}"/>
+	<copy file="README.html" todir="${distro}"/>
 	</target>
 
 <target name="zip"
