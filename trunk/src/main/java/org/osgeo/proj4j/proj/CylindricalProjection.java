@@ -21,7 +21,7 @@ package org.osgeo.proj4j.proj;
 /**
  * The superclass for all cylindrical projections.
  */
-public class CylindricalProjection extends Projection {
+public abstract class CylindricalProjection extends Projection {
 	
 	public boolean isRectilinear() {
 		return true;

@@ -21,7 +21,7 @@ import org.osgeo.proj4j.util.ProjectionMath;
 /**
  * The superclass for all azimuthal map projections
  */
-public class AzimuthalProjection extends Projection {
+public abstract class AzimuthalProjection extends Projection {
 
 	public final static int NORTH_POLE = 1;
 	public final static int SOUTH_POLE = 2;

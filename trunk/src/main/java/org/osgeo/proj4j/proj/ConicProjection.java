@@ -21,7 +21,7 @@ package org.osgeo.proj4j.proj;
 /**
  * The superclass for all Conic projections.
  */
-public class ConicProjection extends Projection {
+public abstract class ConicProjection extends Projection {
 	
 	public String toString() {
 		return "Conic";
