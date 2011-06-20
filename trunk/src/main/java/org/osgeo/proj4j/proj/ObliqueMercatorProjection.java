@@ -27,7 +27,7 @@ import org.osgeo.proj4j.util.ProjectionMath;
 /**
 * Oblique Mercator Projection algorithm is taken from the USGS PROJ package.
 */
-public class ObliqueMercatorProjection extends Projection {
+public class ObliqueMercatorProjection extends CylindricalProjection {
 
 	private final static double TOL	= 1.0e-7;
 
