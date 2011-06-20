@@ -29,7 +29,20 @@ public class Proj4FileReader
   	}
     BufferedReader reader = new BufferedReader( 
           new InputStreamReader(inStr) );
-    
+    String[] args;
+    try {
+      args = readFile(reader, name);
+    }
+    finally {
+      if (reader != null)
+        reader.close();
+    }
+    return args;
+  }
+  
+  private String[] readFile( BufferedReader reader, String name) 
+  throws IOException 
+  {
     StreamTokenizer t = new StreamTokenizer( reader );
     t.commentChar( '#' );
     t.ordinaryChars( '0', '9' );
@@ -87,11 +100,9 @@ public class Proj4FileReader
       t.nextToken();
       if ( cname.equals( name ) ) {
         String[] args = (String[]) v.toArray( new String[0] );
-        reader.close();
         return args;
       }
     }
-    reader.close();
     return null;
   }
   
