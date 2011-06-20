@@ -333,28 +333,42 @@ public abstract class Projection implements Cloneable {
 
 	
 	/**
-	 * Returns true if this projection is conformal
+	 * Tests whether this projection is conformal.
+	 * A conformal projection preserves local angles.
+	 * 
+	 * @return true if this projection is conformal
 	 */
 	public boolean isConformal() {
 		return false;
 	}
 	
 	/**
-	 * Returns true if this projection is equal area
+	 * Tests whether this projection is equal-area
+   * An equal-area projection preserves relative sizes
+   * of projected areas.
+   * 
+   * @return true if this projection is equal-area
 	 */
 	public boolean isEqualArea() {
 		return false;
 	}
 	
 	/**
-	 * Returns true if this projection has an inverse
+	 * Tests whether this projection has an inverse.
+	 * If this method returns <tt>true</tt>
+	 * then the {@link #inverseProject(ProjCoordinate, ProjCoordinate)}
+	 * and {@link #inverseProjectRadians(ProjCoordinate, ProjCoordinate)}
+	 * methods will return meaningful results.
+	 * 
+	 * @return true if this projection has an inverse
 	 */
 	public boolean hasInverse() {
 		return false;
 	}
 
 	/**
-	 * Returns true if lat/long lines form a rectangular grid for this projection
+	 * Tests whether under this projection lines of 
+	 * latitude and longitude form a rectangular grid
 	 */
 	public boolean isRectilinear() {
 		return false;
