@@ -84,7 +84,7 @@ public class PolyconicProjection extends Projection {
 				i = N_ITER;
 				do {
 					tp = Math.tan(lpphi);
-					out.y -= (dphi = (xyy * (lpphi * tp + 1.) - lpphi -
+					lpphi -= (dphi = (xyy * (lpphi * tp + 1.) - lpphi -
 						.5 * ( lpphi * lpphi + B) * tp) /
 						((lpphi - xyy) / tp - 1.));
 				} while (Math.abs(dphi) > CONV && --i > 0);
