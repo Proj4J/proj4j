@@ -24,7 +24,14 @@ import org.osgeo.proj4j.units.Units;
 import org.osgeo.proj4j.util.ProjectionMath;
 
 /**
- * The superclass for all map projections
+ * A map projection is a mathematical algorithm
+ * for representing a spheroidal surface 
+ * on a plane.
+ * A single projection
+ * defines a (usually infinite) family of
+ * {@link CoordinateReferenceSystem}s,
+ * distinguished by different values for the
+ * projection parameters.
  */
 public abstract class Projection implements Cloneable {
 

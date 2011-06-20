@@ -19,7 +19,13 @@ package org.osgeo.proj4j.proj;
 
 
 /**
- * The superclass for all Conic projections.
+ * A projection formed by projecting the sphere 
+ * onto a cone tangent, or secant, to the sphere 
+ * along any small circle (usually a mid-latitude parallel). 
+ * In the normal aspect (which is oblique for conic projections), 
+ * parallels are projected as concentric arcs of circles, 
+ * and meridians are projected as straight lines 
+ * radiating at uniform angular intervals from the apex of the flattened cone. 
  */
 public abstract class ConicProjection extends Projection {
 	

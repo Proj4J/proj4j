@@ -19,7 +19,9 @@ package org.osgeo.proj4j.proj;
 
 
 /**
- * The superclass for all cylindrical projections.
+ * A projection 
+ * in which meridians are mapped to equally spaced vertical lines 
+ * and circles of latitude (parallels) are mapped to horizontal lines.
  */
 public abstract class CylindricalProjection extends Projection {
 	
