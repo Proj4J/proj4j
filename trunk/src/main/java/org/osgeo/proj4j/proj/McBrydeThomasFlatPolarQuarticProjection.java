@@ -23,7 +23,7 @@ import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
 
-public class MBTFPQProjection extends Projection {
+public class McBrydeThomasFlatPolarQuarticProjection extends PseudoCylindricalProjection {
 
 	private final static int NITER = 20;
 	private final static double EPS = 1e-7;

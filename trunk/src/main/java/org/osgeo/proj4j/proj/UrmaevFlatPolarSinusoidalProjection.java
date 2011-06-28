@@ -20,47 +20,56 @@ limitations under the License.
 package org.osgeo.proj4j.proj;
 
 import org.osgeo.proj4j.ProjCoordinate;
+import org.osgeo.proj4j.ProjectionException;
+import org.osgeo.proj4j.util.ProjectionMath;
 
-public class TCEAProjection extends Projection {
+public class UrmaevFlatPolarSinusoidalProjection extends Projection {
 
-	private double rk0;
+	private final static double C_x = 0.8773826753;
+	private final static double Cy = 1.139753528477;
 
-	public TCEAProjection() {
-		initialize();
+	private double n = 0.8660254037844386467637231707;// wag1
+	private double C_y;
+
+	public UrmaevFlatPolarSinusoidalProjection() {
 	}
 	
 	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
-		out.x = rk0 * Math.cos(lpphi) * Math.sin(lplam);
-		out.y = scaleFactor * (Math.atan2(Math.tan(lpphi), Math.cos(lplam)) - projectionLatitude);
+		out.y = ProjectionMath.asin(n * Math.sin(lpphi));
+		out.x = C_x * lplam * Math.cos(lpphi);
+		out.y = C_y * lpphi;
 		return out;
 	}
 
 	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
-		double t;
-
-		out.y = xyy * rk0 + projectionLatitude;
-		out.x *= scaleFactor;
-		t = Math.sqrt(1. - xyx * xyx);
-		out.y = Math.asin(t * Math.sin(xyy));
-		out.x = Math.atan2(xyx, t * Math.cos(xyy));
+		xyy /= C_y;
+		out.y = ProjectionMath.asin(Math.sin(xyy) / n);
+		out.x = xyx / (C_x * Math.cos(xyy));
 		return out;
-	}
-
-	public void initialize() { // tcea
-		super.initialize();
-		rk0 = 1 / scaleFactor;
-	}
-
-	public boolean isRectilinear() {
-		return false;
 	}
 
 	public boolean hasInverse() {
 		return true;
 	}
 
+	public void initialize() { // urmfps
+		super.initialize();
+		if (n <= 0. || n > 1.)
+			throw new ProjectionException("-40");
+		C_y = Cy / n;
+	}
+
+	// Properties
+	public void setN( double n ) {
+		this.n = n;
+	}
+	
+	public double getN() {
+		return n;
+	}
+	
 	public String toString() {
-		return "Transverse Cylindrical Equal Area";
+		return "Urmaev Flat-Polar Sinusoidal";
 	}
 
 }

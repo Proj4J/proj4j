@@ -19,7 +19,7 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-public class FoucautProjection extends STSProjection {
+public class FoucautProjection extends SineTangentSeriesProjection {
 
 	public FoucautProjection() {
 		super( 2., 2., true );

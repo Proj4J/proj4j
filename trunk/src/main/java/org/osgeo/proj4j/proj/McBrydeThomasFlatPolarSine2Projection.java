@@ -22,7 +22,7 @@ package org.osgeo.proj4j.proj;
 import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.util.ProjectionMath;
 
-public class MBTFPSProjection extends Projection {
+public class McBrydeThomasFlatPolarSine2Projection extends Projection {
 
 	private final static int MAX_ITER = 10;
 	private final static double LOOP_TOL = 1e-7;

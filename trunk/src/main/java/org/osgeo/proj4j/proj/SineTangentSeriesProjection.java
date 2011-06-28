@@ -22,13 +22,13 @@ package org.osgeo.proj4j.proj;
 import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.util.ProjectionMath;
 
-class STSProjection extends ConicProjection {
+class SineTangentSeriesProjection extends ConicProjection {
 	private double C_x;
 	private double C_y;
 	private double C_p;
 	private boolean tan_mode;
 
-	protected STSProjection( double p, double q, boolean mode ) {
+	protected SineTangentSeriesProjection( double p, double q, boolean mode ) {
 		es = 0.;
 		C_x = q / p;
 		C_y = p;

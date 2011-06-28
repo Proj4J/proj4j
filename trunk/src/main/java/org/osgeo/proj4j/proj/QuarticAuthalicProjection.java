@@ -19,7 +19,7 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-public class QuarticAuthalicProjection extends STSProjection {
+public class QuarticAuthalicProjection extends SineTangentSeriesProjection {
 
 	public QuarticAuthalicProjection() {
 		super( 2., 2., false );

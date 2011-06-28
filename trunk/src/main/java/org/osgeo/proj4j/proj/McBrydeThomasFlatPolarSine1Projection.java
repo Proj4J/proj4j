@@ -19,34 +19,14 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import org.osgeo.proj4j.ProjCoordinate;
-import org.osgeo.proj4j.ProjectionException;
-import org.osgeo.proj4j.util.ProjectionMath;
+public class McBrydeThomasFlatPolarSine1Projection extends SineTangentSeriesProjection {
 
-public class TCCProjection extends CylindricalProjection {
-
-	public TCCProjection() {
-		minLongitude = ProjectionMath.degToRad(-60);
-		maxLongitude = ProjectionMath.degToRad(60);
+	public McBrydeThomasFlatPolarSine1Projection() {
+		super( 1.48875, 1.36509, false );
 	}
 	
-	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
-		double b, bt;
-
-		b = Math.cos(lpphi) * Math.sin(lplam);
-		if ((bt = 1. - b * b) < EPS10)
-			throw new ProjectionException("F");
-		out.x = b / Math.sqrt(bt);
-		out.y = Math.atan2(Math.tan(lpphi), Math.cos(lplam));
-		return out;
-	}
-
-	public boolean isRectilinear() {
-		return false;
-	}
-
 	public String toString() {
-		return "Transverse Central Cylindrical";
+		return "McBryde-Thomas Flat-Polar Sine (No. 1)";
 	}
 
 }

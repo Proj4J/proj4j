@@ -23,53 +23,30 @@ import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
 
-public class URMFPSProjection extends Projection {
+public class TranverseCentralCylindricalProjection extends CylindricalProjection {
 
-	private final static double C_x = 0.8773826753;
-	private final static double Cy = 1.139753528477;
-
-	private double n = 0.8660254037844386467637231707;// wag1
-	private double C_y;
-
-	public URMFPSProjection() {
+	public TranverseCentralCylindricalProjection() {
+		minLongitude = ProjectionMath.degToRad(-60);
+		maxLongitude = ProjectionMath.degToRad(60);
 	}
 	
 	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
-		out.y = ProjectionMath.asin(n * Math.sin(lpphi));
-		out.x = C_x * lplam * Math.cos(lpphi);
-		out.y = C_y * lpphi;
+		double b, bt;
+
+		b = Math.cos(lpphi) * Math.sin(lplam);
+		if ((bt = 1. - b * b) < EPS10)
+			throw new ProjectionException("F");
+		out.x = b / Math.sqrt(bt);
+		out.y = Math.atan2(Math.tan(lpphi), Math.cos(lplam));
 		return out;
 	}
 
-	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
-		xyy /= C_y;
-		out.y = ProjectionMath.asin(Math.sin(xyy) / n);
-		out.x = xyx / (C_x * Math.cos(xyy));
-		return out;
+	public boolean isRectilinear() {
+		return false;
 	}
 
-	public boolean hasInverse() {
-		return true;
-	}
-
-	public void initialize() { // urmfps
-		super.initialize();
-		if (n <= 0. || n > 1.)
-			throw new ProjectionException("-40");
-		C_y = Cy / n;
-	}
-
-	// Properties
-	public void setN( double n ) {
-		this.n = n;
-	}
-	
-	public double getN() {
-		return n;
-	}
-	
 	public String toString() {
-		return "Urmaev Flat-Polar Sinusoidal";
+		return "Transverse Central Cylindrical";
 	}
 
 }

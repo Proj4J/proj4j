@@ -23,7 +23,7 @@ import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
 
-public class MBTFPPProjection extends Projection {
+public class McBrydeThomasFlatPolarParabolicProjection extends Projection {
 
 	private final static double CS = .95257934441568037152;
 	private final static double FXC = .92582009977255146156;

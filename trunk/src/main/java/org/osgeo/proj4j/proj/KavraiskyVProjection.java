@@ -19,7 +19,7 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-public class KavraiskyVProjection extends STSProjection {
+public class KavraiskyVProjection extends SineTangentSeriesProjection {
 
 	public KavraiskyVProjection() {
 		super( 1.50488, 1.35439, false );
