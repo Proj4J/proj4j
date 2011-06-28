@@ -79,6 +79,10 @@ public class HammerProjection extends PseudoCylindricalProjection {
 		return m;
 	}
 	
+	public boolean isEqualArea() {
+     return true;
+	}
+
 	public String toString() {
 		return "Hammer & Eckert-Greifendorff";
 	}

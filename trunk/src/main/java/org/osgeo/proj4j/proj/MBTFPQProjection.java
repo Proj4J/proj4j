@@ -77,6 +77,10 @@ public class MBTFPQProjection extends Projection {
 		return true;
 	}
 
+	public boolean isEqualArea() {
+     return true;
+	}
+
 	public String toString() {
 		return "McBryde-Thomas Flat-Polar Quartic";
 	}

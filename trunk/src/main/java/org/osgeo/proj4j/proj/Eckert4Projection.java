@@ -70,6 +70,10 @@ public class Eckert4Projection extends Projection {
 		return true;
 	}
 
+	public boolean isEqualArea() {
+     return true;
+	}
+
 	public String toString() {
 		return "Eckert IV";
 	}

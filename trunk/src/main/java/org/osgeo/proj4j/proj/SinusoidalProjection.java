@@ -44,6 +44,10 @@ public class SinusoidalProjection extends PseudoCylindricalProjection {
 		return true;
 	}
 
+	public boolean isEqualArea() {
+     return true;
+	}
+
 	public String toString() {
 		return "Sinusoidal";
 	}

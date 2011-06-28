@@ -110,6 +110,10 @@ public class MolleweideProjection extends PseudoCylindricalProjection {
 		return true;
 	}
 
+	public boolean isEqualArea() {
+	    return true;
+	}
+	 
 	public String toString() {
 		switch (type) {
 		case WAGNER4:
