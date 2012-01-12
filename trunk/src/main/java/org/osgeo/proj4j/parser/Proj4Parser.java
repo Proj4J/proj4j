@@ -17,6 +17,7 @@ public class Proj4Parser
 {
   /* SECONDS_TO_RAD = Pi/180/3600 */
   private static final double SECONDS_TO_RAD = 4.84813681109535993589914102357e-6;
+  private static final double MILLION = 1000000.0;
   
   private Registry registry;
   
@@ -207,7 +208,7 @@ public class Proj4Parser
      param[3] *= SECONDS_TO_RAD;
      param[4] *= SECONDS_TO_RAD;
      param[5] *= SECONDS_TO_RAD;
-     param[6] = (param[6]/1000000.0) + 1;
+     param[6] = (param[6]/MILLION) + 1;
    }
    
    return param;
