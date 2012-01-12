@@ -15,6 +15,9 @@ import org.osgeo.proj4j.units.Units;
 
 public class Proj4Parser 
 {
+  /* SECONDS_TO_RAD = Pi/180/3600 */
+  private static final double SECONDS_TO_RAD = 4.84813681109535993589914102357e-6;
+  
   private Registry registry;
   
   public Proj4Parser(Registry registry) {
@@ -168,7 +171,7 @@ public class Proj4Parser
  {
    String towgs84 = (String) params.get(Proj4Keyword.towgs84);
    if (towgs84 != null) {
-     double[] datumConvParams = parseDatumTransform(towgs84); 
+     double[] datumConvParams = parseToWGS84(towgs84); 
      datumParam.setDatumTransform(datumConvParams);
    }
 
@@ -182,7 +185,7 @@ public class Proj4Parser
    
  }
  
- private double[] parseDatumTransform(String paramList)
+ private double[] parseToWGS84(String paramList)
  {
    String[] numStr = paramList.split(",");
    
@@ -194,6 +197,19 @@ public class Proj4Parser
      // TODO: better error reporting
      param[i] = Double.parseDouble(numStr[i]);
    }
+   /**
+    * PROJ4 towgs84 7-parameter transform uses 
+    * units of arc-seconds for the rotation factors, 
+    * and parts-per-million for the scale factor.
+    * These need to be converted to radians and a scale factor. 
+    */
+   if (param.length > 3) {
+     param[3] *= SECONDS_TO_RAD;
+     param[4] *= SECONDS_TO_RAD;
+     param[5] *= SECONDS_TO_RAD;
+     param[6] = (param[6]/1000000.0) + 1;
+   }
+   
    return param;
  }
  

@@ -35,7 +35,10 @@ import org.osgeo.proj4j.ProjCoordinate;
  * <li>A 7-parameter conversion
  * <li>A grid-shift conversion
  * </ul>
- * 
+ * In order to be able to transform between any two datums, 
+ * the parameter-based transforms are provided as a transform to 
+ * the common WGS84 datum.  The WGS transforms of two arbitrary datum transforms can 
+ * be concatenated to provide a transform between the two datums.
  * <p>
  * Notable datums in common use include {@link #NAD83} and {@link #WGS84}.
  * 
@@ -120,17 +123,32 @@ public class Datum
   {
     if (transform  == null) return TYPE_WGS84;
     
-    if (isZero(transform)) return TYPE_WGS84;
+    if (isIdentity(transform)) return TYPE_WGS84;
     
     if (transform.length  == 3) return TYPE_3PARAM;
     if (transform.length  == 7) return TYPE_7PARAM;
+    
     return TYPE_WGS84;
   }
   
-  private static boolean isZero(double[] transform)
+  /**
+   * Tests whether the datum parameter-based transform 
+   * is the identity transform 
+   * (in which case datum transformation can be short-circuited,
+   * thus avoiding some loss of numerical precision).
+   * 
+   * @param transform
+   * @return
+   */
+  private static boolean isIdentity(double[] transform)
   {
     for (int i = 0; i < transform.length; i++) {
-      if (transform[i] != 0.0) return false;
+      // scale factor will normally be 1 for an identity transform
+      if (i == 6) {
+        if (transform[i] != 1.0 && transform[i] != 0.0)
+          return false;
+      }
+      else if (transform[i] != 0.0) return false;
     }
     return true;
   }
@@ -186,7 +204,6 @@ public class Datum
 
   }
 
-  
   public void transformFromGeocentricToWgs84(ProjCoordinate p) 
   {
     if( transform.length == 3 )

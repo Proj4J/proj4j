@@ -10,7 +10,7 @@ import org.osgeo.proj4j.datum.Ellipsoid;
  * the datum and ellipsoid for a {@link CoordinateReferenceSystem}.
  * This class also implements the policies for 
  * which parameters take precedence
- * when multiple inconsisent ones are present.
+ * when multiple inconsistent ones are present.
  * 
  * @author Martin Davis
  *
