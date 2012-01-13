@@ -8,7 +8,7 @@ import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.*;
 
 /**
- * Records predefined values for various library classes
+ * Supplies predefined values for various library classes
  * such as {@link Ellipsoid}, {@link Datum}, and {@link Projection}. 
  * 
  * @author Martin Davis

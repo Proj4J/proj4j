@@ -116,9 +116,15 @@ public class Proj4FileReader
       v.add( plusKey+"="+value );
     else 
       v.add(plusKey);
-
-
   }
+  
+  /**
+   * Gets the list of PROJ.4 parameters which define
+   * the coordinate system specified by <tt>name</tt>.
+   * 
+   * @param name the name of the coordinate system
+   * @return the PROJ.4 projection parameters which define the coordinate system
+   */
   public String[] getParameters(String name) {
     try {
       int p = name.indexOf(':');
