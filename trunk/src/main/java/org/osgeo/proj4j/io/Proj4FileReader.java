@@ -15,17 +15,17 @@ public class Proj4FileReader
     super();
   }
 
-  public String[] readFile( String file, String name ) 
+  public String[] readParametersFromFile( String authorityCode, String name ) 
   throws IOException 
   {
     // TODO: read comment preceding CS string as CS description
     // TODO: use simpler parser than StreamTokenizer for speed and flexibility
     // TODO: parse CSes line-at-a-time (this allows preserving CS param string for later access)
     
-  	String filename = "/nad/" + file.toLowerCase();
+  	String filename = "/nad/" + authorityCode.toLowerCase();
   	InputStream inStr = Proj4FileReader.class.getResourceAsStream( filename );
   	if (inStr == null) {
-  		throw new IllegalStateException("Unable to access resource " + filename);
+  		throw new IllegalStateException("Unable to access CRS file: " + filename);
   	}
     BufferedReader reader = new BufferedReader( 
           new InputStreamReader(inStr) );
@@ -40,8 +40,7 @@ public class Proj4FileReader
     return args;
   }
   
-  private String[] readFile( BufferedReader reader, String name) 
-  throws IOException 
+  private StreamTokenizer createTokenizer(BufferedReader reader)
   {
     StreamTokenizer t = new StreamTokenizer( reader );
     t.commentChar( '#' );
@@ -58,12 +57,20 @@ public class Proj4FileReader
     t.wordChars( '+', '+' );
     t.wordChars( ',', ',' );
     t.wordChars( '@', '@' );
+    return t;
+  }
+  
+  private String[] readFile( BufferedReader reader, String name) 
+  throws IOException 
+  {
+    StreamTokenizer t = createTokenizer(reader);
+    
     t.nextToken();
     while ( t.ttype == '<' ) {
       t.nextToken();
       if ( t.ttype != StreamTokenizer.TT_WORD ) 
         throw new IOException( t.lineno()+": Word expected after '<'" );
-      String cname = t.sval;
+      String crsName = t.sval;
       t.nextToken();
       if ( t.ttype != '>' )
         throw new IOException( t.lineno()+": '>' expected" );
@@ -98,7 +105,9 @@ public class Proj4FileReader
       if ( t.ttype != '>' )
         throw new IOException( t.lineno()+": '<>' expected" );
       t.nextToken();
-      if ( cname.equals( name ) ) {
+      
+      // found requested CRS?
+      if ( crsName.equals( name ) ) {
         String[] args = (String[]) v.toArray( new String[0] );
         return args;
       }
@@ -122,25 +131,19 @@ public class Proj4FileReader
    * Gets the list of PROJ.4 parameters which define
    * the coordinate system specified by <tt>name</tt>.
    * 
-   * @param name the name of the coordinate system
+   * @param crsName the name of the coordinate system
    * @return the PROJ.4 projection parameters which define the coordinate system
    */
-  public String[] getParameters(String name) {
+  public String[] getParameters(String crsName) {
     try {
-      int p = name.indexOf(':');
-      if (p >= 0)
-        return readFile(name.substring(0, p), name.substring(p + 1));
-      
-      /*
-       // not sure this is needed or a good idea
-        String[] files = { "world", "nad83", "nad27", "esri", "epsg", };
-      for (int i = 0; i < files.length; i++) {
-        Projection projection = readProjectionFile(files[i], name);
-        if (projection != null)
-          return projection;
+      int p = crsName.indexOf(':');
+      if (p >= 0) {
+        String auth = crsName.substring(0, p);
+        String id = crsName.substring(p + 1);
+        return readParametersFromFile(auth, id);
       }
-      */
-    } catch (IOException e) {
+    } 
+    catch (IOException e) {
       e.printStackTrace();
     }
     return null;
