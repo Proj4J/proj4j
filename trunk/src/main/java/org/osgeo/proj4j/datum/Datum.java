@@ -155,7 +155,8 @@ public class Datum
   
   public boolean hasTransformToWGS84()
   {
-    return getTransformType() == TYPE_3PARAM || getTransformType() == TYPE_7PARAM;
+    int transformType = getTransformType();
+    return transformType == TYPE_3PARAM || transformType == TYPE_7PARAM;
   }
   
   public static final double ELLIPSOID_E2_TOLERANCE = 0.000000000050;
