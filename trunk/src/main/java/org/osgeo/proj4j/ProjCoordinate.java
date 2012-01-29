@@ -1,5 +1,7 @@
 package org.osgeo.proj4j;
 
+import java.text.DecimalFormat;
+
 /**
  * Stores a the coordinates for a position  
  * defined relative to some {@link CoordinateReferenceSystem}.
@@ -13,6 +15,9 @@ package org.osgeo.proj4j;
  */
 public class ProjCoordinate 
 {
+  public static String DECIMAL_FORMAT_PATTERN = "0.0###############";
+  public static DecimalFormat DECIMAL_FORMAT = new DecimalFormat(DECIMAL_FORMAT_PATTERN);
+
 	/**
 	 * The X ordinate for this point. 
 	 * <p>
@@ -316,9 +321,9 @@ public class ProjCoordinate
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append("[");
-		builder.append(this.x);
+		builder.append(DECIMAL_FORMAT.format(x));
 		builder.append(", ");
-		builder.append(this.y);
+		builder.append(DECIMAL_FORMAT.format(y));
 		if (! Double.isNaN(z)) {
 			builder.append(", ");
 			builder.append(this.z);
