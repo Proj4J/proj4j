@@ -87,23 +87,26 @@ public class CoordinateTransformTester
     CoordinateTransform trans = ctFactory.createTransform(srcCRS, tgtCRS);
     trans.transform(p, p2);
     
+    double dx = Math.abs(p2.x - x2);
+    double dy = Math.abs(p2.y - y2);
+    double delta = Math.max(dx, dy);
+
     if (verbose) {
       System.out.println(crsDisplay(srcCRS) + " => " + crsDisplay(tgtCRS) );
       System.out.println(
       		p.toShortString() 
           + " -> " 
           + p2.toShortString()
-          + " (expected: " + (new ProjCoordinate(x2, y2)).toShortString() + " )"
+          + " (expected: " + (new ProjCoordinate(x2, y2)).toShortString() 
+          + " tol: " + tolerance + " delta: " + delta
+          + " )"
           );
     }
     
-    double dx = Math.abs(p2.x - x2);
-    double dy = Math.abs(p2.y - y2);
-    double dd = Math.max(dx, dy);
-    boolean isInTol =  dd <= tolerance;
+    boolean isInTol =  delta <= tolerance;
    
     if (verbose && ! isInTol) {
-      System.out.println("FAIL - discrepancy = " + dd + " > tolerance = " + tolerance);
+      System.out.println("FAIL");
       System.out.println("Src CRS: " + srcCRS.getParameterString());
       System.out.println("Tgt CRS: " + tgtCRS.getParameterString());
    }

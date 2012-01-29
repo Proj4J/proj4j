@@ -118,6 +118,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
     checkTransformFromGeo("EPSG:3573",     9.84375, 61.875,  2923052.02009, 1054885.46559  );
     // Proj4js
     checkTransform("EPSG:4258", 11.0, 53.0,    "EPSG:3035", 4388138.60, 3321736.46, 0.1 );
+    checkTransformAndInverse("EPSG:4258", 11.0, 53.0,    "EPSG:3035", 4388138.60, 3321736.46, 0.1 );
 
     // test values from GIGS test suite - which are suspect
     // Proj4J actual values agree with PROJ4

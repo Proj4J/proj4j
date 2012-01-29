@@ -105,17 +105,17 @@ public class LambertAzimuthalEqualAreaProjection extends Projection {
 	        cosph0 = Math.cos(phi0);
 	      }
 	    }
-	 	  }
+	 	}
 
 	  public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate out) {
-	      if (spherical) {
-	        project_s(lplam, lpphi, out);
-	      }
-	      else {
-	        project_e(lplam, lpphi, out);
-	      }
-	      return out;
-	    }
+      if (spherical) {
+        project_s(lplam, lpphi, out);
+      }
+      else {
+        project_e(lplam, lpphi, out);
+      }
+      return out;
+	  }
 	  
     public void project_s(double lplam, double lpphi, ProjCoordinate out) {
       double  coslam, cosphi, sinphi;
@@ -200,6 +200,101 @@ public class LambertAzimuthalEqualAreaProjection extends Projection {
       }
     }
   
+    public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
+      if (spherical) {
+        projectInverse_s(xyx, xyy, out);
+      }
+      else {
+        projectInverse_e(xyx, xyy, out);
+      }
+      return out;
+    }
+    
+    public void projectInverse_s(double xyx, double xyy, ProjCoordinate out) {
+      double  cosz=0.0, rh, sinz=0.0;
+      double lpphi, lplam;
+      
+      rh = Math.hypot(xyx, xyy);
+      if ((lpphi = rh * .5 ) > 1.) throw new ProjectionException("I_ERROR");
+      lpphi = 2. * Math.asin(lpphi);
+      if (mode == OBLIQ || mode == EQUIT) {
+        sinz = Math.sin(lpphi);
+        cosz = Math.cos(lpphi);
+      }
+      switch (mode) {
+      case EQUIT:
+        lpphi = Math.abs(rh) <= EPS10 ? 0. : Math.asin(xyy * sinz / rh);
+        xyx *= sinz;
+        xyy = cosz * rh;
+        break;
+      case OBLIQ:
+        lpphi = Math.abs(rh) <= EPS10 ? phi0 :
+          Math.asin(cosz * sinph0 + xyy * sinz * cosph0 / rh);
+        xyx *= sinz * cosph0;
+        xyy = (cosz - Math.sin(lpphi) * sinph0) * rh;
+        break;
+      case N_POLE:
+        xyy = -xyy;
+        lpphi = ProjectionMath.HALFPI - lpphi;
+        break;
+      case S_POLE:
+        lpphi -= ProjectionMath.HALFPI;
+        break;
+      }
+      lplam = (xyy == 0. && (mode == EQUIT || mode == OBLIQ)) ?
+        0. : Math.atan2(xyx, xyy);
+      out.x = lplam;
+      out.y = lpphi;
+    }
+    
+    public void projectInverse_e(double xyx, double xyy, ProjCoordinate out) {
+      double lpphi, lplam;
+      double cCe, sCe, q, rho, ab=0.0;
+
+      switch (mode) {
+      case EQUIT:
+      case OBLIQ:
+        if ((rho = Math.hypot(xyx /= dd, xyy *=  dd)) < EPS10) {
+          lplam = 0.;
+          lpphi = phi0;
+          out.x = lplam;
+          out.y = lpphi;
+          return;
+        }
+        cCe = Math.cos(sCe = 2. * Math.asin(.5 * rho / rq));
+        xyx *= (sCe = Math.sin(sCe));
+        if (mode == OBLIQ) {
+          q = qp * (ab = cCe * sinb1 + xyy * sCe * cosb1 / rho);
+          xyy = rho * cosb1 * cCe - xyy * sinb1 * sCe;
+        } else {
+          q = qp * (ab = xyy * sCe / rho);
+          xyy = rho * cCe;
+        }
+        break;
+      case N_POLE:
+        xyy = -xyy;
+      case S_POLE:
+        if (0 == (q = (xyx * xyx + xyy * xyy)) ) {
+          lplam = 0.;
+          lpphi = phi0;
+          out.x = lplam;
+          out.y = lpphi;
+          return;
+        }
+        /*
+        q = P->qp - q;
+        */
+        ab = 1. - q / qp;
+        if (mode == S_POLE)
+          ab = - ab;
+        break;
+      }
+      lplam = Math.atan2(xyx, xyy);
+      lpphi = ProjectionMath.authlat(Math.asin(ab), apa);
+      out.x = lplam;
+      out.y = lpphi;
+    }
+    
 	  /**
 	   * Returns true if this projection is equal area
 	   */
