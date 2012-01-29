@@ -225,7 +225,7 @@ public class Registry {
     register( "robin", RobinsonProjection.class, "Robinson" );
     register( "rpoly", RectangularPolyconicProjection.class, "Rectangular Polyconic" );
     register( "sinu", SinusoidalProjection.class, "Sinusoidal (Sanson-Flamsteed)" );
-//    register( "somerc", Projection.class, "Swiss. Obl. Mercator" );
+    register( "somerc", SwissObliqueMercatorProjection.class, "Swiss Oblique Mercator" );
     register( "stere", StereographicAzimuthalProjection.class, "Stereographic" );
     register( "sterea", ObliqueStereographicAlternativeProjection.class, "Oblique Stereographic Alternative" );
     register( "tcc", TranverseCentralCylindricalProjection.class, "Transverse Central Cylindrical" );

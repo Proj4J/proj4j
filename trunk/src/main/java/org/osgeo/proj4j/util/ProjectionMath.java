@@ -26,7 +26,8 @@ public class ProjectionMath {
 
   public final static double PI = Math.PI;
   public final static double HALFPI = Math.PI/2.0;
-	public final static double QUARTERPI = Math.PI/4.0;
+  public final static double QUARTERPI = Math.PI/4.0;
+  public final static double FORTPI = QUARTERPI;
 	public final static double TWOPI = Math.PI*2.0;
 	public final static double RTD = 180.0/Math.PI;
 	public final static double DTR = Math.PI/180.0;

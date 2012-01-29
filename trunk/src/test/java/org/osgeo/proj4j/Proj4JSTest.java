@@ -41,7 +41,6 @@ public class Proj4JSTest extends BaseCoordinateTransformTest
     // gamma not implemented
     checkTransformFromGeo("EPSG:2057", -53.0, 5.0, -1.160832226E7, 1.828261223E7, 0.1);
     // somerc not implemented
-    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660389.52, 185731.63, 0.1);
     // PM not supported
     checkTransformFromGeo("EPSG:27563", 3.005, 43.89, 653704.865208, 176887.660037, 0.1);    
   }
@@ -59,6 +58,9 @@ public class Proj4JSTest extends BaseCoordinateTransformTest
     checkTransformFromGeo("EPSG:28992", 5.29, 52.11, 148312.15, 457804.79, 100);
     checkTransformFromGeo("EPSG:31285", 13.33333333333, 47.5, 450055.7, 5262356.33, 100);
     checkTransformFromGeo("EPSG:31466", 6.685, 51.425, 2547685.01212, 5699155.7345, 200);
+
+    // Proj4J matches PROJ.4
+    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660389.52, 185731.63, 200);
   }
   
   public void xtestUnknownCRS()

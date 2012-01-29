@@ -126,6 +126,12 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
     //checkTransform("EPSG:4258", 5.0, 70.0,    "EPSG:3035", 4041548.12525335, 4109791.65987687, 0.1 );
   }
   
+  public void testSwissObliqueMercator()
+  {
+    // from PROJ.4
+    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660309.34,  185586.30, 0.1);
+  }
+
   public void testEPSG_4326()
   {
   	checkTransformAndInverse(
@@ -161,6 +167,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
     checkTransformFromGeo("EPSG:31466", 6.685, 51.425, 2547638.72,      5699005.05, 0.1);
     checkTransformFromGeo("EPSG:2736", 34.0, -21.0, 603934.39,  7677664.39, 0.1);
     checkTransformFromGeo("EPSG:26916", -86.6056, 34.579, 536173.11,  3826428.04, 0.1);
+    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660309.34,  185586.30, 0.1);
   }
   
   public void testPROJ4_LargeDiscrepancy()

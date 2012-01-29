@@ -70,10 +70,10 @@ public class FeatureTest extends BaseCoordinateTransformTest
     checkTransformFromGeo("EPSG:3573",     9.84375, 61.875,  2923052.02009, 1054885.46559  );
   }
   
-  public void testStandardObliqueMercator()
+  public void testSwissObliqueMercator()
   {
     // from proj4.js 
-    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660389.52, 185731.63, 0.1);
+    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660389.52, 185731.63, 200);
   }
   
 }
