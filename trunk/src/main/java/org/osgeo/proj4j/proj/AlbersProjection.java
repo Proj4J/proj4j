@@ -181,10 +181,5 @@ public class AlbersProjection extends Projection {
 		return "Albers Equal Area";
 	}
 
-/*
-	public String toString() {
-		return "Lambert Equal Area Conic";
-	}
-*/
 }
 
