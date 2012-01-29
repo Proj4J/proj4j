@@ -1,5 +1,7 @@
 package org.osgeo.proj4j;
 
+import java.text.DecimalFormat;
+
 
 public class CoordinateTransformTester 
 {
@@ -91,17 +93,17 @@ public class CoordinateTransformTester
       		p.toShortString() 
           + " -> " 
           + p2.toShortString()
-          + " (expected: " + x2 + ", " + y2 + " )"
+          + " (expected: " + (new ProjCoordinate(x2, y2)).toShortString() + " )"
           );
     }
     
     double dx = Math.abs(p2.x - x2);
     double dy = Math.abs(p2.y - y2);
-    
-    boolean isInTol =  dx <= tolerance && dy <= tolerance;
+    double dd = Math.max(dx, dy);
+    boolean isInTol =  dd <= tolerance;
    
     if (verbose && ! isInTol) {
-      System.out.println("FAIL");
+      System.out.println("FAIL - discrepancy = " + dd + " > tolerance = " + tolerance);
       System.out.println("Src CRS: " + srcCRS.getParameterString());
       System.out.println("Tgt CRS: " + tgtCRS.getParameterString());
    }
@@ -126,55 +128,4 @@ public class CoordinateTransformTester
   	
   	return isOkForward && isOkInverse;
   }
-/*
-  private boolean checkTransformFromGeo(CoordinateSystem cs, double lon, double lat, double x, double y, double tolerance)
-  {
-    if (cs != null) {
-      System.out.println(cs + " ( " + cs.getProjection() + " ) - " + cs.getParameterString());
-    }
-    else {
-      System.out.println(cs + " - NOT DEFINED");
-    }
-
-    if (cs == null) return false;
-    
-    boolean ok = checkTransformFromWGS84(cs, lon, lat, x, y, tolerance);
-    return ok;
-  }
-  
-
-  private boolean checkTransformFromWGS84(CoordinateSystem cs, double lon, double lat, double x, double y, double tolerance)
-  {
-    p.x = lon;
-    p.y = lat;
-    CoordinateTransformation trans = new CoordinateTransformation(
-        WGS84, // CoordinateSystem.CS_GEO
-        cs);
-    trans.transform(p, p2);
-    
-    if (verbose) {
-      System.out.println(ProjectionUtil.toString(p) 
-          + " -> " + ProjectionUtil.toString(p2)
-          + " ( expected: " + x + ", " + y + " )"
-          );
-      System.out.println();
-    }
-    
-    double dx = Math.abs(p2.x - x);
-    double dy = Math.abs(p2.y - y);
-    
-    boolean isInTol =  dx <= tolerance && dy <= tolerance;
-   
-    if (verbose && ! isInTol) {
-      System.out.println(cs.getParameterString());
-      System.out.println("FAIL: "
-          + ProjectionUtil.toString(p) 
-          + " -> " + ProjectionUtil.toString(p2) 
-          );
-    }
-
-    return isInTol;
-  }
-  
-*/
 }

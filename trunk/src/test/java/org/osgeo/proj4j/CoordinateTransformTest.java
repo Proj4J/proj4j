@@ -9,7 +9,7 @@ import junit.textui.TestRunner;
  * @author Martin Davis
  *
  */
-public class CoordinateTransformTest extends TestCase
+public class CoordinateTransformTest extends BaseCoordinateTransformTest
 {
 	static boolean debug = true;
 	
@@ -23,8 +23,9 @@ public class CoordinateTransformTest extends TestCase
 
   public void testFirst()
   {
-    checkTransform("EPSG:4326", 3.8142776, 51.285914,    "EPSG:23031", 556878.9016076007, 5682145.166264554, 0.1 );
+    //checkTransform("EPSG:4258", 5.0, 70.0,    "EPSG:3035", 4041548.12525335, 4109791.65987687, 0.1 );
     /*
+    checkTransform("EPSG:4326", 3.8142776, 51.285914,    "EPSG:23031", 556878.9016076007, 5682145.166264554, 0.1 );
     checkTransformFromWGS84("+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812 +units=m +no_defs",    
         5.387638889, 52.156160556,    155029.78919920223, 463109.9541111593);
     //checkTransformFromWGS84("EPSG:3153",     -127.0, 52.11,  931625.9111828626, 789252.646454557 );
@@ -112,6 +113,18 @@ public class CoordinateTransformTest extends TestCase
     checkTransformFromWGS84("EPSG:3153",     -127.0, 52.11,  931625.9111828626, 789252.646454557 );
   }
   
+  public void testLambertAzimuthalEqualArea()
+  {
+    checkTransformFromGeo("EPSG:3573",     9.84375, 61.875,  2923052.02009, 1054885.46559  );
+    // Proj4js
+    checkTransform("EPSG:4258", 11.0, 53.0,    "EPSG:3035", 4388138.60, 3321736.46, 0.1 );
+
+    // test values from GIGS test suite - which are suspect
+    // Proj4J actual values agree with PROJ4
+    //checkTransform("EPSG:4258", 5.0, 50.0,    "EPSG:3035", 3892127.02, 1892578.96, 0.1 );
+    //checkTransform("EPSG:4258", 5.0, 70.0,    "EPSG:3035", 4041548.12525335, 4109791.65987687, 0.1 );
+  }
+  
   public void testEPSG_4326()
   {
   	checkTransformAndInverse(
@@ -130,25 +143,33 @@ public class CoordinateTransformTest extends TestCase
         0.000001 );
   }
   
-  public void testSouth()
-  {
-    // <2736> +proj=utm +zone=36 +south +ellps=clrk66 +units=m +no_defs  <>
-    //from spatialreference.org
-    checkTransformFromGeo("EPSG:2736",     33.115, -19.14, 512093.765437, 7883804.406911, 0.000001    );
-    // from proj4.js - result is out by 200 m
-    checkTransformFromGeo("EPSG:2736",     34.0, -21.0, 603933.40, 7677505.64, 200   );
-  }
-
   public void testParams()
   {
     checkTransformFromWGS84("+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +units=m ", 
         -127.0, 52.11,  931625.9111828626, 789252.646454557, 0.0001);
   }
   
+  /**
+   * Values confirmed with PROJ.4 (Rel. 4.4.6, 3 March 2003)
+   */
+  public void testPROJ4()
+  {
+    checkTransformFromGeo("EPSG:27492", -7.84, 39.58, 25260.78, -9668.93, 0.1);
+    checkTransformFromGeo("EPSG:27700", -2.89, 55.4, 343642.04,  612147.04, 0.1);
+    checkTransformFromGeo("EPSG:31285", 13.33333333333, 47.5, 450000.00, 5262298.75, 0.1);
+    checkTransformFromGeo("EPSG:31466", 6.685, 51.425, 2547638.72,      5699005.05, 0.1);
+    checkTransformFromGeo("EPSG:2736", 34.0, -21.0, 603934.39,  7677664.39, 0.1);
+    checkTransformFromGeo("EPSG:26916", -86.6056, 34.579, 536173.11,  3826428.04, 0.1);
+  }
+  
+  public void testPROJ4_LargeDiscrepancy()
+  {
+    checkTransformFromGeo("EPSG:29100", -53.0, 5.0, 5110899.06, 10552971.67, 4000);
+  }
+  
+  
   public void XtestUndefined()
   {
- 	 
-
     //runInverseTransform("EPSG:27492",    25260.493584, -9579.245052,    -7.84, 39.58);
     //runInverseTransform("EPSG:27563",    653704.865208, 176887.660037,    3.005, 43.89);
     //runInverseTransform("EPSG:54003",    1223145.57,6491218.13,-6468.21,    11.0, 53.0);
@@ -158,7 +179,6 @@ public class CoordinateTransformTest extends TestCase
 
     checkTransformFromWGS84("EPSG:54008",    11.0, 53.0,     738509.49,5874620.38 );
     
-    
     checkTransformFromWGS84("EPSG:102026",   40.0, 40.0,     3000242.40, 5092492.64);
     checkTransformFromWGS84("EPSG:54032",    -127.0, 52.11,  -4024426.19, 6432026.98 );
     
@@ -167,39 +187,4 @@ public class CoordinateTransformTest extends TestCase
 //    runInverseTransform("EPSG:28992",    148312.15, 457804.79, 698.48,    5.29, 52.11);
   }
   
-  void checkTransformFromWGS84(String code, double lon, double lat, double x, double y)
-  {
-    assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, 0.0001));
-  }
-  void checkTransformFromWGS84(String code, double lon, double lat, double x, double y, double tolerance)
-  {
-    assertTrue(tester.checkTransformFromWGS84(code, lon, lat, x, y, tolerance));
-  }
-  void checkTransformToWGS84(String code, double x, double y, double lon, double lat, double tolerance)
-  {
-    assertTrue(tester.checkTransformToWGS84(code, x, y, lon, lat, tolerance));
-  }
-  void checkTransformFromGeo(String code, double lon, double lat, double x, double y, double tolerance)
-  {
-    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, tolerance));
-  }
-  void checkTransformToGeo(String code, double x, double y, double lon, double lat, double tolerance)
-  {
-    assertTrue(tester.checkTransformToGeo(code, x, y, lon, lat, tolerance));
-  }
-  void checkTransform(
-  		String cs1, double x1, double y1, 
-  		String cs2, double x2, double y2, 
-  		double tolerance)
-  {
-    assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance));
-  }
-  void checkTransformAndInverse(
-  		String cs1, double x1, double y1, 
-  		String cs2, double x2, double y2, 
-  		double tolerance)
-  {
-    assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance, true));
-  }
- 
 }
