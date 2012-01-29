@@ -33,6 +33,7 @@ public class ProjectionMath {
 	public final static Rectangle2D WORLD_BOUNDS_RAD = new Rectangle2D.Double(-Math.PI, -Math.PI/2, Math.PI*2, Math.PI);
 	public final static Rectangle2D WORLD_BOUNDS = new Rectangle2D.Double(-180, -90, 360, 180);
 
+	public final static double  EPS10 = 1.0e-10;
 	/**
 	 * Degree versions of trigonometric functions
 	 */

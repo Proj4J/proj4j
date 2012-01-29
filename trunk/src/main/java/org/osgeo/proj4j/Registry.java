@@ -175,7 +175,7 @@ public class Registry {
     register( "kav5", KavraiskyVProjection.class, "Kavraisky V" );
 //    register( "kav7", Projection.class, "Kavraisky VII" );
 //    register( "labrd", Projection.class, "Laborde" );
-//    register( "laea", Projection.class, "Lambert Azimuthal Equal Area" );
+    register( "laea", LambertAzimuthalEqualAreaProjection.class, "Lambert Azimuthal Equal Area" );
     register( "lagrng", LagrangeProjection.class, "Lagrange" );
     register( "larr", LarriveeProjection.class, "Larrivee" );
     register( "lask", LaskowskiProjection.class, "Laskowski" );
