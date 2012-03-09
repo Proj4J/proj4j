@@ -2,6 +2,7 @@ package org.osgeo.proj4j;
 
 import java.text.DecimalFormat;
 
+
 /**
  * Stores a the coordinates for a position  
  * defined relative to some {@link CoordinateReferenceSystem}.
@@ -168,6 +169,41 @@ public class ProjCoordinate
     this.z = p.z;
   }
   
+  /**
+   * Sets the value of this coordinate to 
+   * be equal to the given ordinates.
+   * The Z ordinate is set to <tt>NaN</tt>.
+   * 
+   * @param x the x ordinate
+   * @param y the y ordinate
+   */
+  public void setValue(double x, double y)
+  {
+    this.x = x;
+    this.y = y;
+    this.z = Double.NaN;
+  }
+  
+  /**
+   * Sets the value of this coordinate to 
+   * be equal to the given ordinates.
+   * 
+   * @param x the x ordinate
+   * @param y the y ordinate
+   * @param z the z ordinate
+   */
+  public void setValue(double x, double y, double z)
+  {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+  
+  public void clearZ()
+  {
+    z = Double.NaN;
+  }
+  
 	/**
 	 * Returns a boolean indicating if the X ordinate value of the 
 	 * ProjCoordinate provided as an ordinate is equal to the X ordinate
@@ -283,6 +319,44 @@ public class ProjCoordinate
 		}
 	}
 	
+  public boolean equals(Object other) {
+    if (!(other instanceof ProjCoordinate)) {
+      return false;
+    }
+    ProjCoordinate p = (ProjCoordinate) other;
+    if (x != p.x) {
+      return false;
+    }
+    if (y != p.y) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Gets a hashcode for this coordinate.
+   * 
+   * @return a hashcode for this coordinate
+   */
+  public int hashCode() {
+    //Algorithm from Effective Java by Joshua Bloch [Jon Aquino]
+    int result = 17;
+    result = 37 * result + hashCode(x);
+    result = 37 * result + hashCode(y);
+    return result;
+  }
+
+  /**
+   * Computes a hash code for a double value, using the algorithm from
+   * Joshua Bloch's book <i>Effective Java"</i>
+   * 
+   * @return a hashcode for the double value
+   */
+  private static int hashCode(double x) {
+    long f = Double.doubleToLongBits(x);
+    return (int)(f^(f>>>32));
+  }
+
 	/**
 	 * Returns a string representing the ProjPoint in the format:
 	 * <tt>ProjCoordinate[X Y Z]</tt>.

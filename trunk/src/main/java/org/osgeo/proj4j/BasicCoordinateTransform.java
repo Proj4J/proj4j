@@ -114,7 +114,6 @@ implements CoordinateTransform
   throws Proj4jException
 	{
 		// NOTE: this method may be called many times, so needs to be as efficient as possible
-    
 		if (doInverseProjection) {
       // inverse project to geographic
       srcCRS.getProjection().inverseProjectRadians(src, geoCoord);
@@ -125,6 +124,9 @@ implements CoordinateTransform
 
     //TODO: adjust src Prime Meridian if specified
     
+    // fixes bug where computed Z value sticks around
+		geoCoord.clearZ();
+		
     if (doDatumTransform) {
       datumTransform(geoCoord);
     }

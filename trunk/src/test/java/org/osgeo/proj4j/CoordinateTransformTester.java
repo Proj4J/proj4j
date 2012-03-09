@@ -37,7 +37,7 @@ public class CoordinateTransformTester
   
   public boolean checkTransformFromGeo(String name, double lon, double lat, double x, double y, double tolerance)
   {
-    CoordinateReferenceSystem  crs = createCRS(name);
+    CoordinateReferenceSystem crs = createCRS(name);
     CoordinateReferenceSystem geoCRS = crs.createGeographic();
     return checkTransform(geoCRS, lon, lat, crs, x, y, tolerance);
   }
@@ -98,7 +98,7 @@ public class CoordinateTransformTester
           + " -> " 
           + p2.toShortString()
           + " (expected: " + (new ProjCoordinate(x2, y2)).toShortString() 
-          + " tol: " + tolerance + " delta: " + delta
+          + " tol: " + tolerance + " diff: " + delta
           + " )"
           );
     }
@@ -118,16 +118,31 @@ public class CoordinateTransformTester
     return isInTol;
   }
   
+  /**
+   * Checks forward and inverse transformations between
+   * two coordinate systems for a given pair of points.
+   * 
+   * @param cs1
+   * @param x1
+   * @param y1
+   * @param cs2
+   * @param x2
+   * @param y2
+   * @param tolerance
+   * @param checkInverse
+   * @return
+   */
   public boolean checkTransform(
   		String cs1, double x1, double y1, 
   		String cs2, double x2, double y2, 
   		double tolerance,
+  		double inverseTolerance,
   		boolean checkInverse)
   {
   	boolean isOkForward = checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance);
   	boolean isOkInverse = true;
   	if (checkInverse)
-  		isOkInverse = checkTransform(cs2, x2, y2, cs1, x1, y1, tolerance);
+  		isOkInverse = checkTransform(cs2, x2, y2, cs1, x1, y1, inverseTolerance);
   	
   	return isOkForward && isOkInverse;
   }

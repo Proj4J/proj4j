@@ -11,6 +11,10 @@ import junit.textui.TestRunner;
  */
 public abstract class BaseCoordinateTransformTest extends TestCase
 {
+  // ~= 1 / (2Pi * Earth radius) 
+  // in code: 1.0 / (2.0 * Math.PI * 6378137.0);
+  public static final double APPROX_METRE_IN_DEGREES = 2.0e-8; 
+  
 	static boolean debug = true;
 	
   static CoordinateTransformTester tester = new CoordinateTransformTester(true);
@@ -41,6 +45,12 @@ public abstract class BaseCoordinateTransformTest extends TestCase
   {
     assertTrue(tester.checkTransformToGeo(code, x, y, lon, lat, tolerance));
   }
+  void checkTransformFromAndToGeo(String code, double lon, double lat, double x, double y, double tolProj, double tolGeo)
+  {
+    assertTrue(tester.checkTransformFromGeo(code, lon, lat, x, y, tolProj));
+    assertTrue(tester.checkTransformToGeo(code, x, y, lon, lat, tolGeo));
+  }
+
   void checkTransform(
   		String cs1, double x1, double y1, 
   		String cs2, double x2, double y2, 
@@ -51,9 +61,10 @@ public abstract class BaseCoordinateTransformTest extends TestCase
   void checkTransformAndInverse(
   		String cs1, double x1, double y1, 
   		String cs2, double x2, double y2, 
-  		double tolerance)
+  		double tolerance,
+  		double inverseTolerance)
   {
-    assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance, true));
+    assertTrue(tester.checkTransform(cs1, x1, y1, cs2, x2, y2, tolerance, inverseTolerance, true));
   }
  
 }

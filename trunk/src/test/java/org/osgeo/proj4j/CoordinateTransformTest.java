@@ -23,6 +23,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
 
   public void testFirst()
   {
+    checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
     //checkTransform("EPSG:4258", 5.0, 70.0,    "EPSG:3035", 4041548.12525335, 4109791.65987687, 0.1 );
     /*
     checkTransform("EPSG:4326", 3.8142776, 51.285914,    "EPSG:23031", 556878.9016076007, 5682145.166264554, 0.1 );
@@ -33,6 +34,13 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
     //checkTransformFromWGS84("EPSG:3785",     -76.640625, 49.921875,  -8531595.34908, 6432756.94421   );  
   */
   }
+  
+  public void testEPSG_27700()
+  {
+    checkTransform("EPSG:4326", -2.89, 55.4,    "EPSG:27700", 343733.1404, 612144.530677, 0.1 );
+  }
+  
+  
   /**
    * Tests use of 3 param transform
    */
@@ -80,6 +88,13 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
   {
     // Landon's test pt 
     checkTransformFromGeo("EPSG:2227", -121.3128278, 37.95657778, 6327319.23 , 2171792.15, 0.01 );
+    
+    // from GIGS Test Suite - seems to have a very large discrepancy
+    //checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
+        
+    checkTransformFromGeo("+proj=lcc +lat_1=30.0 +lon_0=-50.0 +datum=WGS84 +units=m +no_defs",
+        -123.1, 49.2166666666, -5287947.56661412, 3923289.38044914, 0.01 );
+    
   }
   
   public void testStereographic()
@@ -118,7 +133,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
     checkTransformFromGeo("EPSG:3573",     9.84375, 61.875,  2923052.02009, 1054885.46559  );
     // Proj4js
     checkTransform("EPSG:4258", 11.0, 53.0,    "EPSG:3035", 4388138.60, 3321736.46, 0.1 );
-    checkTransformAndInverse("EPSG:4258", 11.0, 53.0,    "EPSG:3035", 4388138.60, 3321736.46, 0.1 );
+    checkTransformAndInverse("EPSG:4258", 11.0, 53.0,    "EPSG:3035", 4388138.60, 3321736.46, 0.1, 2 * APPROX_METRE_IN_DEGREES );
 
     // test values from GIGS test suite - which are suspect
     // Proj4J actual values agree with PROJ4
@@ -129,7 +144,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
   public void testSwissObliqueMercator()
   {
     // from PROJ.4
-    checkTransformFromGeo("EPSG:21781", 8.23, 46.82, 660309.34,  185586.30, 0.1);
+    checkTransformFromAndToGeo("EPSG:21781", 8.23, 46.82, 660309.34,  185586.30, 0.1, 2 * APPROX_METRE_IN_DEGREES);
   }
 
   public void testEPSG_4326()
@@ -137,17 +152,17 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
   	checkTransformAndInverse(
   			"EPSG:4326", -126.54, 54.15,  
   			"EPSG:3005", 964813.103719, 1016486.305862, 
-  			0.0001);
+  			0.0001, 0.2 * APPROX_METRE_IN_DEGREES);
   	
     checkTransformAndInverse(
         "EPSG:32633",  249032.839239894, 7183612.30572229, 
         "EPSG:4326", 9.735465995810884, 64.68347938257097, 
-        0.000001 );
+        0.000001, 0.3 * APPROX_METRE_IN_DEGREES );
     
     checkTransformAndInverse(
         "EPSG:32636",  500000, 4649776.22482, 
         "EPSG:4326", 33, 42, 
-        0.000001 );
+        0.000001, 20 * APPROX_METRE_IN_DEGREES );
   }
   
   public void testParams()
