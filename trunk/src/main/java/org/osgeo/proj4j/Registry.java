@@ -18,6 +18,7 @@ public class Registry {
 
   public Registry() {
     super();
+    initialize();
   }
 
   public final static Datum[] datums = 
@@ -110,8 +111,8 @@ public class Registry {
   }
 
   public Projection getProjection( String name ) {
-    if ( projRegistry == null )
-      initialize();
+//    if ( projRegistry == null )
+//      initialize();
     Class cls = (Class)projRegistry.get( name );
     if ( cls != null ) {
       try {
@@ -130,7 +131,10 @@ public class Registry {
     return null;
   }
   
-  private void initialize() {
+  private synchronized void initialize() {
+    // guard against race condition
+    if (projRegistry != null) 
+      return;
     projRegistry = new HashMap();
     register( "aea", AlbersProjection.class, "Albers Equal Area" );
     register( "aeqd", EquidistantAzimuthalProjection.class, "Azimuthal Equidistant" );
