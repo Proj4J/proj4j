@@ -53,7 +53,7 @@ public class Proj4Keyword
 
   private static Set<String> supportedParams = null;
   
-  public static Set supportedParameters()
+  public static synchronized Set supportedParameters()
   {
     if (supportedParams == null) {
       supportedParams = new TreeSet<String>();
