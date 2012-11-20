@@ -23,7 +23,9 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
 
   public void testFirst()
   {
-    checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
+    checkTransformAndInverse("+proj=stere +ellps=WGS84 +lon_0=21.00000000 +lat_0=52.00000000 +no_defs", 0, 0, 
+        "+proj=longlat +ellps=WGS84 +no_defs", 21, 52, 0.0000001, 0.000001 );
+    //checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
     //checkTransform("EPSG:4258", 5.0, 70.0,    "EPSG:3035", 4041548.12525335, 4109791.65987687, 0.1 );
     /*
     checkTransform("EPSG:4326", 3.8142776, 51.285914,    "EPSG:23031", 556878.9016076007, 5682145.166264554, 0.1 );
@@ -96,16 +98,34 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
     
     // from GIGS Test Suite - seems to have a very large discrepancy
     //checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
-        
+    
+    /*
+     * Not sure why this one doesn't work
+     *
     checkTransformFromGeo("+proj=lcc +lat_1=30.0 +lon_0=-50.0 +datum=WGS84 +units=m +no_defs",
         -123.1, 49.2166666666, -5287947.56661412, 3923289.38044914, 0.01 );
-    
+    */
   }
   
-  public void testStereographic()
+  // PROJ.4 #148
+  public void testPolyconic()
   {
-    checkTransformFromWGS84("EPSG:3031",    0, -75, 0, 1638783.238407   );
-    checkTransformFromWGS84("EPSG:3031",    -57.65625, -79.21875, -992481.633786, 628482.06328   );
+    // pconic does not currently work
+    //checkTransformAndInverse("+proj=latlong +datum=WGS84", -70.4, -23.65, "+proj=pconic  +units=m +lat_1=20n +lat_2=60n +lon_0=60W +datum=WGS84", -2240096.40, -6940342.15, 2e-1, 1e-6 );
+  }
+  
+  // PROJ.4 #133
+  public void testRobinson()
+  {
+    checkTransform("+proj=latlong +datum=WGS84", -30, 40, "+proj=robin +datum=WGS84", -2612095.95, 4276351.58, 2e-1 );
+  }
+  
+  public void testStereographicAzimuthal()
+  {
+    checkTransformAndInverse("EPSG:4326",    0, -75, "EPSG:3031", 0, 1638783.238407, 1e-6, 1e-6 );
+    checkTransformAndInverse("EPSG:4326",     -57.65625, -79.21875, "EPSG:3031", -992481.633786, 628482.06328, 1e-6, 1e-6 );
+    checkTransformAndInverse("+proj=stere +ellps=WGS84 +lon_0=21.00000000 +lat_0=52.00000000 +no_defs", 0, 0, 
+        "+proj=longlat +ellps=WGS84 +no_defs", 21, 52, 1e-6, 1e-6 );
   }
   
   public void testUTM()

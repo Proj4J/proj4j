@@ -212,7 +212,12 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 			default:	// To prevent the compiler complaining about uninitialized vars.
 				cosphi = Math.cos( tp = 2. * Math.atan2(rho * cosphi0 , akm1) );
 				sinphi = Math.sin(tp);
-				phi_l = Math.asin(cosphi * sinphi0 + (y * sinphi * cosphi0 / rho));
+				if (rho <= 0) {
+				  phi_l = Math.asin(cosphi * sinphi0);
+				}
+				else {
+				  phi_l = Math.asin(cosphi * sinphi0 + (y * sinphi * cosphi0 / rho));
+				}
 				tp = Math.tan(.5 * (ProjectionMath.HALFPI + phi_l));
 				x *= sinphi;
 				y = rho * cosphi0 * cosphi - y * sinphi0* sinphi;

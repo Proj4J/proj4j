@@ -63,7 +63,7 @@ public class SimpleConicProjection extends ConicProjection {
 			rho = rho_c + Math.tan(sig - lpphi);
 			break;
 		case PCONIC:
-			rho = c2 * (c1 - Math.tan(lpphi));
+			rho = c2 * (c1 - Math.tan(lpphi - sig));
 			break;
 		default:
 			rho = rho_c - lpphi;
