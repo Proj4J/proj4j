@@ -1,8 +1,5 @@
 package org.osgeo.proj4j;
 
-import java.text.DecimalFormat;
-
-
 public class CoordinateTransformTester 
 {
   boolean verbose = true;
@@ -69,26 +66,45 @@ public class CoordinateTransformTester
   }
   
   public boolean checkTransform(
-  		String srcCRS, double x1, double y1, 
-  		String tgtCRS, double x2, double y2, double tolerance)
+      String srcCRS, double x1, double y1, 
+      String tgtCRS, double x2, double y2, double tolerance)
   {
     return checkTransform(
-    		createCRS(srcCRS), x1, y1, 
-    		createCRS(tgtCRS), x2, y2, tolerance);
+        createCRS(srcCRS), x1, y1, 
+        createCRS(tgtCRS), x2, y2, tolerance);
   }
   
   public boolean checkTransform(
-  		CoordinateReferenceSystem srcCRS, double x1, double y1, 
-  		CoordinateReferenceSystem tgtCRS, double x2, double y2, 
+      String srcCRS, ProjCoordinate p1, 
+      String tgtCRS, ProjCoordinate p2, double tolerance)
+  {
+    return checkTransform(
+        createCRS(srcCRS), p1, 
+        createCRS(tgtCRS), p2, tolerance);
+  }
+  
+  public boolean checkTransform(
+      CoordinateReferenceSystem srcCRS, double x1, double y1, 
+      CoordinateReferenceSystem tgtCRS, double x2, double y2, 
+      double tolerance)
+  {
+    return checkTransform(
+        srcCRS, new ProjCoordinate(x1, y1),
+        tgtCRS, new ProjCoordinate(x2, y2), 
+        tolerance);
+  }
+  
+  public boolean checkTransform(
+  		CoordinateReferenceSystem srcCRS, ProjCoordinate p, 
+  		CoordinateReferenceSystem tgtCRS, ProjCoordinate p2, 
   		double tolerance)
   {
-    p.x = x1;
-    p.y = y1;
     CoordinateTransform trans = ctFactory.createTransform(srcCRS, tgtCRS);
-    trans.transform(p, p2);
+    ProjCoordinate pout = new ProjCoordinate();
+    trans.transform(p, pout);
     
-    double dx = Math.abs(p2.x - x2);
-    double dy = Math.abs(p2.y - y2);
+    double dx = Math.abs(pout.x - p2.x);
+    double dy = Math.abs(pout.y - p2.y);
     double delta = Math.max(dx, dy);
 
     if (verbose) {
@@ -97,7 +113,7 @@ public class CoordinateTransformTester
       		p.toShortString() 
           + " -> " 
           + p2.toShortString()
-          + " (expected: " + (new ProjCoordinate(x2, y2)).toShortString() 
+          + " (expected: " + p2.toShortString() 
           + " tol: " + tolerance + " diff: " + delta
           + " )"
           );
