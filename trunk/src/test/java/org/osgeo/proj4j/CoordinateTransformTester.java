@@ -53,7 +53,7 @@ public class CoordinateTransformTester
   {
     CoordinateReferenceSystem crs = null;
     // test if name is a PROJ4 spec
-    if (crsSpec.indexOf("+") >= 0) {
+    if (crsSpec.indexOf("+") >= 0 || crsSpec.indexOf("=") >= 0) {
       crs = crsFactory.createFromParameters("Anon", crsSpec);
     } 
     else {

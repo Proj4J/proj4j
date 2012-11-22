@@ -23,6 +23,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
 
   public void testFirst()
   {
+    checkTransformFromGeo("proj=lcc  datum=NAD83 lon_0=-100d30 lat_1=48d44 lat_2=47d26 lat_0=47 x_0=600000 y_0=0 units=us-ft", -98.76756444444445,48.13707861111111, 2391470.474,419526.909, 0.01 );
     checkTransformAndInverse("+proj=stere +ellps=WGS84 +lon_0=21.00000000 +lat_0=52.00000000 +no_defs", 0, 0, 
         "+proj=longlat +ellps=WGS84 +no_defs", 21, 52, 0.0000001, 0.000001 );
     //checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
@@ -95,6 +96,9 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
   {
     // Landon's test pt 
     checkTransformFromGeo("EPSG:2227", -121.3128278, 37.95657778, 6327319.23 , 2171792.15, 0.01 );
+    
+    // PROJ.4 NAD83 Test- 3301: north dakota north
+    checkTransformFromGeo("proj=lcc  datum=NAD83 lon_0=-100d30 lat_1=48d44 lat_2=47d26 lat_0=47 x_0=600000 y_0=0 units=us-ft", -98.76756444444445,48.13707861111111, 2391470.474,419526.909, 0.01 );
     
     // from GIGS Test Suite - seems to have a very large discrepancy
     //checkTransform("EPSG:4230", 5, 58, "EPSG:2192", 764566.84, 3343948.93, 0.01 );
