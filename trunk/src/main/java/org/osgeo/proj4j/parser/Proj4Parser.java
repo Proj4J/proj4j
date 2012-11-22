@@ -327,18 +327,20 @@ public class Proj4Parser
    Map params = new HashMap();
    for (int i = 0; i < args.length; i++) {
      String arg = args[i];
+     // strip leading "+" if any
      if (arg.startsWith("+")) {
-       int index = arg.indexOf('=');
-       if (index != -1) {
-         // params of form +pppp=vvvv
-         String key = arg.substring(1, index);
-         String value = arg.substring(index + 1);
-         params.put(key, value);
-       } else {
-         // params of form +ppppp
-         String key = arg.substring(1);
-         params.put(key, null);
-       }
+       arg = arg.substring(1);
+     }
+     int index = arg.indexOf('=');
+     if (index != -1) {
+       // param of form pppp=vvvv
+       String key = arg.substring(0, index);
+       String value = arg.substring(index + 1);
+       params.put(key, value);
+     } else {
+       // param of form ppppp
+       //String key = arg.substring(1);
+       params.put(arg, null);
      }
    }
    return params;
