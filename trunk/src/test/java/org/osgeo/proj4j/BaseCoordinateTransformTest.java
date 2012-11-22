@@ -1,7 +1,6 @@
 package org.osgeo.proj4j;
 
 import junit.framework.TestCase;
-import junit.textui.TestRunner;
 
 /**
  * Tests correctness and accuracy of Coordinate System transformations.

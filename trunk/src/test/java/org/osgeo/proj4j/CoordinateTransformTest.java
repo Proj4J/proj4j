@@ -1,6 +1,5 @@
 package org.osgeo.proj4j;
 
-import junit.framework.TestCase;
 import junit.textui.TestRunner;
 
 /**
