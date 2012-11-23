@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.osgeo.proj4j.*;
-import org.osgeo.proj4j.Registry;
 import org.osgeo.proj4j.datum.Datum;
 import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.Projection;
 import org.osgeo.proj4j.proj.TransverseMercatorProjection;
+import org.osgeo.proj4j.units.Angle;
 import org.osgeo.proj4j.units.AngleFormat;
 import org.osgeo.proj4j.units.Unit;
 import org.osgeo.proj4j.units.Units;
@@ -348,7 +348,7 @@ public class Proj4Parser
  }
 
  private static double parseAngle( String s ) {
-   return format.parse( s, null ).doubleValue();
+   return Angle.parse(s);
  }
 
 }

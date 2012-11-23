@@ -28,6 +28,18 @@ import org.osgeo.proj4j.util.ProjectionMath;
  */
 public class AngleFormat extends NumberFormat {
 
+  public static final char CH_MIN_SYMBOL = '\'';
+  public static final String STR_SEC_SYMBOL = "\"";
+  public static final char CH_DEG_SYMBOL = '\u00b0';
+  public static final char CH_DEG_ABBREV = 'd';
+  public static final char CH_MIN_ABBREV = 'm';
+  public static final String STR_SEC_ABBREV = "s";
+  
+  public static final char CH_N = 'N';
+  public static final char CH_E = 'E';
+  public static final char CH_S = 'S';
+  public static final char CH_W = 'W';
+
 	public final static String ddmmssPattern = "DdM";
 	public final static String ddmmssPattern2 = "DdM'S\"";
 	public final static String ddmmssLongPattern = "DdM'S\"W";
@@ -107,15 +119,15 @@ public class AngleFormat extends NumberFormat {
 				break;
 			case 'W':
 				if (negative)
-					result.append('W');
+					result.append(CH_W);
 				else
-					result.append('E');
+					result.append(CH_E);
 				break;
 			case 'N':
 				if (negative)
-					result.append('S');
+					result.append(CH_S);
 				else
-					result.append('N');
+					result.append(CH_N);
 				break;
 			default:
 				result.append(c);
@@ -125,6 +137,13 @@ public class AngleFormat extends NumberFormat {
 		return result;
 	}
 	
+  /**
+   * 
+   * @param s
+   * @return
+   * @deprecated
+   * @see Angle#parse(String)
+   */
 	public Number parse(String text, ParsePosition parsePosition) {
 		double d = 0, m = 0, s = 0;
 		double result;

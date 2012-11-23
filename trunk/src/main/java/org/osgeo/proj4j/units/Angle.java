@@ -4,8 +4,22 @@ import org.osgeo.proj4j.util.ProjectionMath;
 
 public class Angle
 {
+
   /**
    * Parses a text representation of a degree angle in various formats.
+   * 
+   * Formats include DMS and DD in the forms
+   * supported by {@link AngleFormat},
+   * as in the following examples:
+   * <pre>
+   * 123.12
+   * -123.12
+   * 123.12W
+   * 
+   * 123d44m44.555s
+   * 123d44'44.555"
+   * 123d44mN
+   * </pre>
    *  
    * @param text
    * @return the value of the angle, in degrees
@@ -20,32 +34,32 @@ public class Angle
     if (length > 0) {
       char c = Character.toUpperCase(text.charAt(length-1));
       switch (c) {
-      case 'W':
-      case 'S':
+      case AngleFormat.CH_W:
+      case AngleFormat.CH_S:
         negate = true;
         // Fall into...
-      case 'E':
-      case 'N':
+      case AngleFormat.CH_E:
+      case AngleFormat.CH_N:
         text = text.substring(0, length-1);
         break;
       }
     }
-    int i = text.indexOf('d');
+    int i = text.indexOf(AngleFormat.CH_DEG_ABBREV);
     if (i == -1)
-      i = text.indexOf('\u00b0');
+      i = text.indexOf(AngleFormat.CH_DEG_SYMBOL);
     if (i != -1) {
       String dd = text.substring(0, i);
       String mmss = text.substring(i+1);
       d = Double.valueOf(dd).doubleValue();
-      i = mmss.indexOf('m');
+      i = mmss.indexOf(AngleFormat.CH_MIN_ABBREV);
       if (i == -1)
-        i = mmss.indexOf('\'');
+        i = mmss.indexOf(AngleFormat.CH_MIN_SYMBOL);
       if (i != -1) {
         if (i != 0) {
           String mm = mmss.substring(0, i);
           m = Double.valueOf(mm).doubleValue();
         }
-        if (mmss.endsWith("s") || mmss.endsWith("\""))
+        if (mmss.endsWith(AngleFormat.STR_SEC_ABBREV) || mmss.endsWith(AngleFormat.STR_SEC_SYMBOL))
           mmss = mmss.substring(0, mmss.length()-1);
         if (i != mmss.length()-1) {
           String ss = mmss.substring(i+1);
