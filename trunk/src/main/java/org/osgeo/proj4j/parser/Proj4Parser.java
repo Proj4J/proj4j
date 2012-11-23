@@ -198,14 +198,15 @@ public class Proj4Parser
      // TODO: better error reporting
      param[i] = Double.parseDouble(numStr[i]);
    }
-   
-   // optimization to detect 3-parameter transform
-   if (param[3] == 0.0 
-       && param[4] == 0.0 
-       && param[5] == 0.0 
-       && param[6] == 0.0 
-       ) {
-     param = new double[] { param[0], param[1], param[2] };
+   if (param.length > 3) {
+     // optimization to detect 3-parameter transform
+     if (param[3] == 0.0 
+         && param[4] == 0.0 
+         && param[5] == 0.0 
+         && param[6] == 0.0 
+         ) {
+       param = new double[] { param[0], param[1], param[2] };
+     }
    }
    
    /**
