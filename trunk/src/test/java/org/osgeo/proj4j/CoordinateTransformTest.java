@@ -107,7 +107,7 @@ public class CoordinateTransformTest extends BaseCoordinateTransformTest
   }
   
   // PROJ.4 #148
-  public void testPolyconic()
+  public void testPconic()
   {
     // pconic does not currently work
     //checkTransformAndInverse("+proj=latlong +datum=WGS84", -70.4, -23.65, "+proj=pconic  +units=m +lat_1=20n +lat_2=60n +lon_0=60W +datum=WGS84", -2240096.40, -6940342.15, 2e-1, 1e-6 );

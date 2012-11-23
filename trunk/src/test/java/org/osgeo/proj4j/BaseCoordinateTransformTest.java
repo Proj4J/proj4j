@@ -27,6 +27,10 @@ public abstract class BaseCoordinateTransformTest extends TestCase
     String[] pord = pstr.split("\\s+");
     double p0 = Angle.parse(pord[0]);
     double p1 = Angle.parse(pord[1]);
+    if (pord.length > 2) {
+      double p2 = Double.parseDouble(pord[2]);
+      return new ProjCoordinate(p0, p1, p2);
+    }
     // TODO Auto-generated method stub
     return new ProjCoordinate(p0, p1);
   }

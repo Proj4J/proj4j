@@ -112,7 +112,7 @@ public class CoordinateTransformTester
       System.out.println(
       		p.toShortString() 
           + " -> " 
-          + p2.toShortString()
+          + pout.toShortString()
           + " (expected: " + p2.toShortString() 
           + " tol: " + tolerance + " diff: " + delta
           + " )"
