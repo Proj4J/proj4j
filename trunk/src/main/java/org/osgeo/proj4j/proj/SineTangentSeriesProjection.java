@@ -60,7 +60,7 @@ class SineTangentSeriesProjection extends ConicProjection {
 		xyy /= C_y;
 		c = Math.cos(lp.y = tan_mode ? Math.atan(xyy) : ProjectionMath.asin(xyy));
 		lp.y /= C_p;
-		lp.x = xyx / (C_x * Math.cos(lp.y /= C_p));
+    lp.x = xyx / (C_x * Math.cos(lp.y));
 		if (tan_mode)
 			lp.x /= c * c;
 		else
