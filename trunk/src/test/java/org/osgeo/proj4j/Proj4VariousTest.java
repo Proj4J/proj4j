@@ -89,6 +89,7 @@ public class Proj4VariousTest extends BaseCoordinateTransformTest
         "+proj=latlong +datum=WGS84", p("-70.4 -23.65"), 
         "+proj=pconic  +units=m +lat_1=20n +lat_2=60n +lon_0=60W +datum=WGS84", p("-2240096.40  -6940342.15"),
         1e-2 );
+    // Known failure case
     checkTransform(
         "+proj=pconic  +units=m +lat_1=20n +lat_2=60n +lon_0=60W +datum=WGS84", p("-2240096.40  -6940342.15"),
         "+proj=latlong +datum=WGS84", p("-70.4 -23.65"), 
