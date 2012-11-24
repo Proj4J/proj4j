@@ -472,4 +472,8 @@ public class ProjectionMath {
 			nf = 10.;
 		return nf*Math.pow(10., expv);
 	}
+
+  /* SECONDS_TO_RAD = Pi/180/3600 */
+  public static final double SECONDS_TO_RAD = 4.84813681109535993589914102357e-6;
+  public static final double MILLION = 1000000.0;
 }

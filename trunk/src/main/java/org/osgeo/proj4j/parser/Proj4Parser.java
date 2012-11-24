@@ -12,13 +12,10 @@ import org.osgeo.proj4j.units.Angle;
 import org.osgeo.proj4j.units.AngleFormat;
 import org.osgeo.proj4j.units.Unit;
 import org.osgeo.proj4j.units.Units;
+import org.osgeo.proj4j.util.ProjectionMath;
 
 public class Proj4Parser 
 {
-  /* SECONDS_TO_RAD = Pi/180/3600 */
-  private static final double SECONDS_TO_RAD = 4.84813681109535993589914102357e-6;
-  private static final double MILLION = 1000000.0;
-  
   private Registry registry;
   
   public Proj4Parser(Registry registry) {
@@ -54,8 +51,6 @@ public class Proj4Parser
  private final static double RV6 = .04243827160493827160; // 55/1296 
  */
 
- private static AngleFormat format = new AngleFormat( AngleFormat.ddmmssPattern, true );
-
  /**
   * Creates a {@link Projection}
   * initialized from a PROJ.4 argument list.
@@ -90,10 +85,6 @@ public class Proj4Parser
    // Should be able to report the original param string in the error message
    // Also should the exception be lib specific?  (Say ParseException)
    
-   // Other parameters
-//   projection.setProjectionLatitudeDegrees( 0 );
-//   projection.setProjectionLatitude1Degrees( 0 );
-//   projection.setProjectionLatitude2Degrees( 0 );
    s = (String)params.get( Proj4Keyword.alpha );
    if ( s != null ) 
      projection.setAlphaDegrees( Double.parseDouble( s ) );
@@ -157,7 +148,7 @@ public class Proj4Parser
      
    // this must be done last, since behaviour depends on other params being set (eg +south)
    if (projection instanceof TransverseMercatorProjection) {
-     s = (String) params.get("zone");
+     s = (String) params.get(Proj4Keyword.zone);
      if (s != null)
        ((TransverseMercatorProjection) projection).setUTMZone(Integer
            .parseInt(s));
@@ -216,10 +207,10 @@ public class Proj4Parser
     * These need to be converted to radians and a scale factor. 
     */
    if (param.length > 3) {
-     param[3] *= SECONDS_TO_RAD;
-     param[4] *= SECONDS_TO_RAD;
-     param[5] *= SECONDS_TO_RAD;
-     param[6] = (param[6]/MILLION) + 1;
+     param[3] *= ProjectionMath.SECONDS_TO_RAD;
+     param[4] *= ProjectionMath.SECONDS_TO_RAD;
+     param[5] *= ProjectionMath.SECONDS_TO_RAD;
+     param[6] = (param[6]/ProjectionMath.MILLION) + 1;
    }
    
    return param;
