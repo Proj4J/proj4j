@@ -87,7 +87,7 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		}
 	}
 
-	public int getRowFromNearestParallel(double latitude) {
+	public static int getRowFromNearestParallel(double latitude) {
 		int degrees = (int)ProjectionMath.radToDeg(ProjectionMath.normalizeLatitude(latitude));
 		if (degrees < -80 || degrees > 84)
 			return 0;
@@ -96,7 +96,7 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		return (degrees + 80) / 8 + 3;
 	}
 	
-	public int getZoneFromNearestMeridian(double longitude) {
+	public static int getZoneFromNearestMeridian(double longitude) {
 		int zone = (int)Math.floor((ProjectionMath.normalizeLongitude(longitude) + Math.PI) * 30.0 / Math.PI) + 1;
 		if (zone < 1)
 			zone = 1;
