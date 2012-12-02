@@ -40,17 +40,7 @@ public class Proj4Parser
     Projection proj = parseProjection(params, ellipsoid);
     return new CoordinateReferenceSystem(name, args, datum, proj);
   }
-
-  /*
   
-  // not currently used
- private final static double SIXTH = .1666666666666666667; // 1/6 
- private final static double RA4 = .04722222222222222222; // 17/360 
- private final static double RA6 = .02215608465608465608; // 67/3024 
- private final static double RV4 = .06944444444444444444; // 5/72 
- private final static double RV6 = .04243827160493827160; // 55/1296 
- */
-
  /**
   * Creates a {@link Projection}
   * initialized from a PROJ.4 argument list.
@@ -67,23 +57,10 @@ public class Proj4Parser
    }
 
    projection.setEllipsoid(ellipsoid);
-
-   // not sure what CSes use this??
-   /*
-   s = (String)params.get( "init" );
-   if ( s != null ) {
-     projection = createFromName( s ).getProjection();
-     if ( projection == null )
-       throw new ProjectionException( "Unknown projection: "+s );
-           a = projection.getEquatorRadius();
-           es = projection.getEllipsoid().getEccentricitySquared();
-   }
-   */
-   
    
    //TODO: better error handling for things like bad number syntax.  
    // Should be able to report the original param string in the error message
-   // Also should the exception be lib specific?  (Say ParseException)
+   // Should the exception be lib-specific?  (e.g. ParseException)
    
    s = (String)params.get( Proj4Keyword.alpha );
    if ( s != null ) 
