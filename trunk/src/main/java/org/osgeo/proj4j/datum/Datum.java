@@ -89,7 +89,7 @@ public class Datum
       double rx, double ry, double rz, double mbf,
       Ellipsoid ellipsoid,
       String name) {
-    this(code, new double[] { deltaX, deltaY, deltaZ, rx, ry, rx, mbf },ellipsoid, name);
+    this(code, new double[] { deltaX, deltaY, deltaZ, rx, ry, rz, mbf },ellipsoid, name);
   }
   
   public Datum(String code, 
