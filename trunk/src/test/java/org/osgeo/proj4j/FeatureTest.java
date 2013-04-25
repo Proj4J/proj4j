@@ -29,13 +29,13 @@ public class FeatureTest extends BaseCoordinateTransformTest
 //  +proj=tmerc +lat_0=0 +lon_0=6 +k=1 +x_0=2500000 +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs     
     checkTransformFromWGS84("EPSG:31466",   6.685, 51.425, 2547685.01212,5699155.7345, 10  );
   }
-  public void testPrimeMeridian()
+  public void NOTSUPPORTED_testPrimeMeridian()
   {
     //# NTF (Paris) / Lambert Sud France
     //<27563> +proj=lcc +lat_1=44.10000000000001 +lat_0=44.10000000000001 +lon_0=0 +k_0=0.999877499 +x_0=600000 +y_0=200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs  <>
     checkTransformFromGeo("EPSG:27563",    3.005, 43.89, 653704.865208, 176887.660037  );
   }
-  public void testGamma()
+  public void NOTSUPPORTED_testGamma()
   {
     // from Proj4.JS
     checkTransformFromGeo("EPSG:2057", -53.0, 5.0, -1.160832226E7, 1.828261223E7, 0.1);
