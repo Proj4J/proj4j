@@ -404,6 +404,9 @@ public abstract class Projection implements Cloneable {
 
 	/**
 	 * Get a string which describes this projection in PROJ.4 format.
+	 * <p>
+	 * WARNING: currently this does not output all required parameters in some cases.
+	 * E.g. for Albers the standard latitudes are missing.
 	 */
 	public String getPROJ4Description() {
 		AngleFormat format = new AngleFormat( AngleFormat.ddmmssPattern, false );
