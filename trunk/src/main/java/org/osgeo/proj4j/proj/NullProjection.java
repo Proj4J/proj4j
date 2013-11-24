@@ -16,11 +16,7 @@ limitations under the License.
 
 package org.osgeo.proj4j.proj;
 
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-
 import org.osgeo.proj4j.ProjCoordinate;
-
 
 /**
  * A projection which does nothing. Use this for drawing non-geographical overlays.
@@ -44,16 +40,6 @@ public class NullProjection extends Projection {
     return dst;
   }
   
-	public Shape projectPath(Shape path, AffineTransform t, boolean filled) {
-		if ( t != null )
-			t.createTransformedShape( path );
-		return path;
-	}
-	
-	public Shape getBoundingShape() {
-		return null;
-	}
-	
 	public boolean isRectilinear() {
 		return true;
 	}

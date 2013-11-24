@@ -19,9 +19,6 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-
 import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -234,11 +231,6 @@ public class EquidistantAzimuthalProjection extends AzimuthalProjection {
 			}
 		}
 		return lp;
-	}
-	
-	public Shape getBoundingShape() {
-		double r = ProjectionMath.HALFPI * a;
-		return new Ellipse2D.Double( -r, -r, 2*r, 2*r );
 	}
 
 	public boolean hasInverse() {
