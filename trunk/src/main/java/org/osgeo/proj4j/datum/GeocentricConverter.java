@@ -218,4 +218,81 @@ public class GeocentricConverter
     p.z = Height;
   }
   //TODO: port non-iterative algorithm???? GITHUB/ISSUE #2
+
+  /**
+   * The following iterative approach is implemented from The Manual of Photogrammetry, version 5
+   * @param p
+   */
+  public void convertGeocentricToGeodeticPhotogrammetry(ProjCoordinate p) {
+    final double x = p.x;
+    final double y = p.y;
+    final double z = p.z;
+
+    final double eccFactor = (1 - this.e2);
+
+    // Explicitly calculate longitude
+    final double lon = Math.atan2(y, x);
+
+    // Form initial estimates of latitude and height.
+    final double U = Math.sqrt(x * x + y * y);
+    double estLat = Math.atan(z / U);
+
+    double estPrimeVertROC = primeVerticalRadiusOfCurvature(estLat);
+    double estHt = Math.sqrt(x * x + y * y + z * z) - estPrimeVertROC;
+
+    double deltaU;
+    double deltaZ;
+
+    short numIter = 0;
+
+    double cLat;
+    double sLat;
+    double estMeridianROC;
+    double deltaLat;
+    double deltaHt;
+    do {
+      cLat = Math.cos(estLat);
+      sLat = Math.sin(estLat);
+
+      estPrimeVertROC = primeVerticalRadiusOfCurvature(estLat);
+
+      deltaU = U - (estPrimeVertROC + estHt) * cLat;
+      deltaZ = z - (estPrimeVertROC * eccFactor + estHt) * sLat;
+      estMeridianROC = meridianRadiusOfCurvature(estLat);
+
+      // Calculate iteration step.
+      deltaLat = (-deltaU * sLat + deltaZ * cLat) / (estMeridianROC + estHt);
+      deltaHt = deltaU * cLat + deltaZ * sLat;
+
+      // Update the estimates.
+      estLat += deltaLat;
+      estHt += deltaHt;
+
+      numIter++;
+
+    } while (((Math.abs(deltaU) > ITERATION_THRESHOLD) ||
+            (Math.abs(deltaZ) > ITERATION_THRESHOLD)) && numIter < 100);
+
+    p.x = lon;
+    p.y = estLat;
+    p.z = estHt;
+  }
+
+  //TODO: port non-iterative algorithm????
+  private double primeVerticalRadiusOfCurvature(double lat) {
+    final double denomTerm = Math.sqrt(this.e2) * Math.sin(lat);
+    final double n = this.a / Math.sqrt(1 - denomTerm * denomTerm);
+
+    return n;
+  }
+
+  private double meridianRadiusOfCurvature(double lat) {
+    double r;
+    final double slat = Math.sin(lat);
+    final double den = 1 - this.e2 * slat * slat;
+
+    r = a * (1 - this.e2) / Math.sqrt(den * den * den);
+
+    return r;
+  }
 }
