@@ -113,6 +113,10 @@ implements CoordinateTransform
 	public ProjCoordinate transform( ProjCoordinate src, ProjCoordinate tgt )
   throws Proj4jException
 	{
+    if (srcCRS == tgtCRS) {
+      tgt.setValue(src);
+      return tgt;
+    }
 		// NOTE: this method may be called many times, so needs to be as efficient as possible
 		if (doInverseProjection) {
       // inverse project to geographic
