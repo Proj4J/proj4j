@@ -199,6 +199,15 @@ public abstract class Projection implements Cloneable {
 	}
 	
 	/**
+	 * Get the units of this projection
+	 * 
+	 * @return the projection unit
+	 */
+	public Unit getUnit(){
+		return unit != null ? unit : Units.METRES;
+	}
+	
+	/**
 	 * Projects a geographic point (in degrees), producing a projected result 
 	 * (in the units of the target coordinate system).
 	 * 
