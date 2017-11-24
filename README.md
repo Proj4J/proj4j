@@ -15,7 +15,7 @@ the coordinate system specification language, projection algorithms and supporte
 
 *   the [Version History](doc/Proj4J Version History.html) lists the evolution of features of the library
 
-*   the [Javadoc](doc/javadoc/index.html) describes the API
+*   the [Javadoc](http://www.atetric.com/atetric/javadoc/io.jeo/proj4j/0.1.1/index.html?overview-summary.html) describes the API
 
 ## Mailing List
 
