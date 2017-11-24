@@ -13,9 +13,7 @@ Proj4J is a part of the [MetaCRS](http://trac.osgeo.org/metacrs/wiki/WikiStart) 
 *   The [PROJ.4 documentation](http://trac.osgeo.org/proj/#Documentation) is the best reference for details of
 the coordinate system specification language, projection algorithms and supported parameters.
 
-*   the [Version History](doc/Proj4J Version History.html) lists the evolution of features of the library
-
-*   the [Javadoc](doc/javadoc/index.html) describes the API
+*   the [Javadoc](http://www.atetric.com/atetric/javadoc/io.jeo/proj4j/0.1.1/index.html?overview-summary.html) describes the API
 
 ## Mailing List
 
