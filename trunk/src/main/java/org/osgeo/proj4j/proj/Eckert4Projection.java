@@ -26,9 +26,9 @@ public class Eckert4Projection extends Projection {
 
 	private final static double C_x = .42223820031577120149;
 	private final static double C_y = 1.32650042817700232218;
-	private final static double RC_y = .75386330736002178205;
+//	private final static double RC_y = .75386330736002178205;
 	private final static double C_p = 3.57079632679489661922;
-	private final static double RC_p = .28004957675577868795;
+//	private final static double RC_p = .28004957675577868795;
 	private final static double EPS = 1e-7;
 	private final int NITER = 6;
 

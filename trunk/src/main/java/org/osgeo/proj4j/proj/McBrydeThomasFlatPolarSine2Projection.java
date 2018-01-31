@@ -52,7 +52,7 @@ public class McBrydeThomasFlatPolarSine2Projection extends Projection {
 	}
 
 	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
-		double t, s;
+		double t;
 
 		out.y = C2 * (t = ProjectionMath.asin(xyy / C_y));
 		out.x = xyx / (C_x * (1. + 3. * Math.cos(out.y)/Math.cos(t)));

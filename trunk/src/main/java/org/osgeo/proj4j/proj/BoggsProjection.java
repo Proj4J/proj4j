@@ -26,7 +26,7 @@ public class BoggsProjection extends PseudoCylindricalProjection {
 
 	private final static int NITER = 20;
 	private final static double EPS = 1e-7;
-	private final static double ONETOL = 1.000001;
+//	private final static double ONETOL = 1.000001;
 	private final static double FXC = 2.00276;
 	private final static double FXC2 = 1.11072;
 	private final static double FYC = 0.49931;

@@ -75,7 +75,7 @@ public class Proj4FileReader
       if ( t.ttype != '>' )
         throw new IOException( t.lineno()+": '>' expected" );
       t.nextToken();
-      List v = new ArrayList();
+      List<String> v = new ArrayList<String>();
 
       while ( t.ttype != '<' ) {
         if ( t.ttype == '+' )
@@ -115,7 +115,7 @@ public class Proj4FileReader
     return null;
   }
   
-  private static void addParam(List v, String key, String value)
+  private static void addParam(List<String> v, String key, String value)
   {
     String plusKey = key;
     if ( ! key.startsWith("+") )

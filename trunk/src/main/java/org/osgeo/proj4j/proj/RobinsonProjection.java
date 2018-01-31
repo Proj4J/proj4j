@@ -74,7 +74,7 @@ public class RobinsonProjection extends PseudoCylindricalProjection {
 	private final static double FYC = 1.3523;
 	private final static double C1 = 11.45915590261646417544;
 	private final static double RC1 = 0.08726646259971647884;
-	private final static double ONEEPS = 1.000001;
+//	private final static double ONEEPS = 1.000001;
 	private final static double EPS = 1e-8;
 	
 	public RobinsonProjection() {

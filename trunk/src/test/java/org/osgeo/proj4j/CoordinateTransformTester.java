@@ -14,9 +14,6 @@ public class CoordinateTransformTester
     this.verbose = verbose;
   }
 
-  private ProjCoordinate p = new ProjCoordinate();
-  private ProjCoordinate p2 = new ProjCoordinate();
-
   public boolean checkTransformFromWGS84(String name, double lon, double lat, double x, double y)
   {
     return checkTransformFromWGS84(name, lon, lat, x, y, 0.0001);

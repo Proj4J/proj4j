@@ -46,7 +46,6 @@ public class NellProjection extends Projection {
 	}
 
 	public ProjCoordinate projectInverse(double xyx, double xyy, ProjCoordinate out) {
-		double th, s;
 
 		out.x = 2. * xyx / (1. + Math.cos(xyy));
 		out.y = ProjectionMath.asin(0.5 * (xyy + Math.sin(xyy)));

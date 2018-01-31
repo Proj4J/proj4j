@@ -36,7 +36,7 @@ public class CassiniProjection extends Projection {
 	private double tn;
 	private double[] en;
 
-	private final static double EPS10 = 1e-10;
+//	private final static double EPS10 = 1e-10;
 	private final static double C1 = .16666666666666666666;
 	private final static double C2 = .00833333333333333333;
 	private final static double C3 = .04166666666666666666;

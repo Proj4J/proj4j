@@ -104,16 +104,16 @@ public class Registry {
     return null;
   }
 
-  private Map<String, Class> projRegistry;
+  private Map<String, Class<?>> projRegistry;
 
-  private void register( String name, Class cls, String description ) {
+  private void register( String name, Class<?> cls, String description ) {
     projRegistry.put( name, cls );
   }
 
   public Projection getProjection( String name ) {
 //    if ( projRegistry == null )
 //      initialize();
-    Class cls = (Class)projRegistry.get( name );
+    Class<?> cls = (Class<?>)projRegistry.get( name );
     if ( cls != null ) {
       try {
         Projection projection = (Projection)cls.newInstance();
@@ -135,7 +135,7 @@ public class Registry {
     // guard against race condition
     if (projRegistry != null) 
       return;
-    projRegistry = new HashMap();
+    projRegistry = new HashMap<String,Class<?>>();
     register( "aea", AlbersProjection.class, "Albers Equal Area" );
     register( "aeqd", EquidistantAzimuthalProjection.class, "Azimuthal Equidistant" );
     register( "airy", AiryProjection.class, "Airy" );

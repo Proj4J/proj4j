@@ -32,8 +32,8 @@ public class EquidistantConicProjection extends ConicProjection {
 	
 	private double eccentricity = 0.822719;
 	private double eccentricity2 = eccentricity*eccentricity;
-	private double eccentricity4 = eccentricity2*eccentricity2;
-	private double eccentricity6 = eccentricity2*eccentricity4;
+//	private double eccentricity4 = eccentricity2*eccentricity2;
+//	private double eccentricity6 = eccentricity2*eccentricity4;
 	private double radius = 1;
 
 	private boolean northPole;

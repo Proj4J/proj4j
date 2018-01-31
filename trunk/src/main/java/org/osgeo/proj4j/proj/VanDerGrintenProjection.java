@@ -27,7 +27,7 @@ public class VanDerGrintenProjection extends Projection {
 
 	private final static double TOL = 1.e-10;
 	private final static double THIRD = .33333333333333333333;
-	private final static double TWO_THRD = .66666666666666666666;
+//	private final static double TWO_THRD = .66666666666666666666;
 	private final static double C2_27 = .07407407407407407407;
 	private final static double PI4_3 = 4.18879020478639098458;
 	private final static double PISQ = 9.86960440108935861869;
