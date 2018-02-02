@@ -73,7 +73,6 @@ public class AngleFormat extends NumberFormat {
 
 	public StringBuffer format(double number, StringBuffer result, FieldPosition fieldPosition) {
 		int length = pattern.length();
-		int f;
 		boolean negative = false;
 
 		if (number < 0) {
@@ -87,11 +86,48 @@ public class AngleFormat extends NumberFormat {
 			}
 		}
 		
-		double ddmmss = isDegrees ? number : Math.toDegrees(number);
-		int iddmmss = (int)Math.round(ddmmss * 3600);
-		if (iddmmss < 0)
-			iddmmss = -iddmmss;
-		int fraction = iddmmss % 3600;
+		int sign = 1;
+		if(number < 0.0)
+		{
+			sign = -1;
+			number = -number;
+		}
+
+		// The previous method of converting an angle from decimal degrees
+		// to integer degrees, minutes, and seconds relied on a mixture of
+		// casting doubles as integers and using Math.round() in way that was
+		// numerically unstable. Examples of failure cases for all defined
+		// formats are given below.
+		//
+		// AngleFormat.ddmmssPattern
+		// Previous failure case: 29.99999999 --> 29d00
+		//
+		// AngleFormat.ddmmssPattern2
+		// Previous failure case: 29.99999999 --> 29d00'59"
+		//
+		// AngleFormat.ddmmssLongPattern
+		// Previous failure case: 29.99999999 --> 29d00'59"E
+		//
+		// AngleFormat.ddmmssLatPattern
+		// Previous failure case: 29.99999999 --> 29d00'59"N
+		//
+		// AngleFormat.ddmmssPattern4
+		// Previous failure case: 29.99999999 --> 29d00m59s
+		//
+		// AngleFormat.Test case: decimalPattern
+		// Previous failure case: 29.99999999 --> 29.1000000
+
+		double          degrees = isDegrees ? number : Math.toDegrees(number);
+		int     integer_degrees = (int)Math.floor(degrees);
+		double  decimal_degrees = degrees - integer_degrees;
+
+		double          minutes = decimal_degrees * 60.0;
+		int     integer_minutes = (int)Math.floor(minutes);
+		double  decimal_minutes = minutes - integer_minutes;
+
+		double          seconds = decimal_minutes * 60.0;
+		int     integer_seconds = (int)Math.floor(seconds);
+//		double  decimal_seconds = seconds - integer_seconds;
 
 		for (int i = 0; i < length; i++) {
 			char c = pattern.charAt(i);
@@ -100,22 +136,32 @@ public class AngleFormat extends NumberFormat {
 				result.append(number);
 				break;
 			case 'D':
-				result.append((int)ddmmss);
+				// This handles the case where the integer degrees equal zero,
+				// but the angle is negative
+				//
+				// AngleFormat.ddmmssPattern
+				// Previous failure case: -0.999722 --> 0d59
+				//
+				// AngleFormat.ddmmssPattern2
+				// Previous failure case: -0.999722 --> 0d59'59"
+				//
+				// AngleFormat.ddmmssPattern4
+				// Previous failure case: -0.999722 --> 0d59m59s
+				result.append(String.format("%s%d", ( sign == -1 ? "-" : "" ), integer_degrees));
 				break;
 			case 'M':
-				f = fraction / 60;
-				if (f < 10)
-					result.append('0');
-				result.append(f);
+				// Ensures two digits are used and avoids rounding errors
+				result.append(String.format("%02d", integer_minutes));
 				break;
 			case 'S':
-				f = fraction % 60;
-				if (f < 10)
-					result.append('0');
-				result.append(f);
+				// Ensures two digits are used and avoids rounding errors
+				result.append(String.format("%02d", integer_seconds));
 				break;
 			case 'F':
-				result.append(fraction);
+				// Ensures six digits are used and that leading zeros will be
+				// appended if there are fewer than six digits. The choice of
+				// six decimal places is completely arbitrary.
+				result.append(String.format("%06d", (int)(decimal_degrees * 1000000.0)));
 				break;
 			case 'W':
 				if (negative)
