@@ -3,13 +3,14 @@ package org.osgeo.proj4j.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgeo.proj4j.*;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
+import org.osgeo.proj4j.InvalidValueException;
+import org.osgeo.proj4j.Registry;
 import org.osgeo.proj4j.datum.Datum;
 import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.Projection;
 import org.osgeo.proj4j.proj.TransverseMercatorProjection;
 import org.osgeo.proj4j.units.Angle;
-import org.osgeo.proj4j.units.AngleFormat;
 import org.osgeo.proj4j.units.Unit;
 import org.osgeo.proj4j.units.Units;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -27,7 +28,7 @@ public class Proj4Parser
     if (args == null)
       return null;
     
-    Map params = createParameterMap(args);
+    Map<String,String> params = createParameterMap(args);
     Proj4Keyword.checkUnsupported(params.keySet());
     DatumParameters datumParam = new DatumParameters();
     parseDatum(params, datumParam);
@@ -45,7 +46,7 @@ public class Proj4Parser
   * Creates a {@link Projection}
   * initialized from a PROJ.4 argument list.
   */
- private Projection parseProjection( Map params, Ellipsoid ellipsoid ) {
+ private Projection parseProjection( Map<String,String> params, Ellipsoid ellipsoid ) {
    Projection projection = null;
 
    String s;
@@ -136,7 +137,7 @@ public class Proj4Parser
    return projection;
  }
 
- private void parseDatum(Map params, DatumParameters datumParam) 
+ private void parseDatum(Map<String,String> params, DatumParameters datumParam) 
  {
    String towgs84 = (String) params.get(Proj4Keyword.towgs84);
    if (towgs84 != null) {
@@ -193,7 +194,7 @@ public class Proj4Parser
    return param;
  }
  
- private void parseEllipsoid(Map params, DatumParameters datumParam) 
+ private void parseEllipsoid(Map<String,String> params, DatumParameters datumParam) 
  {
    double b = 0;
    String s;
@@ -280,7 +281,7 @@ public class Proj4Parser
   * @param params
   * @param datumParam
   */
- private void parseEllipsoidModifiers(Map params, DatumParameters datumParam) 
+ private void parseEllipsoidModifiers(Map<String,String> params, DatumParameters datumParam) 
  {
    /**
     * Modifiers are mutually exclusive, so when one is detected method returns
@@ -292,8 +293,8 @@ public class Proj4Parser
 
  }
  
- private Map createParameterMap(String[] args) {
-   Map params = new HashMap();
+ private Map<String,String> createParameterMap(String[] args) {
+   Map<String,String> params = new HashMap<String,String>();
    for (int i = 0; i < args.length; i++) {
      String arg = args[i];
      // strip leading "+" if any

@@ -25,7 +25,6 @@ import org.osgeo.proj4j.util.ProjectionMath;
 
 public class CentralCylindricalProjection extends CylindricalProjection {
 
-	private double ap;
 
 	private final static double EPS10 = 1.e-10;
 

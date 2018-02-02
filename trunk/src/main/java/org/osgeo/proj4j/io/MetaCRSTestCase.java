@@ -8,7 +8,7 @@ public class MetaCRSTestCase
 {
 	private static final CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
 	
-  private boolean verbose = true;
+//  private boolean verbose = true;
   
   String testName;
   String testMethod;

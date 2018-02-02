@@ -45,7 +45,7 @@ public class GeocentricConverter
   double e2;
   double ep2;
 
-  private static final double ITERATION_THRESHOLD = 4.8481368110953599e-08;
+//  private static final double ITERATION_THRESHOLD = 4.8481368110953599e-08;
 
   public GeocentricConverter(Ellipsoid ellipsoid) {
     this(ellipsoid.getA(), ellipsoid.getB());

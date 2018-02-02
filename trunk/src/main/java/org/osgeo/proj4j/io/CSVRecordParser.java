@@ -57,7 +57,7 @@ public class CSVRecordParser
   public String[] parse(String record)
   {
     loc = 0;
-    List vals = new ArrayList();
+    List<String> vals = new ArrayList<String>();
     int lineLen = record.length();
     while (loc < lineLen) {
       vals.add(parseField(record));

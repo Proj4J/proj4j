@@ -24,8 +24,8 @@ import org.osgeo.proj4j.util.ProjectionMath;
 
 public class LoximuthalProjection extends PseudoCylindricalProjection {
 
-	private final static double FC = .92131773192356127802;
-	private final static double RP = .31830988618379067154;
+//	private final static double FC = .92131773192356127802;
+//	private final static double RP = .31830988618379067154;
 	private final static double EPS = 1e-8;
 	
 	private double phi1;

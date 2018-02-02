@@ -32,7 +32,7 @@ public class ObliqueMercatorProjection extends CylindricalProjection {
 	private final static double TOL	= 1.0e-7;
 
 	private double lamc, lam1, phi1, lam2, phi2, Gamma, al, bl, el, singam, cosgam, sinrot, cosrot, u_0;
-	private boolean ellips, rot;
+	private boolean rot;
 
 	public ObliqueMercatorProjection() {
 		ellipsoid = Ellipsoid.WGS84;

@@ -103,10 +103,10 @@ public class SimpleConicProjection extends ConicProjection {
 
 	public void initialize() {
 		super.initialize();
-		double del, cs, dummy;
+		double del, cs;
 
 		/* get common factors for simple conics */
-		double p1, p2, d, s;
+		double p1, p2;
 		int err = 0;
 
 /*FIXME

@@ -29,7 +29,7 @@ public class EquidistantAzimuthalProjection extends AzimuthalProjection {
 
 	private int mode;
 	private double[] en;
-	private double M1;
+//	private double M1;
 	private double N1;
 	private double Mp;
 	private double He;
@@ -201,7 +201,6 @@ public class EquidistantAzimuthalProjection extends AzimuthalProjection {
 			}
 		} else {
 			double c, Az, cosAz, A, B, D, E, F, psi, t;
-			int i;
 
 			if ((c = ProjectionMath.distance(x, y)) < EPS10) {
 				lp.y = projectionLatitude;

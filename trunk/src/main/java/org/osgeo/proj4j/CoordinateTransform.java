@@ -1,6 +1,5 @@
 package org.osgeo.proj4j;
 
-import org.osgeo.proj4j.datum.*;
 
 /**
  * An interface for the operation of transforming 

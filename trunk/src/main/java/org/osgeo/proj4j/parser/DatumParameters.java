@@ -22,8 +22,8 @@ public class DatumParameters
   private final static double SIXTH = .1666666666666666667; /* 1/6 */
   private final static double RA4 = .04722222222222222222; /* 17/360 */
   private final static double RA6 = .02215608465608465608; /* 67/3024 */
-  private final static double RV4 = .06944444444444444444; /* 5/72 */
-  private final static double RV6 = .04243827160493827160; /* 55/1296 */
+//  private final static double RV4 = .06944444444444444444; /* 5/72 */
+//  private final static double RV6 = .04243827160493827160; /* 55/1296 */
 
   private Datum datum = null;
   private double[] datumTransform = null;

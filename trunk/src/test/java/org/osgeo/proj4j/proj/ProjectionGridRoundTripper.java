@@ -46,7 +46,6 @@ public class ProjectionGridRoundTripper
 	}
 	public boolean runGrid(double tolerance)
 	{
-		boolean isWithinTolerance = true;
 		
 		gridExtent = gridExtent(cs.getProjection());
 		double minx = gridExtent[0];
