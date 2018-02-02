@@ -158,10 +158,17 @@ public class AngleFormat extends NumberFormat {
 				result.append(String.format("%02d", integer_seconds));
 				break;
 			case 'F':
-				// Ensures six digits are used and that leading zeros will be
-				// appended if there are fewer than six digits. The choice of
-				// six decimal places is completely arbitrary.
-				result.append(String.format("%06d", (int)(decimal_degrees * 1000000.0)));
+				// Ensures all available decimal digits, up to 12 decimal
+				// places, will be output if non-zero
+				String string = String.format("%.12f", decimal_degrees);
+				int end = string.length();
+				for(int j=string.length()-1;j>=2;j--) {
+					if(string.charAt(j) == '0')
+						end--;
+					else
+						break;
+				}
+				result.append(string.substring(2,end));
 				break;
 			case 'W':
 				if (negative)
