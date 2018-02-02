@@ -417,10 +417,21 @@ public abstract class Projection implements Cloneable {
 		);
 		if ( es != 0 )
 			sb.append( " +es="+es );
+		else
+		{
+			// When using a custom, spherical ellipsoid such as those used for
+			// the Moon and Mars, the previous behavior of this method was to
+			// output neither +b nor +es, which caused the Proj4Parser to default
+			// to the WGS84 ellipsoid. The simplest solution to this problem is
+			// to include +b in this string.
+			sb.append(" +b="+a);
+		}
 		sb.append( " +lon_0=" );
 		format.format( projectionLongitude, sb, null );
 		sb.append( " +lat_0=" );
 		format.format( projectionLatitude, sb, null );
+		sb.append( " +lat_ts=" );
+		format.format( trueScaleLatitude, sb, null );
 		if ( falseEasting != 1 )
 			sb.append( " +x_0="+falseEasting );
 		if ( falseNorthing != 1 )
