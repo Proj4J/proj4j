@@ -118,6 +118,14 @@ public class AngleFormat extends NumberFormat {
 		// Previous failure case: 29.99999999 --> 29.1000000
 
 		double          degrees = isDegrees ? number : Math.toDegrees(number);
+
+		// This is necessary for cases like this: 128.99999999999997
+		// The problem occurs when the decimal degrees are within 1e-12 or less
+		// of an integer value because case 'F' below will automatically round
+		// the decimal degrees to 1.0
+		if(Math.abs(Math.round(degrees) - degrees) <= 1e-12)
+			degrees = Math.round(degrees);
+
 		int     integer_degrees = (int)Math.floor(degrees);
 		double  decimal_degrees = degrees - integer_degrees;
 
@@ -162,7 +170,7 @@ public class AngleFormat extends NumberFormat {
 				// places, will be output if non-zero
 				String string = String.format("%.12f", decimal_degrees);
 				int end = string.length();
-				for(int j=string.length()-1;j>=2;j--) {
+				for(int j=string.length()-1;j>=3;j--) {
 					if(string.charAt(j) == '0')
 						end--;
 					else
