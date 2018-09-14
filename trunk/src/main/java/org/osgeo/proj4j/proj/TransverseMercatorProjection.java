@@ -116,6 +116,15 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		initialize();
 	}
 
+	/**
+	 *
+	 * @return -1 if not UTM
+	 */
+	public int getUTMZone()
+	{
+		return utmZone;
+	}
+
 	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		if (spherical) {
 			double cosphi = Math.cos(lpphi);
@@ -203,4 +212,41 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		return "Transverse Mercator";
 	}
 
+	/**
+	 * Overrides method in Projection to output specific UTM PROJ.4 string
+	 *
+	 * @return
+	 */
+	@Override
+	public String getPROJ4Description()
+	{
+		if(utmZone >= 0)
+		{
+			StringBuffer sb = new StringBuffer();
+			sb.append("+proj=utm");
+
+			sb.append(" +zone=" + utmZone);
+
+			if(isSouth)
+				sb.append(" +south");
+
+			sb.append(" +a="+a);
+			if ( es != 0 )
+				sb.append( " +es="+es );
+			else
+			{
+				// When using a custom, spherical ellipsoid the previous behavior of
+				// this method was to output neither +b nor +es, which caused the
+				// Proj4Parser to default to the WGS84 ellipsoid. The simplest solution
+				// to this problem is to include +b in this string.
+				sb.append(" +b="+a);
+			}
+
+			return sb.toString();
+		}
+		else
+		{
+			return super.getPROJ4Description();
+		}
+	}
 }
