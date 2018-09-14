@@ -32,7 +32,13 @@ public class Angle
     boolean negate = false;
     int length = text.length();
     if (length > 0) {
-      char c = Character.toUpperCase(text.charAt(length-1));
+
+    	// By previously forcing an upper case conversion here,
+    	// angles formatted in AngleFormat.ddmmssPattern4 are
+    	// parsed incorrectly (that pattern appends the second
+    	// abbreviation s to the end of the angle string.)
+    	char c = text.charAt(length-1);
+
       switch (c) {
       case AngleFormat.CH_W:
       case AngleFormat.CH_S:
@@ -51,6 +57,20 @@ public class Angle
       String dd = text.substring(0, i);
       String mmss = text.substring(i+1);
       d = Double.valueOf(dd).doubleValue();
+
+      // This line is needed to properly parse negative angles with
+      // magnitudes less than 1 degree in following angle formats:
+      //
+      // AngleFormat.ddmmssPattern
+      // Previous failure case: -0d59     -->  0.983333 decimal degrees
+      //
+      // AngleFormat.ddmmssPattern2
+      // Previous failure case: -0d59'59" -->  0.999722 decimal degrees
+      //
+      // AngleFormat.ddmmssPattern4
+      // Previous failure case: -0d59m59s -->  0.999722 decimal degrees
+      if(dd.startsWith("-") && d == 0.0) negate = true;
+
       i = mmss.indexOf(AngleFormat.CH_MIN_ABBREV);
       if (i == -1)
         i = mmss.indexOf(AngleFormat.CH_MIN_SYMBOL);
