@@ -3,13 +3,15 @@ package org.osgeo.proj4j.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.osgeo.proj4j.*;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
+import org.osgeo.proj4j.InvalidValueException;
+import org.osgeo.proj4j.Registry;
 import org.osgeo.proj4j.datum.Datum;
 import org.osgeo.proj4j.datum.Ellipsoid;
 import org.osgeo.proj4j.proj.Projection;
+import org.osgeo.proj4j.proj.StereographicAzimuthalProjection;
 import org.osgeo.proj4j.proj.TransverseMercatorProjection;
 import org.osgeo.proj4j.units.Angle;
-import org.osgeo.proj4j.units.AngleFormat;
 import org.osgeo.proj4j.units.Unit;
 import org.osgeo.proj4j.units.Units;
 import org.osgeo.proj4j.util.ProjectionMath;
@@ -48,12 +50,12 @@ public class Proj4Parser
  private Projection parseProjection( Map params, Ellipsoid ellipsoid ) {
    Projection projection = null;
 
-   String s;
-   s = (String)params.get( Proj4Keyword.proj );
-   if ( s != null ) {
-     projection = registry.getProjection( s );
+   String sProj, s;
+   sProj = (String)params.get( Proj4Keyword.proj );
+   if ( sProj != null ) {
+     projection = registry.getProjection( sProj );
      if ( projection == null )
-       throw new InvalidValueException( "Unknown projection: "+s );
+       throw new InvalidValueException( "Unknown projection: "+sProj );
    }
 
    projection.setEllipsoid(ellipsoid);
@@ -118,17 +120,27 @@ public class Proj4Parser
    if ( s != null ) 
      projection.setFromMetres( 1.0/Double.parseDouble( s ) );
 
-   if ( params.containsKey( Proj4Keyword.south ) ) 
+   if ( params.containsKey( Proj4Keyword.south ) )
      projection.setSouthernHemisphere(true);
 
    //TODO: implement some of these parameters ?
-     
+
    // this must be done last, since behaviour depends on other params being set (eg +south)
    if (projection instanceof TransverseMercatorProjection) {
      s = (String) params.get(Proj4Keyword.zone);
      if (s != null)
        ((TransverseMercatorProjection) projection).setUTMZone(Integer
            .parseInt(s));
+   }
+
+   // Add support for Universal Polar Stereographic (ups)
+   if( sProj.equals("ups") )
+   {
+	   int pole = StereographicAzimuthalProjection.NORTH_POLE;
+	   if(projection.getSouthernHemisphere())
+		   pole = StereographicAzimuthalProjection.SOUTH_POLE;
+
+	   ((StereographicAzimuthalProjection)projection).setupUPS(pole);
    }
 
    projection.initialize();

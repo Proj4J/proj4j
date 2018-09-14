@@ -19,7 +19,8 @@ limitations under the License.
  */
 package org.osgeo.proj4j.proj;
 
-import org.osgeo.proj4j.*;
+import org.osgeo.proj4j.ConvergenceFailureException;
+import org.osgeo.proj4j.ProjCoordinate;
 import org.osgeo.proj4j.ProjectionException;
 import org.osgeo.proj4j.util.ProjectionMath;
 
@@ -29,6 +30,8 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 	
 	private double akm1;
 	
+	private boolean isUPS = false;
+
 	public StereographicAzimuthalProjection() {
 		this(Math.toRadians(90.0), Math.toRadians(0.0));
 	}
@@ -45,6 +48,7 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 		falseEasting = 2000000.0;
 		falseNorthing = 2000000.0;
 		trueScaleLatitude = ProjectionMath.HALFPI;
+		isUPS = true;
 		initialize();
 	}
 	
@@ -268,5 +272,40 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 		return "Stereographic Azimuthal";
 	}
 
+	/**
+	 * Overrides method in Projection to output specific UPS PROJ.4 string
+	 *
+	 * @return
+	 */
+	@Override
+	public String getPROJ4Description()
+	{
+		if(isUPS)
+		{
+			StringBuffer sb = new StringBuffer();
+			sb.append("+proj=ups");
+
+			if(isSouth)
+				sb.append(" +south");
+
+			sb.append(" +a="+a);
+			if ( es != 0 )
+				sb.append( " +es="+es );
+			else
+			{
+				// When using a custom, spherical ellipsoid the previous behavior of
+				// this method was to output neither +b nor +es, which caused the
+				// Proj4Parser to default to the WGS84 ellipsoid. The simplest solution
+				// to this problem is to include +b in this string.
+				sb.append(" +b="+a);
+			}
+
+			return sb.toString();
+		}
+		else
+		{
+			return super.getPROJ4Description();
+		}
+	}
 }
 
