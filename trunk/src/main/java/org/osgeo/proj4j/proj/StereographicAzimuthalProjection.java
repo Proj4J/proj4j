@@ -40,6 +40,7 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 	
 	public void setupUPS(int pole) {
 		projectionLatitude = (pole == SOUTH_POLE) ? -ProjectionMath.HALFPI: ProjectionMath.HALFPI;
+		setSouthernHemisphere(pole == SOUTH_POLE);
 		projectionLongitude = 0.0;
 		scaleFactor = 0.994;
 		falseEasting = 2000000.0;
