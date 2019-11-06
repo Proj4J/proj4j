@@ -35,7 +35,7 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 
 	public StereographicAzimuthalProjection(double projectionLatitude, double projectionLongitude) {
 		super(projectionLatitude, projectionLongitude);
-		initialize();
+		//initialize();
 	}
 	
 	public void setupUPS(int pole) {
@@ -45,7 +45,7 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 		falseEasting = 2000000.0;
 		falseNorthing = 2000000.0;
 		trueScaleLatitude = ProjectionMath.HALFPI;
-		initialize();
+		//initialize();
 	}
 	
 	public void initialize() {
@@ -53,7 +53,18 @@ public class StereographicAzimuthalProjection extends AzimuthalProjection {
 
 		super.initialize();
 		if (Math.abs((t = Math.abs(projectionLatitude)) - ProjectionMath.HALFPI) < EPS10)
+		{
 			mode = projectionLatitude < 0. ? SOUTH_POLE : NORTH_POLE;
+
+			// If the projection latitude is at either pole and the true scale latitude
+			// was not explicitly set via PROJ4 param... 
+			if(!isTrueScaleLatitudeSet)
+			{
+				// ...set the true scale latitude to the appropriate pole
+				setTrueScaleLatitude((projectionLatitude < 0.0 ? -ProjectionMath.HALFPI : ProjectionMath.HALFPI));
+			}
+			// ...otherwise, use whatever true scale latitude was set
+		}
 		else
 			mode = t > EPS10 ? OBLIQUE : EQUATOR;
 		trueScaleLatitude = Math.abs(trueScaleLatitude);
