@@ -75,20 +75,20 @@ public abstract class Projection implements Cloneable {
 	 */
 	protected double projectionLatitude2 = 0.0;
 
-  /**
-   * The projection alpha value
-   */
-  protected double alpha = Double.NaN;
+    /**
+     * The projection alpha value
+     */
+    protected double alpha = Double.NaN;
 
-  /**
-   * The projection lonc value
-   */
-  protected double lonc = Double.NaN;
+    /**
+     * The projection lonc value
+     */
+    protected double lonc = Double.NaN;
 
-  /**
-   * The projection scale factor
-   */
-  protected double scaleFactor = 1.0;
+    /**
+     * The projection scale factor
+     */
+    protected double scaleFactor = 1.0;
 
 	/**
 	 * The false Easting of this projection
@@ -100,10 +100,11 @@ public abstract class Projection implements Cloneable {
 	 */
 	protected double falseNorthing = 0;
 
-  /**
-   * Indicates whether a Southern Hemisphere UTM zone
-   */
-  protected boolean isSouth = false;
+    /**
+     * Indicates whether a Southern Hemisphere UTM zone
+     */
+    protected boolean isSouth = false;
+  
 	/**
 	 * The latitude of true scale. Only used by specific projections.
 	 */
@@ -169,15 +170,21 @@ public abstract class Projection implements Cloneable {
 	 */
 	private double totalFalseEasting = 0;
 
-  /**
-   * falseNorthing, adjusted to the appropriate units using fromMetres
-   */
-  private double totalFalseNorthing = 0;
+    /**
+     * falseNorthing, adjusted to the appropriate units using fromMetres
+     */
+    private double totalFalseNorthing = 0;
 
-  /**
-   * units of this projection.  Default is metres, but may be degrees
-   */
-  protected Unit unit = null;
+    /**
+     * units of this projection.  Default is metres, but may be degrees
+     */
+    protected Unit unit = null;
+
+    /**
+     * Flag indicating whether or not the true scale latitude
+     * was set via PROJ4 param
+     */
+    protected boolean isTrueScaleLatitudeSet = false;
 
 	// Some useful constants
 	protected final static double EPS10 = 1e-10;
@@ -547,6 +554,7 @@ public abstract class Projection implements Cloneable {
 	 */
 	public void setTrueScaleLatitude( double trueScaleLatitude ) {
 		this.trueScaleLatitude = trueScaleLatitude;
+		isTrueScaleLatitudeSet = true;
 	}
 	
 	public double getTrueScaleLatitude() {
@@ -558,6 +566,7 @@ public abstract class Projection implements Cloneable {
 	 */
 	public void setTrueScaleLatitudeDegrees( double trueScaleLatitude ) {
 		this.trueScaleLatitude = DTR*trueScaleLatitude;
+		isTrueScaleLatitudeSet = true;
 	}
 	
 	public double getTrueScaleLatitudeDegrees() {
