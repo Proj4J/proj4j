@@ -116,6 +116,12 @@ public class TransverseMercatorProjection extends CylindricalProjection {
 		initialize();
 	}
 
+    public void setSouthernHemisphere(boolean isSouth)
+    {
+            super.setSouthernHemisphere(isSouth);
+            falseNorthing = isSouth ? 10000000.0 : 0.0;
+    }
+
 	public ProjCoordinate project(double lplam, double lpphi, ProjCoordinate xy) {
 		if (spherical) {
 			double cosphi = Math.cos(lpphi);
